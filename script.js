@@ -92,7 +92,17 @@ function proceedToPay() {
     });
 }
 
+function copyUPI() {
 
+    const upi = document.getElementById("upiId").innerText;
+
+    navigator.clipboard.writeText(upi).then(function() {
+
+        alert("UPI ID copied!");
+
+    });
+
+}
 function paymentSubmitted() {
 
     const status = document.getElementById("paymentStatus");
