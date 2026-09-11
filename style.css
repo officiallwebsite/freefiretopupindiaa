@@ -628,3 +628,42 @@ body {
     }
 
 }
+.upi-methods {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.upi-methods span {
+    background: #ffffff;
+    border: 1px solid #e4e6ea;
+    border-radius: 20px;
+    padding: 7px 11px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #4b5563;
+}
+
+.qr-pattern {
+    width: 135px;
+    height: 135px;
+    border: 8px solid #172033;
+    background:
+        linear-gradient(90deg, #172033 10px, transparent 10px),
+        linear-gradient(#172033 10px, transparent 10px);
+    background-size: 22px 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.qr-pattern span {
+    background: #ffffff;
+    padding: 8px;
+    font-size: 20px;
+    font-weight: 900;
+    color: #172033;
+}
