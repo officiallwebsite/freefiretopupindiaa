@@ -598,13 +598,15 @@ body {
 .payment-status {
     display: none;
     margin-top: 15px;
-    padding: 14px;
+    padding: 16px;
     border-radius: 12px;
-    background: #fff8ef;
-    color: #b45309;
+    background: #fff1f1;
+    border: 1px solid #ffcccc;
+    color: #dc2626;
     text-align: center;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 800;
+}
 }
 
 .back-store-btn {
