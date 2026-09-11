@@ -19,7 +19,65 @@
         <button class="menu-btn">☰</button>
     </header>
 
+<!-- ORDER CONFIRMATION POPUP -->
 
+<div id="orderModal" class="modal">
+
+    <div class="player-popup">
+
+        <button class="close-modal" onclick="closeOrderModal()">×</button>
+
+        <div class="verified-badge">
+            ✓ ORDER READY
+        </div>
+
+        <h2>Confirm Your Order</h2>
+
+        <p class="verified-text">
+            Please check your order details
+        </p>
+
+        <div class="player-info">
+
+            <div>
+                <span>PACKAGE</span>
+                <strong id="orderPackage">---</strong>
+            </div>
+
+            <div>
+                <span>PRICE</span>
+                <strong id="orderPrice">₹0</strong>
+            </div>
+
+            <div>
+                <span>UID</span>
+                <strong id="orderUID">---</strong>
+            </div>
+
+            <div>
+                <span>STATUS</span>
+                <strong>Ready</strong>
+            </div>
+
+        </div>
+
+        <button
+            class="store-btn"
+            onclick="proceedToPay()"
+        >
+            PROCEED TO PAY →
+        </button>
+
+        <button
+            class="reenter-btn"
+            onclick="closeOrderModal()"
+        >
+            Cancel Order
+        </button>
+
+    </div>
+
+</div>
     <main>
 
         <section class="verify-section">
