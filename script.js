@@ -55,10 +55,24 @@ function buyPackage(packageName, price) {
     selectedPackage = packageName;
     selectedPrice = price;
 
+    document.getElementById("orderPackage").innerText = packageName;
+    document.getElementById("orderPrice").innerText = "₹" + price;
+    document.getElementById("orderUID").innerText = currentUID;
+
+    document.getElementById("orderModal").style.display = "flex";
+}
+
+function closeOrderModal() {
+
+    document.getElementById("orderModal").style.display = "none";
+}
+
+function proceedToPay() {
+
+    closeOrderModal();
+
     alert(
-        "Selected: " +
-        packageName +
-        "\nPrice: ₹" +
-        price
+        "Payment page ready for ₹" +
+        selectedPrice
     );
 }
