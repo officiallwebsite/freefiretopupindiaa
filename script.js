@@ -108,7 +108,7 @@ function paymentSubmitted() {
     const status = document.getElementById("paymentStatus");
 
     status.innerText =
-        "Payment verification pending. Your payment has NOT been confirmed yet.";
+    "Please pay first. Payment not received.";
 
     status.style.display = "block";
 }
