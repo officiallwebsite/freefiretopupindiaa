@@ -348,6 +348,98 @@
     </div>
 
 </section>
+                <!-- PAYMENT SCREEN -->
+
+        <section id="paymentSection" class="payment-section">
+
+            <div class="payment-card">
+
+                <div class="payment-header">
+                    <span class="payment-tag">SECURE PAYMENT</span>
+
+                    <h2>Complete Your Payment</h2>
+
+                    <p>
+                        Pay for your selected top-up package.
+                    </p>
+                </div>
+
+
+                <div class="payment-summary">
+
+                    <div>
+                        <span>PACKAGE</span>
+                        <strong id="paymentPackage">---</strong>
+                    </div>
+
+                    <div>
+                        <span>PRICE</span>
+                        <strong id="paymentPrice">₹0</strong>
+                    </div>
+
+                    <div>
+                        <span>UID</span>
+                        <strong id="paymentUID">---</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="qr-box">
+
+                    <div class="qr-placeholder">
+                        <span>QR</span>
+                    </div>
+
+                    <h3>Scan & Pay</h3>
+
+                    <p>
+                        Scan the QR code using your UPI app
+                        and complete the payment.
+                    </p>
+
+                </div>
+
+
+                <div class="payment-instructions">
+
+                    <h3>Payment Instructions</h3>
+
+                    <p>1. Open your UPI app.</p>
+
+                    <p>2. Scan the payment QR code.</p>
+
+                    <p>3. Pay the exact amount shown above.</p>
+
+                    <p>4. Keep your transaction details safe.</p>
+
+                </div>
+
+
+                <button
+                    class="paid-btn"
+                    onclick="paymentSubmitted()"
+                >
+                    I HAVE PAID
+                </button>
+
+
+                <div
+                    id="paymentStatus"
+                    class="payment-status"
+                ></div>
+
+
+                <button
+                    class="back-store-btn"
+                    onclick="backToStore()"
+                >
+                    ← BACK TO STORE
+                </button>
+
+            </div>
+
+        </section>
     </main>
 
 
