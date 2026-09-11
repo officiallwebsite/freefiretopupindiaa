@@ -676,3 +676,36 @@ body {
     font-weight: 900;
     color: #172033;
 }
+.upi-id-box {
+    margin-top: 18px;
+    padding: 15px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.upi-id-box span {
+    display: block;
+    font-size: 11px;
+    color: #737b8c;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.upi-id-box strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.upi-id-box button {
+    border: none;
+    background: #172033;
+    color: #ffffff;
+    padding: 9px 15px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
