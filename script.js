@@ -77,6 +77,11 @@ function proceedToPay() {
         "₹" + selectedPrice;
 
     document.getElementById("paymentUID").innerText = currentUID;
+    const orderId =
+    "FF" + Date.now().toString().slice(-8);
+
+document.getElementById("paymentOrderId").innerText =
+    orderId;
 
     document.getElementById("paymentStatus").style.display = "none";
 
