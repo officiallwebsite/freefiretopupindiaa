@@ -106,11 +106,16 @@ function copyUPI() {
 function paymentSubmitted() {
 
     const status = document.getElementById("paymentStatus");
+    const button = document.getElementById("paidButton");
 
     status.innerText =
-    "Please pay first. Payment not received.";
+        "Please pay first. Payment not received.";
 
     status.style.display = "block";
+
+    button.disabled = true;
+    button.innerText = "PAYMENT NOT RECEIVED";
+}
 }
 
 
