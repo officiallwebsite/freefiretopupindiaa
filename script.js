@@ -20,8 +20,26 @@ function verifyUID() {
         return;
     }
 
-    alert(
-        "Player verification UI is ready.\n\n" +
-        "UID: " + uid
-    );
+    // Temporary demo player information
+    document.getElementById("playerUID").innerText = uid;
+    document.getElementById("playerName").innerText = "Demo Player";
+    document.getElementById("playerLevel").innerText = "70";
+    document.getElementById("playerRegion").innerText = "IND";
+    document.getElementById("playerLikes").innerText = "12.5K";
+
+    document.getElementById("playerModal").style.display = "flex";
+}
+
+
+function closePlayerModal() {
+
+    document.getElementById("playerModal").style.display = "none";
+
+}
+
+
+function goToStore() {
+
+    alert("Top Up Centre will be added next.");
+
 }
