@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Free Fire Top Up</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">
+            FREE FIRE <span>TOP UP</span>
+        </div>
+
+        <button class="menu-btn">☰</button>
+    </header>
+
+
+    <main>
+
+        <section class="verify-section">
+
+            <div class="verify-card">
+
+                <div class="game-icon">🎮</div>
+
+                <h1>Verify Your UID</h1>
+
+                <p>
+                    Enter your Free Fire UID to continue
+                </p>
+
+                <label>Player UID</label>
+
+                <input
+                    type="text"
+                    id="uidInput"
+                    placeholder="Enter your UID"
+                    maxlength="15"
+                >
+
+                <button
+                    class="verify-btn"
+                    onclick="verifyUID()"
+                >
+                    VERIFY UID
+                </button>
+
+                <div id="errorMessage"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
