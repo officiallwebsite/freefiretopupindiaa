@@ -20,6 +20,8 @@ function verifyUID() {
         return;
     }
 
-    alert("UID verification system is ready.");
-
+    alert(
+        "Player verification UI is ready.\n\n" +
+        "UID: " + uid
+    );
 }
