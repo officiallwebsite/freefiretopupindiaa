@@ -51,7 +51,67 @@
                 </button>
 
                 <div id="errorMessage"></div>
+<div id="playerModal" class="modal">
 
+    <div class="player-popup">
+
+        <button class="close-modal" onclick="closePlayerModal()">×</button>
+
+        <div class="verified-badge">
+            ✓ VERIFIED ACCOUNT
+        </div>
+
+        <div class="player-avatar">
+            👤
+        </div>
+
+        <h2 id="playerName">Player</h2>
+
+        <p class="verified-text">
+            Account verified successfully
+        </p>
+
+        <div class="player-info">
+
+            <div>
+                <span>UID</span>
+                <strong id="playerUID">---</strong>
+            </div>
+
+            <div>
+                <span>LEVEL</span>
+                <strong id="playerLevel">70</strong>
+            </div>
+
+            <div>
+                <span>REGION</span>
+                <strong id="playerRegion">IND</strong>
+            </div>
+
+            <div>
+                <span>LIKES</span>
+                <strong id="playerLikes">---</strong>
+            </div>
+
+        </div>
+
+        <button
+            class="store-btn"
+            onclick="goToStore()"
+        >
+            PROCEED TO STORE →
+        </button>
+
+        <button
+            class="reenter-btn"
+            onclick="closePlayerModal()"
+        >
+            Not my account? Re-enter UID
+        </button>
+
+    </div>
+
+</div>
             </div>
 
         </section>
