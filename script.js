@@ -120,10 +120,18 @@ function paymentSubmitted() {
     button.disabled = true;
     button.innerText = "PAYMENT NOT RECEIVED";
 }
-}
-
 
 function backToStore() {
+
+    document.getElementById("paymentSection").style.display = "none";
+
+    document.getElementById("storeSection").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 
     document.getElementById("paymentSection").style.display = "none";
 
