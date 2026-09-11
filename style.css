@@ -529,11 +529,20 @@ body {
     height: 190px;
     margin: 0 auto 18px;
     background: #ffffff;
-    border: 2px dashed #ff8a00;
+    border: 2px solid #ff8a00;
     border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+
+.real-qr {
+    width: 175px;
+    height: 175px;
+    object-fit: contain;
+    display: block;
+}
 }
 
 .qr-placeholder span {
