@@ -71,8 +71,47 @@ function proceedToPay() {
 
     closeOrderModal();
 
-    alert(
-        "Payment page ready for ₹" +
-        selectedPrice
-    );
+    document.getElementById("paymentPackage").innerText = selectedPackage;
+
+    document.getElementById("paymentPrice").innerText =
+        "₹" + selectedPrice;
+
+    document.getElementById("paymentUID").innerText = currentUID;
+
+    document.getElementById("paymentStatus").style.display = "none";
+
+    document.getElementById("paymentStatus").innerText = "";
+
+    document.getElementById("storeSection").style.display = "none";
+
+    document.getElementById("paymentSection").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function paymentSubmitted() {
+
+    const status = document.getElementById("paymentStatus");
+
+    status.innerText =
+        "Payment verification pending. Your payment has NOT been confirmed yet.";
+
+    status.style.display = "block";
+}
+
+
+function backToStore() {
+
+    document.getElementById("paymentSection").style.display = "none";
+
+    document.getElementById("storeSection").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
