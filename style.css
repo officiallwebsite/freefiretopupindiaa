@@ -121,7 +121,136 @@ body {
     color: #e53935;
     font-size: 14px;
 }
+/* PLAYER VERIFICATION POPUP */
 
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 15, 25, 0.65);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.player-popup {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px 25px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    animation: popupIn 0.25s ease;
+}
+
+@keyframes popupIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-modal {
+    position: absolute;
+    right: 18px;
+    top: 15px;
+    border: none;
+    background: #f1f2f4;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.verified-badge {
+    display: inline-block;
+    background: #e9fff0;
+    color: #16a34a;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.player-avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #fff1df;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    margin: 0 auto 15px;
+}
+
+.player-popup h2 {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.verified-text {
+    color: #737b8c;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+.player-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.player-info div {
+    background: #f6f7f9;
+    border-radius: 12px;
+    padding: 13px 8px;
+}
+
+.player-info span {
+    display: block;
+    color: #7b8290;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.player-info strong {
+    font-size: 14px;
+}
+
+.store-btn {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 12px;
+    background: #ff8a00;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.reenter-btn {
+    margin-top: 15px;
+    border: none;
+    background: transparent;
+    color: #737b8c;
+    font-size: 13px;
+    cursor: pointer;
+}
 @media (max-width: 500px) {
 
     .header {
