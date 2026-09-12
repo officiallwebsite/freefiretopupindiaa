@@ -1,30 +1,51 @@
-```css id="j9w5p3"
+```css
+/* =========================
+   RESET
+========================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f6f8;
-    color: #172033;
+html {
+    scroll-behavior: smooth;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b0b0b;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
 .header {
+    width: 100%;
     height: 70px;
-    background: #ffffff;
+    background: #111111;
+    border-bottom: 1px solid #2a2a2a;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 7%;
-    border-bottom: 1px solid #e8e8e8;
+
+    padding: 0 25px;
+
+    position: relative;
+    z-index: 10;
 }
 
 .logo {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 900;
-    color: #172033;
+    color: #ffffff;
+    letter-spacing: 1px;
 }
 
 .logo span {
@@ -34,239 +55,49 @@ body {
 .menu-btn {
     border: none;
     background: transparent;
+    color: #ffffff;
     font-size: 25px;
     cursor: pointer;
 }
 
 
 /* =========================
-   UID VERIFICATION
+   MAIN
+========================= */
+
+main {
+    width: 100%;
+    min-height: calc(100vh - 70px);
+}
+
+
+/* =========================
+   UID VERIFY SECTION
 ========================= */
 
 .verify-section {
     min-height: calc(100vh - 70px);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     padding: 30px 20px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255, 138, 0, 0.12),
+            transparent 45%
+        ),
+        #0b0b0b;
 }
 
 .verify-card {
     width: 100%;
     max-width: 430px;
-    background: #ffffff;
-    padding: 40px 30px;
-    border-radius: 22px;
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-    text-align: center;
-}
 
-.game-icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 20px;
-    border-radius: 18px;
-    background: #fff1df;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 34px;
-}
+    background: #151515;
 
-.verify-card h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-.verify-card p {
-    color: #737b8c;
-    margin-bottom: 30px;
-}
-
-.verify-card label {
-    display: block;
-    text-align: left;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.verify-card input {
-    width: 100%;
-    height: 52px;
-    border: 1px solid #dfe3e9;
-    border-radius: 12px;
-    padding: 0 15px;
-    font-size: 16px;
-    outline: none;
-    margin-bottom: 15px;
-}
-
-.verify-card input:focus {
-    border-color: #ff8a00;
-}
-
-.verify-btn {
-    width: 100%;
-    height: 52px;
-    border: none;
-    border-radius: 12px;
-    background: #ff8a00;
-    color: white;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.verify-btn:hover {
-    background: #e97800;
-}
-
-#errorMessage {
-    margin-top: 15px;
-    color: #e53935;
-    font-size: 14px;
-}
-
-
-/* =========================
-   PLAYER VERIFICATION POPUP
-========================= */
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 15, 25, 0.65);
-    backdrop-filter: blur(5px);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    z-index: 9999;
-}
-
-.player-popup {
-    width: 100%;
-    max-width: 420px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 30px 25px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    animation: popupIn 0.25s ease;
-}
-
-@keyframes popupIn {
-
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-}
-
-.close-modal {
-    position: absolute;
-    right: 18px;
-    top: 15px;
-    border: none;
-    background: #f1f2f4;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    font-size: 22px;
-    cursor: pointer;
-}
-
-.verified-badge {
-    display: inline-block;
-    background: #e9fff0;
-    color: #16a34a;
-    padding: 7px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 18px;
-}
-
-
-/* PLAYER AVATAR */
-
-.player-avatar {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 16px;
-    border-radius: 50%;
-    background: #fff1df;
-    border: 3px solid #ff8a00;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(255, 138, 0, 0.20);
-    position: relative;
-}
-
-.player-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-#avatarFallback {
-    position: absolute;
-    font-size: 42px;
-    line-height: 1;
-}
-
-
-/* PLAYER NAME */
-
-.player-popup h2 {
-    font-size: 26px;
-    margin-bottom: 5px;
-    word-break: break-word;
-}
-
-.verified-text {
-    color: #737b8c;
-    font-size: 14px;
-    margin-bottom: 22px;
-}
-
-
-/* PLAYER INFO */
-
-.player-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 22px;
-}
-
-.player-info div {
-    background: #f6f7f9;
-    border-radius: 12px;
-    padding
+    border:
 ```
-.generated-avatar {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ff8a00, #ff4d00);
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: 900;
-    letter-spacing: 1px;
-}
