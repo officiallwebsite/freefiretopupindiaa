@@ -1,5 +1,7 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,88 +13,108 @@
 
 <body>
 
+    <!-- HEADER -->
+
     <header class="header">
+
         <div class="logo">
             FREE FIRE <span>TOP UP</span>
         </div>
 
         <button class="menu-btn">☰</button>
+
     </header>
 
-<!-- ORDER CONFIRMATION POPUP -->
 
-<div id="orderModal" class="modal">
+    <!-- ORDER CONFIRMATION POPUP -->
 
-    <div class="player-popup">
+    <div id="orderModal" class="modal">
 
-        <button class="close-modal" onclick="closeOrderModal()">×</button>
+        <div class="player-popup">
 
-        <div class="verified-badge">
-            ✓ ORDER READY
+            <button
+                class="close-modal"
+                onclick="closeOrderModal()"
+            >
+                ×
+            </button>
+
+            <div class="verified-badge">
+                ✓ ORDER READY
+            </div>
+
+            <h2>Confirm Your Order</h2>
+
+            <p class="verified-text">
+                Please check your order details
+            </p>
+
+            <div class="player-info">
+
+                <div>
+                    <span>PACKAGE</span>
+                    <strong id="orderPackage">---</strong>
+                </div>
+
+                <div>
+                    <span>PRICE</span>
+                    <strong id="orderPrice">₹0</strong>
+                </div>
+
+                <div>
+                    <span>UID</span>
+                    <strong id="orderUID">---</strong>
+                </div>
+
+                <div>
+                    <span>STATUS</span>
+                    <strong>Ready</strong>
+                </div>
+
+            </div>
+
+            <button
+                class="store-btn"
+                onclick="proceedToPay()"
+            >
+                PROCEED TO PAY →
+            </button>
+
+            <button
+                class="reenter-btn"
+                onclick="closeOrderModal()"
+            >
+                Cancel Order
+            </button>
+
         </div>
-
-        <h2>Confirm Your Order</h2>
-
-        <p class="verified-text">
-            Please check your order details
-        </p>
-
-        <div class="player-info">
-
-            <div>
-                <span>PACKAGE</span>
-                <strong id="orderPackage">---</strong>
-            </div>
-
-            <div>
-                <span>PRICE</span>
-                <strong id="orderPrice">₹0</strong>
-            </div>
-
-            <div>
-                <span>UID</span>
-                <strong id="orderUID">---</strong>
-            </div>
-
-            <div>
-                <span>STATUS</span>
-                <strong>Ready</strong>
-            </div>
-
-        </div>
-
-        <button
-            class="store-btn"
-            onclick="proceedToPay()"
-        >
-            PROCEED TO PAY →
-        </button>
-
-        <button
-            class="reenter-btn"
-            onclick="closeOrderModal()"
-        >
-            Cancel Order
-        </button>
 
     </div>
 
-</div>
+
     <main>
+
+        <!-- UID VERIFICATION SECTION -->
 
         <section class="verify-section">
 
             <div class="verify-card">
 
-                <div class="game-icon">🎮</div>
+                <div class="game-icon">
+                    🎮
+                </div>
 
-                <h1>Verify Your UID</h1>
+                <h1>
+                    Verify Your UID
+                </h1>
 
                 <p>
                     Enter your Free Fire UID to continue
                 </p>
 
-                <label>Player UID</label>
+                <label>
+                    Player UID
+                </label>
 
                 <input
                     type="text"
@@ -109,403 +131,580 @@
                 </button>
 
                 <div id="errorMessage"></div>
-<div id="playerModal" class="modal">
 
-    <div class="player-popup">
-
-        <button class="close-modal" onclick="closePlayerModal()">×</button>
-
-        <div class="verified-badge">
-            ✓ VERIFIED ACCOUNT
-        </div>
-
-        <div class="player-avatar">
-            <img id="playerAvatar" src="" alt="Player Avatar">
-        </div>
-
-        <h2 id="playerName">Player</h2>
-
-        <p class="verified-text">
-            ✓ UID verified successfully
-        </p>
-
-        <div class="player-info">
-
-            <div>
-                <span>UID</span>
-                <strong id="playerUID">---</strong>
-            </div>
-
-            <div>
-                <span>LEVEL</span>
-                <strong id="playerLevel">---</strong>
-            </div>
-
-            <div>
-                <span>REGION</span>
-                <strong id="playerRegion">---</strong>
-            </div>
-
-            <div>
-                <span>LIKES</span>
-                <strong id="playerLikes">---</strong>
-            </div>
-
-            <div>
-                <span>RANK</span>
-                <strong id="playerRank">---</strong>
-            </div>
-
-            <div>
-                <span>ACCOUNT</span>
-                <strong>VERIFIED</strong>
-            </div>
-
-        </div>
-
-        <button
-            class="store-btn"
-            onclick="goToStore()"
-        >
-            PROCEED TO STORE →
-        </button>
-
-        <button
-            class="reenter-btn"
-            onclick="closePlayerModal()"
-        >
-            Not my account? Re-enter UID
-        </button>
-
-    </div>
-
-</div>
-            <div>
-                <span>UID</span>
-                <strong id="playerUID">---</strong>
-            </div>
-
-            <div>
-                <span>LEVEL</span>
-                <strong id="playerLevel">70</strong>
-            </div>
-
-            <div>
-                <span>REGION</span>
-                <strong id="playerRegion">IND</strong>
-            </div>
-
-            <div>
-                <span>LIKES</span>
-                <strong id="playerLikes">---</strong>
-            </div>
-
-        </div>
-
-        <button
-            class="store-btn"
-            onclick="goToStore()"
-        >
-            PROCEED TO STORE →
-        </button>
-
-        <button
-            class="reenter-btn"
-            onclick="closePlayerModal()"
-        >
-            Not my account? Re-enter UID
-        </button>
-
-    </div>
-
-</div>
             </div>
 
         </section>
-<section id="storeSection" class="store-section">
-
-    <div class="store-header">
-        <span class="store-tag">TOP UP CENTRE</span>
-
-        <h2>Top Up Centre</h2>
-
-        <p>
-            Pick a pack for your verified account.
-        </p>
-    </div>
-
-    <div class="account-bar">
-
-        <div class="account-avatar">👤</div>
-
-        <div class="account-details">
-            <strong id="storePlayerName">Demo Player</strong>
-            <span>UID: <b id="storePlayerUID">---</b></span>
-        </div>
-
-        <span class="account-verified">✓ Verified</span>
-
-    </div>
 
 
-    <div class="tabs">
+        <!-- PLAYER VERIFICATION POPUP -->
 
-        <button class="active-tab">
-            💎 Diamonds
-        </button>
+        <div id="playerModal" class="modal">
 
-        <button>
-            🎟️ Passes
-        </button>
+            <div class="player-popup">
 
-    </div>
+                <button
+                    class="close-modal"
+                    onclick="closePlayerModal()"
+                >
+                    ×
+                </button>
 
 
-    <div class="diamond-grid">
+                <!-- VERIFIED BADGE -->
 
-        <div class="diamond-card">
+                <div class="verified-badge">
+                    ✓ VERIFIED ACCOUNT
+                </div>
 
-            <div class="diamond-icon">💎</div>
 
-            <h3>100 Diamonds</h3>
+                <!-- PLAYER AVATAR -->
 
-            <span class="bonus">+10 BONUS</span>
+                <div class="player-avatar">
 
-            <p class="stock">● In Stock</p>
+                    <img
+                        id="playerAvatar"
+                        src=""
+                        alt="Player Avatar"
+                    >
 
-            <div class="price">
-                ₹39
-                <del>₹90</del>
+                    <span id="avatarFallback">
+                        👤
+                    </span>
+
+                </div>
+
+
+                <!-- PLAYER NAME -->
+
+                <h2 id="playerName">
+                    Player
+                </h2>
+
+                <p class="verified-text">
+                    ✓ UID verified successfully
+                </p>
+
+
+                <!-- PLAYER DETAILS -->
+
+                <div class="player-info">
+
+                    <div>
+                        <span>UID</span>
+                        <strong id="playerUID">---</strong>
+                    </div>
+
+                    <div>
+                        <span>LEVEL</span>
+                        <strong id="playerLevel">---</strong>
+                    </div>
+
+                    <div>
+                        <span>REGION</span>
+                        <strong id="playerRegion">---</strong>
+                    </div>
+
+                    <div>
+                        <span>LIKES</span>
+                        <strong id="playerLikes">---</strong>
+                    </div>
+
+                    <div>
+                        <span>RANK</span>
+                        <strong id="playerRank">---</strong>
+                    </div>
+
+                    <div>
+                        <span>ACCOUNT</span>
+                        <strong>VERIFIED</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- STORE BUTTON -->
+
+                <button
+                    class="store-btn"
+                    onclick="goToStore()"
+                >
+                    PROCEED TO STORE →
+                </button>
+
+
+                <!-- RE-ENTER -->
+
+                <button
+                    class="reenter-btn"
+                    onclick="closePlayerModal()"
+                >
+                    Not my account? Re-enter UID
+                </button>
+
             </div>
 
-            <button class="buy-btn" onclick="buyPackage('100 Diamonds', 39)">
-                BUY →
-            </button>
-
         </div>
 
 
-        <div class="diamond-card">
+        <!-- TOP UP STORE -->
 
-            <div class="diamond-icon">💎</div>
+        <section
+            id="storeSection"
+            class="store-section"
+        >
 
-            <h3>310 Diamonds</h3>
+            <div class="store-header">
 
-            <span class="bonus">+31 BONUS</span>
+                <span class="store-tag">
+                    TOP UP CENTRE
+                </span>
 
-            <p class="stock">● In Stock</p>
+                <h2>
+                    Top Up Centre
+                </h2>
 
-            <div class="price">
-                ₹99
-                <del>₹260</del>
+                <p>
+                    Pick a pack for your verified account.
+                </p>
+
             </div>
 
-            <button class="buy-btn" onclick="buyPackage('310 Diamonds', 99)">
-                BUY →
-            </button>
 
-        </div>
+            <!-- VERIFIED ACCOUNT BAR -->
 
+            <div class="account-bar">
 
-        <div class="diamond-card">
+                <div class="account-avatar">
+                    👤
+                </div>
 
-            <div class="diamond-icon">💎</div>
+                <div class="account-details">
 
-            <h3>520 Diamonds</h3>
+                    <strong id="storePlayerName">
+                        Demo Player
+                    </strong>
 
-            <span class="bonus">+52 BONUS</span>
+                    <span>
+                        UID:
+                        <b id="storePlayerUID">
+                            ---
+                        </b>
+                    </span>
 
-            <p class="stock">● In Stock</p>
+                </div>
 
-            <div class="price">
-                ₹149
-                <del>₹440</del>
+                <span class="account-verified">
+                    ✓ Verified
+                </span>
+
             </div>
 
-            <button class="buy-btn" onclick="buyPackage('520 Diamonds', 149)">
-                BUY →
-            </button>
 
-        </div>
+            <!-- STORE TABS -->
 
+            <div class="tabs">
 
-        <div class="diamond-card">
+                <button class="active-tab">
+                    💎 Diamonds
+                </button>
 
-            <div class="diamond-icon">💎</div>
+                <button>
+                    🎟️ Passes
+                </button>
 
-            <h3>1060 Diamonds</h3>
-
-            <span class="bonus">+106 BONUS</span>
-
-            <p class="stock">● In Stock</p>
-
-            <div class="price">
-                ₹299
-                <del>₹860</del>
             </div>
 
-            <button class="buy-btn" onclick="buyPackage('1060 Diamonds', 299)">
-                BUY →
-            </button>
 
-        </div>
+            <!-- DIAMOND PACKAGES -->
+
+            <div class="diamond-grid">
 
 
-        <div class="diamond-card">
+                <!-- 100 DIAMONDS -->
 
-            <div class="diamond-icon">💎</div>
+                <div class="diamond-card">
 
-            <h3>2180 Diamonds</h3>
+                    <div class="diamond-icon">
+                        💎
+                    </div>
 
-            <span class="bonus">+218 BONUS</span>
+                    <h3>
+                        100 Diamonds
+                    </h3>
 
-            <p class="stock">● In Stock</p>
+                    <span class="bonus">
+                        +10 BONUS
+                    </span>
 
-            <div class="price">
-                ₹499
-                <del>₹1700</del>
+                    <p class="stock">
+                        ● In Stock
+                    </p>
+
+                    <div class="price">
+                        ₹39
+                        <del>₹90</del>
+                    </div>
+
+                    <button
+                        class="buy-btn"
+                        onclick="buyPackage('100 Diamonds', 39)"
+                    >
+                        BUY →
+                    </button>
+
+                </div>
+
+
+                <!-- 310 DIAMONDS -->
+
+                <div class="diamond-card">
+
+                    <div class="diamond-icon">
+                        💎
+                    </div>
+
+                    <h3>
+                        310 Diamonds
+                    </h3>
+
+                    <span class="bonus">
+                        +31 BONUS
+                    </span>
+
+                    <p class="stock">
+                        ● In Stock
+                    </p>
+
+                    <div class="price">
+                        ₹99
+                        <del>₹260</del>
+                    </div>
+
+                    <button
+                        class="buy-btn"
+                        onclick="buyPackage('310 Diamonds', 99)"
+                    >
+                        BUY →
+                    </button>
+
+                </div>
+
+
+                <!-- 520 DIAMONDS -->
+
+                <div class="diamond-card">
+
+                    <div class="diamond-icon">
+                        💎
+                    </div>
+
+                    <h3>
+                        520 Diamonds
+                    </h3>
+
+                    <span class="bonus">
+                        +52 BONUS
+                    </span>
+
+                    <p class="stock">
+                        ● In Stock
+                    </p>
+
+                    <div class="price">
+                        ₹149
+                        <del>₹440</del>
+                    </div>
+
+                    <button
+                        class="buy-btn"
+                        onclick="buyPackage('520 Diamonds', 149)"
+                    >
+                        BUY →
+                    </button>
+
+                </div>
+
+
+                <!-- 1060 DIAMONDS -->
+
+                <div class="diamond-card">
+
+                    <div class="diamond-icon">
+                        💎
+                    </div>
+
+                    <h3>
+                        1060 Diamonds
+                    </h3>
+
+                    <span class="bonus">
+                        +106 BONUS
+                    </span>
+
+                    <p class="stock">
+                        ● In Stock
+                    </p>
+
+                    <div class="price">
+                        ₹299
+                        <del>₹860</del>
+                    </div>
+
+                    <button
+                        class="buy-btn"
+                        onclick="buyPackage('1060 Diamonds', 299)"
+                    >
+                        BUY →
+                    </button>
+
+                </div>
+
+
+                <!-- 2180 DIAMONDS -->
+
+                <div class="diamond-card">
+
+                    <div class="diamond-icon">
+                        💎
+                    </div>
+
+                    <h3>
+                        2180 Diamonds
+                    </h3>
+
+                    <span class="bonus">
+                        +218 BONUS
+                    </span>
+
+                    <p class="stock">
+                        ● In Stock
+                    </p>
+
+                    <div class="price">
+                        ₹499
+                        <del>₹1700</del>
+                    </div>
+
+                    <button
+                        class="buy-btn"
+                        onclick="buyPackage('2180 Diamonds', 499)"
+                    >
+                        BUY →
+                    </button>
+
+                </div>
+
+
+                <!-- 5600 DIAMONDS -->
+
+                <div class="diamond-card">
+
+                    <div class="diamond-icon">
+                        💎
+                    </div>
+
+                    <h3>
+                        5600 Diamonds
+                    </h3>
+
+                    <span class="bonus">
+                        +560 BONUS
+                    </span>
+
+                    <p class="stock">
+                        ● In Stock
+                    </p>
+
+                    <div class="price">
+                        ₹799
+                        <del>₹4300</del>
+                    </div>
+
+                    <button
+                        class="buy-btn"
+                        onclick="buyPackage('5600 Diamonds', 799)"
+                    >
+                        BUY →
+                    </button>
+
+                </div>
+
             </div>
 
-            <button class="buy-btn" onclick="buyPackage('2180 Diamonds', 499)">
-                BUY →
-            </button>
-
-        </div>
+        </section>
 
 
-        <div class="diamond-card">
+        <!-- PAYMENT SCREEN -->
 
-            <div class="diamond-icon">💎</div>
-
-            <h3>5600 Diamonds</h3>
-
-            <span class="bonus">+560 BONUS</span>
-
-            <p class="stock">● In Stock</p>
-
-            <div class="price">
-                ₹799
-                <del>₹4300</del>
-            </div>
-
-            <button class="buy-btn" onclick="buyPackage('5600 Diamonds', 799)">
-                BUY →
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-                <!-- PAYMENT SCREEN -->
-
-        <section id="paymentSection" class="payment-section">
+        <section
+            id="paymentSection"
+            class="payment-section"
+        >
 
             <div class="payment-card">
 
-                <div class="payment-header">
-                    <span class="payment-tag">SECURE PAYMENT</span>
 
-                    <h2>Complete Your Payment</h2>
+                <!-- PAYMENT HEADER -->
+
+                <div class="payment-header">
+
+                    <span class="payment-tag">
+                        SECURE PAYMENT
+                    </span>
+
+                    <h2>
+                        Complete Your Payment
+                    </h2>
 
                     <p>
                         Pay for your selected top-up package.
                     </p>
+
                 </div>
 
+
+                <!-- PAYMENT SUMMARY -->
 
                 <div class="payment-summary">
 
                     <div>
-        <span>PACKAGE</span>
-        <strong id="paymentPackage">---</strong>
-    </div>
+                        <span>PACKAGE</span>
+                        <strong id="paymentPackage">
+                            ---
+                        </strong>
+                    </div>
 
-    <div>
-        <span>PRICE</span>
-        <strong id="paymentPrice">₹0</strong>
-    </div>
+                    <div>
+                        <span>PRICE</span>
+                        <strong id="paymentPrice">
+                            ₹0
+                        </strong>
+                    </div>
 
-    <div>
-        <span>UID</span>
-        <strong id="paymentUID">---</strong>
-    </div>
+                    <div>
+                        <span>UID</span>
+                        <strong id="paymentUID">
+                            ---
+                        </strong>
+                    </div>
 
-    <div>
-        <span>ORDER ID</span>
-        <strong id="paymentOrderId">---</strong>
+                    <div>
+                        <span>ORDER ID</span>
+                        <strong id="paymentOrderId">
+                            ---
+                        </strong>
+                    </div>
+
                 </div>
 
+
+                <!-- QR PAYMENT -->
 
                 <div class="qr-box">
 
-                   <div class="qr-placeholder">
+                    <div class="qr-placeholder">
 
-    <img
-        src="upi-qr.png.jpeg"
-        alt="UPI Payment QR"
-        class="real-qr"
-    >
+                        <img
+                            src="upi-qr.png.jpeg"
+                            alt="UPI Payment QR"
+                            class="real-qr"
+                        >
 
-</div>
+                    </div>
 
-<h3>Scan & Pay</h3>
-<div class="upi-id-box">
 
-    <span>UPI ID</span>
+                    <h3>
+                        Scan & Pay
+                    </h3>
 
-    <strong id="upiId">raju.2501@ptyes</strong>
 
-    <button onclick="copyUPI()">
-        COPY UPI ID
-    </button>
+                    <div class="upi-id-box">
 
-</div>
-<p>
-    Scan this QR code with any UPI app
-    to make your payment.
-</p>
+                        <span>
+                            UPI ID
+                        </span>
 
-<div class="upi-methods">
-    <span>UPI</span>
-    <span>Google Pay</span>
-    <span>PhonePe</span>
-    <span>Paytm</span>
-</div>
+                        <strong id="upiId">
+                            raju.2501@ptyes
+                        </strong>
+
+                        <button onclick="copyUPI()">
+                            COPY UPI ID
+                        </button>
+
+                    </div>
+
+
+                    <p>
+                        Scan this QR code with any UPI app
+                        to make your payment.
+                    </p>
+
+
+                    <div class="upi-methods">
+
+                        <span>UPI</span>
+                        <span>Google Pay</span>
+                        <span>PhonePe</span>
+                        <span>Paytm</span>
+
+                    </div>
+
                 </div>
 
 
+                <!-- PAYMENT INSTRUCTIONS -->
+
                 <div class="payment-instructions">
 
-    <h3>Payment Instructions</h3>
+                    <h3>
+                        Payment Instructions
+                    </h3>
 
-    <p>1. Open your UPI app.</p>
+                    <p>
+                        1. Open your UPI app.
+                    </p>
 
-    <p>2. Scan the payment QR code.</p>
+                    <p>
+                        2. Scan the payment QR code.
+                    </p>
 
-    <p>3. Pay the exact amount shown above.</p>
+                    <p>
+                        3. Pay the exact amount shown above.
+                    </p>
 
-    <p>4. Do not close the payment page while paying.</p>
+                    <p>
+                        4. Do not close the payment page while paying.
+                    </p>
 
-    <p>5. Payment will remain pending until verified.</p>
+                    <p>
+                        5. Payment will remain pending until verified.
+                    </p>
 
-</div>
+                </div>
 
+
+                <!-- PAID BUTTON -->
 
                 <button
-    id="paidButton"
-    class="paid-btn"
-    onclick="paymentSubmitted()"
->
-    I HAVE PAID
-</button>
+                    id="paidButton"
+                    class="paid-btn"
+                    onclick="paymentSubmitted()"
+                >
+                    I HAVE PAID
+                </button>
 
+
+                <!-- PAYMENT STATUS -->
 
                 <div
                     id="paymentStatus"
                     class="payment-status"
                 ></div>
 
+
+                <!-- BACK BUTTON -->
 
                 <button
                     class="back-store-btn"
@@ -517,10 +716,15 @@
             </div>
 
         </section>
+
     </main>
 
+
+    <!-- JAVASCRIPT -->
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
+```
