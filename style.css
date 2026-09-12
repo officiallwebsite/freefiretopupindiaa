@@ -2288,3 +2288,25 @@ body {
         font-size: 19px;
     }
 }
+/* =========================
+   FREE FIRE HEADER LOGO
+========================= */
+
+.header-logo {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    display: block;
+}
+
+.brand-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+}
