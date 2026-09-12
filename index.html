@@ -137,20 +137,29 @@
             </div>
 
 
-            <button
-                type="button"
-                class="verify-btn"
-                onclick="verifyUID()">
+           <button
+    type="button"
+    class="verify-btn"
+    id="verifyBtn"
+    onclick="verifyUID()">
 
-                <span>
-                    VERIFY UID
-                </span>
+    <span id="verifyBtnText">
+        VERIFY UID
+    </span>
 
-                <span>
-                    →
-                </span>
+    <span
+        id="verifyLoader"
+        class="verify-loader"
+        style="display:none;">
+    </span>
 
-            </button>
+    <span
+        id="verifyArrow"
+        class="verify-arrow">
+        →
+    </span>
+
+</button>
 
 
             <div id="errorMessage"></div>
