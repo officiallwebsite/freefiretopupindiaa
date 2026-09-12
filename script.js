@@ -148,7 +148,13 @@ async function verifyUID() {
 
         currentPlayerName =
             player.nickname || "Unknown Player";
+const playerNameBottom =
+    document.getElementById("playerNameBottom");
 
+if (playerNameBottom) {
+    playerNameBottom.innerText =
+        currentPlayerName;
+}
 
         /* =========================
            PLAYER NAME
