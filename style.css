@@ -2040,3 +2040,71 @@ body {
 .verify-btn.loading:hover {
     transform: none;
 }
+/* =========================
+   PLAYER POPUP POLISH
+========================= */
+
+.player-modal-card {
+    max-width: 500px;
+    border-radius: 20px;
+    padding: 32px;
+}
+
+.player-modal-card h2 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #1f1f1f;
+}
+
+.player-main-icon {
+    box-shadow: 0 8px 25px rgba(32, 163, 99, 0.12);
+}
+
+.uid-highlight {
+    background: #fff8f1;
+    border-color: #ffdcbf;
+}
+
+.player-info-grid {
+    gap: 10px;
+}
+
+.player-data {
+    transition: .18s ease;
+}
+
+.player-data:hover {
+    border-color: #ffd2ad;
+    background: #fffdfa;
+}
+
+.account-status {
+    padding: 10px 12px;
+
+    border-radius: 9px;
+
+    background: #f5fbf7;
+
+    border: 1px solid #dff2e6;
+
+    color: #4d735c;
+}
+
+.player-modal-card .primary-btn {
+    margin-top: 2px;
+
+    height: 52px;
+
+    font-size: 13px;
+}
+
+@media (max-width: 500px) {
+
+    .player-modal-card {
+        padding: 28px 18px;
+    }
+
+    .player-modal-card h2 {
+        font-size: 24px;
+    }
+}
