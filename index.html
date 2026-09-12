@@ -170,13 +170,11 @@
 </section>
 
 
-<!-- =========================
-     PLAYER MODAL
-========================= -->
+<!-- PLAYER MODAL -->
 
 <div id="playerModal" class="modal">
 
-    <div class="modal-card">
+    <div class="modal-card player-modal-card">
 
         <button
             type="button"
@@ -189,8 +187,12 @@
             ✓ UID VERIFIED
         </div>
 
-        <div class="player-icon">
-            👤
+        <div class="player-main-icon">
+            <span>✓</span>
+        </div>
+
+        <div class="verified-label">
+            ACCOUNT VERIFIED
         </div>
 
         <h2 id="playerName">
@@ -198,51 +200,88 @@
         </h2>
 
         <p class="success-text">
-            Player details verified successfully
+            Player information verified successfully
         </p>
 
+        <div class="uid-highlight">
+
+            <div>
+                <span>PLAYER UID</span>
+
+                <strong id="playerUID">
+                    ---
+                </strong>
+            </div>
+
+            <span class="uid-check">
+                ✓
+            </span>
+
+        </div>
 
         <div class="player-info-grid">
 
-            <div class="player-data primary-data">
-                <span>UID</span>
-                <strong id="playerUID">---</strong>
-            </div>
-
             <div class="player-data">
+
                 <span>LEVEL</span>
-                <strong id="playerLevel">---</strong>
+
+                <strong id="playerLevel">
+                    ---
+                </strong>
+
             </div>
 
             <div class="player-data">
+
                 <span>REGION</span>
-                <strong id="playerRegion">---</strong>
+
+                <strong id="playerRegion">
+                    ---
+                </strong>
+
             </div>
 
             <div class="player-data">
+
                 <span>LIKES</span>
-                <strong id="playerLikes">---</strong>
+
+                <strong id="playerLikes">
+                    ---
+                </strong>
+
             </div>
 
             <div class="player-data">
+
                 <span>RANK</span>
-                <strong id="playerRank">---</strong>
-            </div>
 
-            <div class="player-data">
-                <span>STATUS</span>
-                <strong class="green-text">Verified</strong>
+                <strong id="playerRank">
+                    ---
+                </strong>
+
             </div>
 
         </div>
 
+        <div class="account-status">
+
+            <span class="status-dot"></span>
+
+            <span>
+                Account verified and ready for top up
+            </span>
+
+        </div>
 
         <button
             type="button"
             class="primary-btn"
             onclick="goToStore()">
+
             CONTINUE TO STORE
+
             <span>→</span>
+
         </button>
 
     </div>
