@@ -1110,4 +1110,281 @@ body {
         font-size: 12px;
     }
 }
-```
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-section {
+    width: 100%;
+
+    padding: 75px 20px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 138, 0, 0.08),
+            transparent 40%
+        ),
+        #0b0b0b;
+
+    border-top: 1px solid #202020;
+}
+
+.section-heading {
+    max-width: 700px;
+
+    margin: 0 auto 40px;
+
+    text-align: center;
+}
+
+.section-heading .small-badge {
+    margin-bottom: 12px;
+}
+
+.section-heading h2 {
+    color: #ffffff;
+
+    font-size: 32px;
+
+    font-weight: 900;
+
+    margin-bottom: 10px;
+}
+
+.section-heading p {
+    color: #888888;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   STEPS
+========================= */
+
+.steps-grid {
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.step-card {
+    position: relative;
+
+    padding: 28px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #171717,
+            #111111
+        );
+
+    border: 1px solid #292929;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    transition: 0.2s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #ff8a00;
+
+    box-shadow:
+        0 15px 35px rgba(255, 138, 0, 0.10);
+}
+
+.step-number {
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    color: #444444;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+.step-icon {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9d26,
+            #ff5a00
+        );
+
+    font-size: 25px;
+}
+
+.step-card h3 {
+    color: #ffffff;
+
+    font-size: 17px;
+
+    margin-bottom: 9px;
+}
+
+.step-card p {
+    color: #888888;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   FAQ
+========================= */
+
+.faq-section {
+    width: 100%;
+
+    padding: 75px 20px 90px;
+
+    background: #090909;
+
+    border-top: 1px solid #202020;
+}
+
+.faq-container {
+    width: 100%;
+
+    max-width: 800px;
+
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 12px;
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.faq-item summary {
+    padding: 19px 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary span {
+    color: #ff8a00;
+
+    font-size: 22px;
+
+    font-weight: 400;
+
+    transition: 0.2s ease;
+}
+
+.faq-item[open] summary span {
+    transform: rotate(45deg);
+}
+
+.faq-item p {
+    padding: 0 20px 20px;
+
+    color: #888888;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .steps-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 500px) {
+
+    .how-section,
+    .faq-section {
+        padding: 55px 15px 65px;
+    }
+
+    .section-heading h2 {
+        font-size: 27px;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .step-card {
+        padding: 24px 18px;
+    }
+
+    .faq-item summary {
+        font-size: 14px;
+
+        padding: 17px;
+    }
+
+    .faq-item p {
+        padding: 0 17px 18px;
+
+        font-size: 12px;
+    }
+}
