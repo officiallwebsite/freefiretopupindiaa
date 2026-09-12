@@ -120,17 +120,66 @@
         </div>
 
         <div class="player-avatar">
-            👤
+            <img id="playerAvatar" src="" alt="Player Avatar">
         </div>
 
         <h2 id="playerName">Player</h2>
 
         <p class="verified-text">
-            Account verified successfully
+            ✓ UID verified successfully
         </p>
 
         <div class="player-info">
 
+            <div>
+                <span>UID</span>
+                <strong id="playerUID">---</strong>
+            </div>
+
+            <div>
+                <span>LEVEL</span>
+                <strong id="playerLevel">---</strong>
+            </div>
+
+            <div>
+                <span>REGION</span>
+                <strong id="playerRegion">---</strong>
+            </div>
+
+            <div>
+                <span>LIKES</span>
+                <strong id="playerLikes">---</strong>
+            </div>
+
+            <div>
+                <span>RANK</span>
+                <strong id="playerRank">---</strong>
+            </div>
+
+            <div>
+                <span>ACCOUNT</span>
+                <strong>VERIFIED</strong>
+            </div>
+
+        </div>
+
+        <button
+            class="store-btn"
+            onclick="goToStore()"
+        >
+            PROCEED TO STORE →
+        </button>
+
+        <button
+            class="reenter-btn"
+            onclick="closePlayerModal()"
+        >
+            Not my account? Re-enter UID
+        </button>
+
+    </div>
+
+</div>
             <div>
                 <span>UID</span>
                 <strong id="playerUID">---</strong>
