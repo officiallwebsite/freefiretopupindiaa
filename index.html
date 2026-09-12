@@ -5,28 +5,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Free Fire Top Up</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header class="header">
+
     <div class="logo">
         FREE FIRE <span>TOP UP</span>
     </div>
 
-    <button class="menu-btn">☰</button>
+    <button type="button" class="menu-btn">
+        ☰
+    </button>
+
 </header>
 
 
-<!-- ORDER CONFIRMATION MODAL -->
+<!-- =====================================================
+     ORDER CONFIRMATION MODAL
+===================================================== -->
 
 <div id="orderModal" class="modal">
 
     <div class="player-popup">
 
-        <button class="close-modal" onclick="closeOrderModal()">
+        <button
+            type="button"
+            class="close-modal"
+            onclick="closeOrderModal()">
             ×
         </button>
 
@@ -34,7 +45,9 @@
             ✓ ORDER READY
         </div>
 
-        <h2>Confirm Your Order</h2>
+        <h2>
+            Confirm Your Order
+        </h2>
 
         <p class="verified-text">
             Please check your order details
@@ -64,11 +77,17 @@
 
         </div>
 
-        <button class="store-btn" onclick="proceedToPay()">
+        <button
+            type="button"
+            class="store-btn"
+            onclick="proceedToPay()">
             PROCEED TO PAY →
         </button>
 
-        <button class="reenter-btn" onclick="closeOrderModal()">
+        <button
+            type="button"
+            class="reenter-btn"
+            onclick="closeOrderModal()">
             Cancel Order
         </button>
 
@@ -80,7 +99,9 @@
 <main>
 
 
-<!-- UID VERIFICATION -->
+<!-- =====================================================
+     UID VERIFICATION SECTION
+===================================================== -->
 
 <section class="verify-section">
 
@@ -98,7 +119,7 @@
             Enter your Free Fire UID to continue
         </p>
 
-        <label>
+        <label for="uidInput">
             Player UID
         </label>
 
@@ -107,13 +128,13 @@
             id="uidInput"
             placeholder="Enter your UID"
             maxlength="15"
+            autocomplete="off"
         >
 
         <button
             type="button"
             class="verify-btn"
-            onclick="verifyUID()"
-        >
+            onclick="verifyUID()">
             VERIFY UID
         </button>
 
@@ -124,16 +145,18 @@
 </section>
 
 
-<!-- PLAYER VERIFICATION MODAL -->
+<!-- =====================================================
+     PLAYER VERIFICATION MODAL
+===================================================== -->
 
 <div id="playerModal" class="modal">
 
     <div class="player-popup">
 
         <button
+            type="button"
             class="close-modal"
-            onclick="closePlayerModal()"
-        >
+            onclick="closePlayerModal()">
             ×
         </button>
 
@@ -156,8 +179,7 @@
 
             <div
                 id="avatarFallback"
-                class="generated-avatar"
-            >
+                class="generated-avatar">
                 FF
             </div>
 
@@ -215,5 +237,367 @@
         <button
             type="button"
             class="store-btn"
-            onclick="goToStore()"
+            onclick="goToStore()">
+            PROCEED TO STORE →
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     STORE SECTION
+===================================================== -->
+
+<section
+    id="storeSection"
+    class="store-section"
+    style="display:none;">
+
+    <div class="store-container">
+
+        <div class="store-header">
+
+            <div class="verified-badge">
+                ✓ UID VERIFIED
+            </div>
+
+            <h1>
+                Top Up Centre
+            </h1>
+
+            <p>
+                Select your Diamond package
+            </p>
+
+            <div class="store-player">
+
+                <span>
+                    PLAYER:
+                </span>
+
+                <strong id="storePlayerName">
+                    ---
+                </strong>
+
+                <span>
+                    UID:
+                </span>
+
+                <strong id="storePlayerUID">
+                    ---
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- DIAMOND PACKAGES -->
+
+        <div class="package-grid">
+
+
+            <!-- 100 DIAMONDS -->
+
+            <div class="package-card">
+
+                <div class="diamond-icon">
+                    💎
+                </div>
+
+                <h3>
+                    100 Diamonds
+                </h3>
+
+                <div class="package-price">
+                    ₹39
+                </div>
+
+                <button
+                    type="button"
+                    class="buy-btn"
+                    onclick="buyPackage('100 Diamonds', 39)">
+                    BUY
+                </button>
+
+            </div>
+
+
+            <!-- 310 DIAMONDS -->
+
+            <div class="package-card">
+
+                <div class="diamond-icon">
+                    💎
+                </div>
+
+                <h3>
+                    310 Diamonds
+                </h3>
+
+                <div class="package-price">
+                    ₹99
+                </div>
+
+                <button
+                    type="button"
+                    class="buy-btn"
+                    onclick="buyPackage('310 Diamonds', 99)">
+                    BUY
+                </button>
+
+            </div>
+
+
+            <!-- 520 DIAMONDS -->
+
+            <div class="package-card">
+
+                <div class="diamond-icon">
+                    💎
+                </div>
+
+                <h3>
+                    520 Diamonds
+                </h3>
+
+                <div class="package-price">
+                    ₹149
+                </div>
+
+                <button
+                    type="button"
+                    class="buy-btn"
+                    onclick="buyPackage('520 Diamonds', 149)">
+                    BUY
+                </button>
+
+            </div>
+
+
+            <!-- 1060 DIAMONDS -->
+
+            <div class="package-card">
+
+                <div class="diamond-icon">
+                    💎
+                </div>
+
+                <h3>
+                    1060 Diamonds
+                </h3>
+
+                <div class="package-price">
+                    ₹299
+                </div>
+
+                <button
+                    type="button"
+                    class="buy-btn"
+                    onclick="buyPackage('1060 Diamonds', 299)">
+                    BUY
+                </button>
+
+            </div>
+
+
+            <!-- 2180 DIAMONDS -->
+
+            <div class="package-card">
+
+                <div class="diamond-icon">
+                    💎
+                </div>
+
+                <h3>
+                    2180 Diamonds
+                </h3>
+
+                <div class="package-price">
+                    ₹499
+                </div>
+
+                <button
+                    type="button"
+                    class="buy-btn"
+                    onclick="buyPackage('2180 Diamonds', 499)">
+                    BUY
+                </button>
+
+            </div>
+
+
+            <!-- 5600 DIAMONDS -->
+
+            <div class="package-card">
+
+                <div class="diamond-icon">
+                    💎
+                </div>
+
+                <h3>
+                    5600 Diamonds
+                </h3>
+
+                <div class="package-price">
+                    ₹799
+                </div>
+
+                <button
+                    type="button"
+                    class="buy-btn"
+                    onclick="buyPackage('5600 Diamonds', 799)">
+                    BUY
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PAYMENT SECTION
+===================================================== -->
+
+<section
+    id="paymentSection"
+    class="payment-section"
+    style="display:none;">
+
+    <div class="payment-container">
+
+        <div class="verified-badge">
+            ✓ ORDER CREATED
+        </div>
+
+        <h1>
+            Complete Payment
+        </h1>
+
+        <p>
+            Scan the QR code or use the UPI ID below
+        </p>
+
+
+        <!-- PAYMENT DETAILS -->
+
+        <div class="payment-details">
+
+            <div>
+                <span>PACKAGE</span>
+                <strong id="paymentPackage">
+                    ---
+                </strong>
+            </div>
+
+            <div>
+                <span>PRICE</span>
+                <strong id="paymentPrice">
+                    ₹0
+                </strong>
+            </div>
+
+            <div>
+                <span>UID</span>
+                <strong id="paymentUID">
+                    ---
+                </strong>
+            </div>
+
+            <div>
+                <span>ORDER ID</span>
+                <strong id="paymentOrderId">
+                    ---
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- QR CODE -->
+
+        <div class="qr-container">
+
+            <img
+                class="real-qr"
+                src="upi-qr.png.jpeg"
+                alt="UPI Payment QR"
+            >
+
+        </div>
+
+
+        <!-- UPI -->
+
+        <div class="upi-box">
+
+            <span>
+                UPI ID
+            </span>
+
+            <strong id="upiId">
+                raju.2501@ptyes
+            </strong>
+
+            <button
+                type="button"
+                class="copy-btn"
+                onclick="copyUPI()">
+                COPY
+            </button>
+
+        </div>
+
+
+        <!-- PAYMENT STATUS -->
+
+        <div
+            id="paymentStatus"
+            class="payment-status"
+            style="display:none;">
+        </div>
+
+
+        <!-- PAID BUTTON -->
+
+        <button
+            type="button"
+            id="paidButton"
+            class="paid-btn"
+            onclick="paymentSubmitted()">
+            I HAVE PAID
+        </button>
+
+
+        <!-- BACK -->
+
+        <button
+            type="button"
+            class="reenter-btn"
+            onclick="backToStore()">
+            ← Back to Store
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="./script.js"></script>
+
+</body>
+</html>
 ```
