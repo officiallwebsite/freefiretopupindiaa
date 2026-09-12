@@ -2,19 +2,31 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Free Fire Top Up</title>
+
     <meta
         name="description"
         content="Free Fire style UID verification and top-up demo interface."
     >
 
-    <link rel="stylesheet" href="./style.css">
+    <link
+        rel="stylesheet"
+        href="./style.css?v=4"
+    >
+
 </head>
 
+
 <body>
+
 
 <!-- =========================
      HEADER
@@ -25,23 +37,42 @@
     <div class="header-inner">
 
         <div class="brand">
-            <div class="brand-mark">FF</div>
+
+            <div class="brand-mark">
+                FF
+            </div>
 
             <div class="brand-text">
-                <strong>FREE FIRE</strong>
-                <span>TOP UP</span>
+
+                <strong>
+                    FREE FIRE
+                </strong>
+
+                <span>
+                    TOP UP
+                </span>
+
             </div>
+
         </div>
 
+
         <nav class="desktop-nav">
-            <a href="#howItWorks">How it works</a>
-            <a href="#faq">FAQ</a>
+
+            <a href="#howItWorks">
+                How it works
+            </a>
+
+            <a href="#faq">
+                FAQ
+            </a>
+
         </nav>
 
-        
     </div>
 
 </header>
+
 
 
 <main>
@@ -55,6 +86,7 @@
 
     <div class="verify-shell">
 
+
         <div class="verify-left">
 
             <div class="eyebrow">
@@ -62,7 +94,8 @@
             </div>
 
             <h1>
-                Free Fire<br>
+                Free Fire
+                <br>
                 <span>Top Up</span>
             </h1>
 
@@ -71,20 +104,30 @@
                 and continue to the top-up store.
             </p>
 
+
             <div class="hero-points">
 
                 <div>
-                    <span class="point-icon">✓</span>
+                    <span class="point-icon">
+                        ✓
+                    </span>
+
                     UID verification
                 </div>
 
                 <div>
-                    <span class="point-icon">✓</span>
+                    <span class="point-icon">
+                        ✓
+                    </span>
+
                     Player details
                 </div>
 
                 <div>
-                    <span class="point-icon">✓</span>
+                    <span class="point-icon">
+                        ✓
+                    </span>
+
                     Diamond packages
                 </div>
 
@@ -92,6 +135,9 @@
 
         </div>
 
+
+
+        <!-- VERIFY CARD -->
 
         <div class="verify-card">
 
@@ -107,6 +153,7 @@
 
             </div>
 
+
             <h2>
                 Verify your UID
             </h2>
@@ -120,46 +167,52 @@
                 PLAYER UID
             </label>
 
+
             <div class="uid-input-box">
 
                 <div class="uid-game-icon">
-    FF
-</div>
+                    FF
+                </div>
 
-<input
-    type="text"
-    id="uidInput"
-    placeholder="e.g. 12345678"
+
+                <input
+                    type="text"
+                    id="uidInput"
+                    placeholder="e.g. 1633864660"
                     maxlength="15"
                     autocomplete="off"
+                    inputmode="numeric"
                 >
 
             </div>
 
 
-           <button
-    type="button"
-    class="verify-btn"
-    id="verifyBtn"
-    onclick="verifyUID()">
+            <button
+                type="button"
+                class="verify-btn"
+                id="verifyBtn"
+                onclick="verifyUID()"
+            >
 
-    <span id="verifyBtnText">
-        VERIFY UID
-    </span>
+                <span id="verifyBtnText">
+                    VERIFY UID
+                </span>
 
-    <span
-        id="verifyLoader"
-        class="verify-loader"
-        style="display:none;">
-    </span>
+                <span
+                    id="verifyLoader"
+                    class="verify-loader"
+                    style="display:none;"
+                >
+                </span>
 
-    <span
-        id="verifyArrow"
-        class="verify-arrow">
-        →
-    </span>
+                <span
+                    id="verifyArrow"
+                    class="verify-arrow"
+                >
+                    →
+                </span>
 
-</button>
+            </button>
 
 
             <div id="errorMessage"></div>
@@ -176,48 +229,71 @@
 </section>
 
 
-<!-- PLAYER MODAL -->
 
-<div id="playerModal" class="modal">
+<!-- =========================
+     PLAYER MODAL
+========================= -->
+
+<div
+    id="playerModal"
+    class="modal"
+>
 
     <div class="modal-card player-modal-card">
+
 
         <button
             type="button"
             class="close-modal"
-            onclick="closePlayerModal()">
+            onclick="closePlayerModal()"
+        >
             ×
         </button>
+
 
         <div class="modal-badge">
             ✓ UID VERIFIED
         </div>
 
+
         <div class="player-main-icon">
-            <span>✓</span>
+
+            <span>
+                ✓
+            </span>
+
         </div>
+
 
         <div class="verified-label">
             ACCOUNT VERIFIED
         </div>
 
+
         <h2 id="playerName">
             Player
         </h2>
+
 
         <p class="success-text">
             Player information verified successfully
         </p>
 
+
         <div class="uid-highlight">
 
             <div>
-                <span>PLAYER UID</span>
+
+                <span>
+                    PLAYER UID
+                </span>
 
                 <strong id="playerUID">
                     ---
                 </strong>
+
             </div>
+
 
             <span class="uid-check">
                 ✓
@@ -225,11 +301,15 @@
 
         </div>
 
+
         <div class="player-info-grid">
+
 
             <div class="player-data">
 
-                <span>LEVEL</span>
+                <span>
+                    LEVEL
+                </span>
 
                 <strong id="playerLevel">
                     ---
@@ -237,9 +317,12 @@
 
             </div>
 
+
             <div class="player-data">
 
-                <span>REGION</span>
+                <span>
+                    REGION
+                </span>
 
                 <strong id="playerRegion">
                     ---
@@ -247,9 +330,12 @@
 
             </div>
 
+
             <div class="player-data">
 
-                <span>LIKES</span>
+                <span>
+                    LIKES
+                </span>
 
                 <strong id="playerLikes">
                     ---
@@ -257,9 +343,12 @@
 
             </div>
 
+
             <div class="player-data">
 
-                <span>RANK</span>
+                <span>
+                    RANK
+                </span>
 
                 <strong id="playerRank">
                     ---
@@ -268,6 +357,7 @@
             </div>
 
         </div>
+
 
         <div class="account-status">
 
@@ -279,20 +369,27 @@
 
         </div>
 
+
         <button
             type="button"
             class="primary-btn"
-            onclick="goToStore()">
+            onclick="goToStore()"
+        >
 
             CONTINUE TO STORE
 
-            <span>→</span>
+            <span>
+                →
+            </span>
 
         </button>
 
     </div>
 
 </div>
+
+
+
 <!-- =========================
      STORE
 ========================= -->
@@ -300,13 +397,14 @@
 <section
     id="storeSection"
     class="store-section"
-    style="display:none;">
+    style="display:none;"
+>
 
     <div class="content-container">
 
-        <!-- STORE HEADER -->
 
         <div class="page-title-row">
+
 
             <div class="store-title">
 
@@ -314,9 +412,11 @@
                     TOP UP STORE
                 </div>
 
+
                 <h2>
                     Select Diamond Package
                 </h2>
+
 
                 <p>
                     Choose a package for your verified player account.
@@ -325,26 +425,38 @@
             </div>
 
 
+
             <div class="verified-player-chip">
 
                 <span class="chip-dot"></span>
 
+
                 <div>
-                    <small>PLAYER</small>
+
+                    <small>
+                        PLAYER
+                    </small>
 
                     <strong id="storePlayerName">
                         ---
                     </strong>
+
                 </div>
+
 
                 <div class="chip-divider"></div>
 
+
                 <div>
-                    <small>UID</small>
+
+                    <small>
+                        UID
+                    </small>
 
                     <strong id="storePlayerUID">
                         ---
                     </strong>
+
                 </div>
 
             </div>
@@ -352,7 +464,6 @@
         </div>
 
 
-        <!-- STORE CONTENT -->
 
         <div class="store-layout">
 
@@ -361,19 +472,23 @@
 
             <div class="packages-area">
 
+
                 <div class="packages-header">
 
                     <div>
+
                         <h3>
                             Diamond Packages
                         </h3>
 
                         <span>
-                            Select one package to continue
+                            Select a package to continue
                         </span>
+
                     </div>
 
                 </div>
+
 
 
                 <div class="package-grid">
@@ -406,17 +521,14 @@
                         <button
                             type="button"
                             class="buy-btn"
-                            onclick="buyPackage('100 Diamonds', 39)">
-
+                            onclick="buyPackage('100 Diamonds', 39)"
+                        >
                             BUY NOW
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
+
 
 
                     <!-- 310 -->
@@ -446,17 +558,14 @@
                         <button
                             type="button"
                             class="buy-btn"
-                            onclick="buyPackage('310 Diamonds', 99)">
-
+                            onclick="buyPackage('310 Diamonds', 99)"
+                        >
                             BUY NOW
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
+
 
 
                     <!-- 520 -->
@@ -467,6 +576,7 @@
                             MOST POPULAR
                         </div>
 
+
                         <div class="package-top">
 
                             <div class="package-icon">
@@ -474,6 +584,7 @@
                             </div>
 
                         </div>
+
 
                         <h4>
                             520 Diamonds
@@ -487,20 +598,18 @@
                             ₹149
                         </div>
 
+
                         <button
                             type="button"
                             class="buy-btn"
-                            onclick="buyPackage('520 Diamonds', 149)">
-
+                            onclick="buyPackage('520 Diamonds', 149)"
+                        >
                             BUY NOW
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
+
 
 
                     <!-- 1060 -->
@@ -530,17 +639,14 @@
                         <button
                             type="button"
                             class="buy-btn"
-                            onclick="buyPackage('1060 Diamonds', 299)">
-
+                            onclick="buyPackage('1060 Diamonds', 299)"
+                        >
                             BUY NOW
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
+
 
 
                     <!-- 2180 -->
@@ -570,17 +676,14 @@
                         <button
                             type="button"
                             class="buy-btn"
-                            onclick="buyPackage('2180 Diamonds', 499)">
-
+                            onclick="buyPackage('2180 Diamonds', 499)"
+                        >
                             BUY NOW
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
+
 
 
                     <!-- 5600 -->
@@ -610,14 +713,10 @@
                         <button
                             type="button"
                             class="buy-btn"
-                            onclick="buyPackage('5600 Diamonds', 799)">
-
+                            onclick="buyPackage('5600 Diamonds', 799)"
+                        >
                             BUY NOW
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
@@ -627,17 +726,20 @@
             </div>
 
 
-            <!-- RIGHT SUMMARY -->
+
+            <!-- ORDER SUMMARY -->
 
             <aside class="order-preview">
 
                 <div class="preview-label">
-                    ORDER SUMMARY
+                    ACCOUNT
                 </div>
 
+
                 <h3>
-                    Your Account
+                    Verified Player
                 </h3>
+
 
                 <div class="summary-player">
 
@@ -645,7 +747,9 @@
                         👤
                     </div>
 
+
                     <div>
+
                         <small>
                             PLAYER
                         </small>
@@ -653,6 +757,7 @@
                         <strong id="summaryPlayerName">
                             ---
                         </strong>
+
                     </div>
 
                 </div>
@@ -671,7 +776,12 @@
                 </div>
 
 
-                <div class="summary-divider"></div>
+                <div class="preview-divider"></div>
+
+
+                <div class="summary-title">
+                    ORDER
+                </div>
 
 
                 <div class="summary-empty">
@@ -685,8 +795,7 @@
                     </strong>
 
                     <p>
-                        Your selected package will appear
-                        here before checkout.
+                        Your selected package will appear here.
                     </p>
 
                 </div>
@@ -701,7 +810,7 @@
 
                     <div>
                         <span>✓</span>
-                        Secure checkout flow
+                        Secure demo flow
                     </div>
 
                 </div>
@@ -715,56 +824,95 @@
 </section>
 
 
+
 <!-- =========================
      ORDER MODAL
 ========================= -->
 
-<div id="orderModal" class="modal">
+<div
+    id="orderModal"
+    class="modal"
+>
 
     <div class="modal-card order-card">
+
 
         <button
             type="button"
             class="close-modal"
-            onclick="closeOrderModal()">
+            onclick="closeOrderModal()"
+        >
             ×
         </button>
+
 
         <div class="modal-badge">
             ✓ ORDER READY
         </div>
 
+
         <h2>
             Confirm Your Order
         </h2>
 
+
         <p class="success-text">
-            Review your package before continuing.
+            Check your order details before continuing.
         </p>
 
 
         <div class="order-summary">
 
-            <div>
-                <span>PACKAGE</span>
-                <strong id="orderPackage">---</strong>
-            </div>
 
             <div>
-                <span>PRICE</span>
-                <strong id="orderPrice">₹0</strong>
+
+                <span>
+                    PACKAGE
+                </span>
+
+                <strong id="orderPackage">
+                    ---
+                </strong>
+
             </div>
 
-            <div>
-                <span>UID</span>
-                <strong id="orderUID">---</strong>
-            </div>
 
             <div>
-                <span>STATUS</span>
+
+                <span>
+                    AMOUNT
+                </span>
+
+                <strong id="orderPrice">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    PLAYER UID
+                </span>
+
+                <strong id="orderUID">
+                    ---
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    STATUS
+                </span>
+
                 <strong class="green-text">
                     Ready
                 </strong>
+
             </div>
 
         </div>
@@ -773,22 +921,30 @@
         <button
             type="button"
             class="primary-btn"
-            onclick="proceedToPay()">
+            onclick="proceedToPay()"
+        >
+
             PROCEED TO PAY
-            <span>→</span>
+
+            <span>
+                →
+            </span>
+
         </button>
 
 
         <button
             type="button"
             class="secondary-btn"
-            onclick="closeOrderModal()">
+            onclick="closeOrderModal()"
+        >
             Cancel Order
         </button>
 
     </div>
 
 </div>
+
 
 
 <!-- =========================
@@ -798,58 +954,103 @@
 <section
     id="paymentSection"
     class="payment-section"
-    style="display:none;">
+    style="display:none;"
+>
 
-    <div class="content-container payment-content">
+    <div class="content-container">
+
+
+        <div class="payment-page-heading">
+
+            <div class="section-tag">
+                PAYMENT
+            </div>
+
+
+            <h2>
+                Complete Your Payment
+            </h2>
+
+
+            <p>
+                Review your order and continue with the payment instructions.
+            </p>
+
+        </div>
+
+
 
         <div class="payment-layout">
 
 
             <div class="payment-main">
 
-                <div class="section-tag">
-                    PAYMENT
-                </div>
-
-                <h2>
-                    Complete Your Payment
-                </h2>
-
-                <p class="payment-intro">
-                    Review your order and use the payment details below.
-                </p>
-
 
                 <div class="payment-order-box">
 
-                    <div>
-                        <span>PACKAGE</span>
-                        <strong id="paymentPackage">---</strong>
-                    </div>
 
                     <div>
-                        <span>AMOUNT</span>
-                        <strong id="paymentPrice">₹0</strong>
+
+                        <span>
+                            PACKAGE
+                        </span>
+
+                        <strong id="paymentPackage">
+                            ---
+                        </strong>
+
                     </div>
 
-                    <div>
-                        <span>UID</span>
-                        <strong id="paymentUID">---</strong>
-                    </div>
 
                     <div>
-                        <span>ORDER ID</span>
-                        <strong id="paymentOrderId">---</strong>
+
+                        <span>
+                            AMOUNT
+                        </span>
+
+                        <strong id="paymentPrice">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            UID
+                        </span>
+
+                        <strong id="paymentUID">
+                            ---
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            ORDER ID
+                        </span>
+
+                        <strong id="paymentOrderId">
+                            ---
+                        </strong>
+
                     </div>
 
                 </div>
+
 
 
                 <div class="payment-card">
 
+
                     <div class="payment-card-title">
                         Scan to pay
                     </div>
+
 
                     <div class="qr-container">
 
@@ -864,18 +1065,25 @@
 
                     <div class="upi-box">
 
+
                         <div>
-                            <small>UPI ID</small>
+
+                            <small>
+                                UPI ID
+                            </small>
 
                             <strong id="upiId">
                                 raju.2501@ptyes
                             </strong>
+
                         </div>
+
 
                         <button
                             type="button"
                             class="copy-btn"
-                            onclick="copyUPI()">
+                            onclick="copyUPI()"
+                        >
                             COPY
                         </button>
 
@@ -884,33 +1092,43 @@
                 </div>
 
 
+
                 <div
                     id="paymentStatus"
                     class="payment-status"
-                    style="display:none;">
+                    style="display:none;"
+                >
                 </div>
+
 
 
                 <button
                     type="button"
                     id="paidButton"
                     class="paid-btn"
-                    onclick="paymentSubmitted()">
+                    onclick="paymentSubmitted()"
+                >
                     I HAVE PAID
                 </button>
+
 
 
                 <button
                     type="button"
                     class="secondary-btn"
-                    onclick="backToStore()">
+                    onclick="backToStore()"
+                >
                     ← Back to Store
                 </button>
 
             </div>
 
 
+
+            <!-- PAYMENT SIDE -->
+
             <aside class="payment-side">
+
 
                 <div class="side-card">
 
@@ -918,41 +1136,76 @@
                         HOW TO PAY
                     </div>
 
+
+                    <h3>
+                        Follow these steps
+                    </h3>
+
+
                     <div class="payment-step">
-                        <div>01</div>
+
+                        <div>
+                            01
+                        </div>
+
                         <p>
                             Scan the QR code
                         </p>
+
                     </div>
 
+
                     <div class="payment-step">
-                        <div>02</div>
+
+                        <div>
+                            02
+                        </div>
+
                         <p>
                             Pay the displayed amount
                         </p>
+
                     </div>
 
+
                     <div class="payment-step">
-                        <div>03</div>
+
+                        <div>
+                            03
+                        </div>
+
                         <p>
                             Return to this page
                         </p>
+
                     </div>
 
+
                     <div class="payment-step">
-                        <div>04</div>
+
+                        <div>
+                            04
+                        </div>
+
                         <p>
-                            Review the demo payment state
+                            Review the payment demo state
                         </p>
+
                     </div>
 
                 </div>
 
+
                 <div class="demo-notice">
-                    <strong>Demo Notice</strong>
+
+                    <strong>
+                        Demo Notice
+                    </strong>
+
                     <p>
-                        This is an educational top-up interface demo.
+                        This is an independent educational top-up interface demo.
                     </p>
+
                 </div>
 
             </aside>
@@ -964,15 +1217,18 @@
 </section>
 
 
+
 <!-- =========================
      HOW IT WORKS
 ========================= -->
 
 <section
     id="howItWorks"
-    class="info-section">
+    class="info-section"
+>
 
     <div class="content-container">
+
 
         <div class="section-heading">
 
@@ -980,9 +1236,11 @@
                 SIMPLE PROCESS
             </div>
 
+
             <h2>
                 How It Works
             </h2>
+
 
             <p>
                 Four simple steps from verification to payment.
@@ -991,42 +1249,94 @@
         </div>
 
 
+
         <div class="steps-grid">
 
+
             <div class="step-card">
-                <span>01</span>
-                <div>🔎</div>
-                <h3>Enter UID</h3>
+
+                <span>
+                    01
+                </span>
+
+                <div>
+                    🔎
+                </div>
+
+                <h3>
+                    Enter UID
+                </h3>
+
                 <p>
                     Enter your player UID in the verification form.
                 </p>
+
             </div>
 
+
+
             <div class="step-card">
-                <span>02</span>
-                <div>✓</div>
-                <h3>Verify Player</h3>
+
+                <span>
+                    02
+                </span>
+
+                <div>
+                    ✓
+                </div>
+
+                <h3>
+                    Verify Player
+                </h3>
+
                 <p>
                     Check the player information returned by the API.
                 </p>
+
             </div>
 
+
+
             <div class="step-card">
-                <span>03</span>
-                <div>💎</div>
-                <h3>Select Package</h3>
+
+                <span>
+                    03
+                </span>
+
+                <div>
+                    💎
+                </div>
+
+                <h3>
+                    Select Package
+                </h3>
+
                 <p>
                     Choose a diamond package from the top-up store.
                 </p>
+
             </div>
 
+
+
             <div class="step-card">
-                <span>04</span>
-                <div>💳</div>
-                <h3>Payment</h3>
+
+                <span>
+                    04
+                </span>
+
+                <div>
+                    💳
+                </div>
+
+                <h3>
+                    Payment
+                </h3>
+
                 <p>
                     Review the order and continue to the payment demo.
                 </p>
+
             </div>
 
         </div>
@@ -1036,21 +1346,25 @@
 </section>
 
 
+
 <!-- =========================
      FAQ
 ========================= -->
 
 <section
     id="faq"
-    class="faq-section">
+    class="faq-section"
+>
 
     <div class="content-container">
+
 
         <div class="section-heading">
 
             <div class="section-tag">
                 FAQ
             </div>
+
 
             <h2>
                 Frequently Asked Questions
@@ -1059,14 +1373,22 @@
         </div>
 
 
+
         <div class="faq-container">
+
 
             <details class="faq-item">
 
                 <summary>
+
                     How do I find my UID?
-                    <span>+</span>
+
+                    <span>
+                        +
+                    </span>
+
                 </summary>
+
 
                 <p>
                     Your UID is the player ID associated with your game account.
@@ -1076,46 +1398,66 @@
             </details>
 
 
+
             <details class="faq-item">
 
                 <summary>
+
                     How does verification work?
-                    <span>+</span>
+
+                    <span>
+                        +
+                    </span>
+
                 </summary>
 
+
                 <p>
-                    The demo sends the entered UID to the configured player
-                    information API and displays the available player details.
+                    The entered UID is sent to the configured player-information
+                    API and available player information is displayed.
                 </p>
 
             </details>
 
 
+
             <details class="faq-item">
 
                 <summary>
+
                     Can I choose different packages?
-                    <span>+</span>
+
+                    <span>
+                        +
+                    </span>
+
                 </summary>
 
+
                 <p>
-                    Yes. The store contains multiple package options that can
-                    be selected before opening the order review screen.
+                    Yes. Multiple package options are available in the demo store.
                 </p>
 
             </details>
 
 
+
             <details class="faq-item">
 
                 <summary>
+
                     Is this an official Free Fire website?
-                    <span>+</span>
+
+                    <span>
+                        +
+                    </span>
+
                 </summary>
 
+
                 <p>
-                    No. This website is an independent educational/demo interface
-                    and is not affiliated with or operated by Garena.
+                    No. This is an independent educational/demo interface
+                    and is not affiliated with Garena.
                 </p>
 
             </details>
@@ -1130,6 +1472,7 @@
 </main>
 
 
+
 <!-- =========================
      FOOTER
 ========================= -->
@@ -1138,7 +1481,9 @@
 
     <div class="footer-inner">
 
+
         <div>
+
             <strong>
                 FREE FIRE TOP UP
             </strong>
@@ -1146,7 +1491,9 @@
             <p>
                 Educational demo interface
             </p>
+
         </div>
+
 
         <span>
             © 2026
@@ -1157,7 +1504,11 @@
 </footer>
 
 
-<script src="./script.js"></script>
+
+<script
+    src="./script.js?v=4"
+></script>
+
 
 </body>
 </html>
