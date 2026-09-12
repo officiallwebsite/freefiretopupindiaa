@@ -37,7 +37,29 @@ async function verifyUID() {
         }
 
         const player = data.basic_info;
+const avatar = document.getElementById("playerAvatar");
+const avatarFallback = document.getElementById("avatarFallback");
 
+avatar.style.display = "none";
+avatarFallback.style.display = "flex";
+
+if (player.head_pic) {
+    const avatarUrl =
+        "https://wzapiinfo.vercel.app/avatar?head_pic=" +
+        encodeURIComponent(player.head_pic);
+
+    avatar.onload = function () {
+        avatar.style.display = "block";
+        avatarFallback.style.display = "none";
+    };
+
+    avatar.onerror = function () {
+        avatar.style.display = "none";
+        avatarFallback.style.display = "flex";
+    };
+
+    avatar.src = avatarUrl;
+}
         currentUID = player.account_id || uid;
         currentPlayerName = player.nickname || "Unknown Player";
 
