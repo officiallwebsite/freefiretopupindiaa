@@ -1792,3 +1792,499 @@ body {
         gap: 9px;
     }
 }
+/* ==================================================
+   PLAYER DETAILS POPUP - REFERENCE STYLE
+================================================== */
+
+
+/* MODAL BACKGROUND */
+
+#playerModal {
+    display: none !important;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(20, 28, 42, 0.55);
+
+    backdrop-filter: blur(9px);
+}
+
+
+/* JAVASCRIPT OPEN */
+
+#playerModal[style*="display: flex"] {
+    display: flex !important;
+}
+
+
+/* MAIN POPUP */
+
+.player-details-modal {
+    width: 100%;
+
+    max-width: 470px;
+
+    position: relative;
+
+    padding: 36px 28px 20px;
+
+    background: #ffffff;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    box-shadow:
+        0 30px 80px rgba(20, 30, 50, 0.25);
+
+    overflow: hidden;
+
+    animation:
+        playerModalIn .22s ease-out;
+}
+
+
+@keyframes playerModalIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(14px)
+            scale(.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* CLOSE */
+
+.player-modal-close {
+    position: absolute;
+
+    top: 14px;
+
+    right: 14px;
+
+    width: 39px;
+
+    height: 39px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f0f3f7;
+
+    color: #9aa3af;
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 5;
+}
+
+
+.player-modal-close:hover {
+    background: #e6eaf0;
+
+    color: #596474;
+}
+
+
+/* DECORATIVE SPARKS */
+
+.spark {
+    position: absolute;
+
+    color: #ffad3d;
+
+    font-size: 20px;
+
+    pointer-events: none;
+}
+
+.spark-one {
+    top: 43px;
+
+    left: 100px;
+}
+
+.spark-two {
+    top: 100px;
+
+    right: 82px;
+
+    font-size: 24px;
+}
+
+
+/* VERIFIED CIRCLE */
+
+.verified-circle-big {
+    width: 92px;
+
+    height: 92px;
+
+    margin: 4px auto 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        #fff3e2;
+
+    box-shadow:
+        0 0 0 8px #fff9f1;
+}
+
+
+.verified-circle-big span {
+    width: 59px;
+
+    height: 59px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9415,
+            #ffc500
+        );
+
+    color: #ffffff;
+
+    font-size: 27px;
+
+    font-weight: 900;
+}
+
+
+/* VERIFIED BADGE */
+
+.verified-badge-new {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 6px 12px;
+
+    margin-bottom: 10px;
+
+    border-radius: 30px;
+
+    background: #e8f6e9;
+
+    color: #328646;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* NAME */
+
+.player-details-modal h2 {
+    color: #17243a;
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+    margin-bottom: 7px;
+
+    letter-spacing: .2px;
+}
+
+
+/* SUBTEXT */
+
+.player-success-text {
+    margin-bottom: 19px;
+
+    color: #4d5a6e;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+}
+
+
+/* STATS */
+
+.player-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+
+.player-stat {
+    min-height: 72px;
+
+    padding: 11px 7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f0f3f7;
+
+    border: 1px solid #e2e7ee;
+
+    border-radius: 13px;
+}
+
+
+.player-stat strong {
+    color: #16243b;
+
+    font-size: 21px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    margin-bottom: 7px;
+}
+
+
+.player-stat span {
+    color: #9aa3af;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* UID + CLAN */
+
+.player-extra-details {
+    margin-bottom: 15px;
+
+    padding: 10px 17px;
+
+    background: #f0f3f7;
+
+    border: 1px solid #e1e6ed;
+
+    border-radius: 13px;
+}
+
+
+.extra-row {
+    min-height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    text-align: left;
+}
+
+
+.extra-row + .extra-row {
+    border-top: 1px solid #dce2e9;
+}
+
+
+.extra-row span {
+    color: #8f98a5;
+
+    font-size: 12px;
+}
+
+
+.extra-row strong {
+    max-width: 65%;
+
+    color: #1d2a3e;
+
+    font-size: 13px;
+
+    text-align: right;
+
+    word-break: break-all;
+}
+
+
+/* PROCEED BUTTON */
+
+.player-proceed-btn {
+    width: 100%;
+
+    min-height: 51px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff9d19,
+            #ffd000
+        );
+
+    color: #17243a;
+
+    font-size: 15px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 11px 25px rgba(255, 165, 30, .20);
+
+    transition: .18s ease;
+}
+
+
+.player-proceed-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 14px 30px rgba(255, 165, 30, .25);
+}
+
+
+.player-proceed-btn span {
+    font-size: 20px;
+
+    line-height: 1;
+}
+
+
+/* RE-ENTER */
+
+.reenter-uid-btn {
+    margin-top: 16px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #16243b;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+
+.reenter-uid-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .player-details-modal {
+        max-width: 410px;
+
+        padding: 30px 17px 18px;
+
+        border-radius: 23px;
+    }
+
+    .spark-one {
+        left: 55px;
+    }
+
+    .spark-two {
+        right: 45px;
+    }
+
+    .verified-circle-big {
+        width: 82px;
+        height: 82px;
+    }
+
+    .verified-circle-big span {
+        width: 53px;
+        height: 53px;
+
+        font-size: 24px;
+    }
+
+    .player-details-modal h2 {
+        font-size: 24px;
+    }
+
+    .player-success-text {
+        font-size: 13px;
+    }
+
+    .player-stat {
+        min-height: 67px;
+    }
+
+    .player-stat strong {
+        font-size: 19px;
+    }
+}
