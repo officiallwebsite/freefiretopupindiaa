@@ -54,10 +54,8 @@ body {
 
     cursor: pointer;
 }
-
-
 /* =========================
-   VERIFY
+   PROFESSIONAL UID SCREEN
 ========================= */
 
 .verify-section {
@@ -67,38 +65,70 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 30px 20px;
+    padding: 40px 20px;
 
     background:
         radial-gradient(
-            circle at top,
-            rgba(255, 138, 0, 0.14),
-            transparent 45%
+            circle at 50% 0%,
+            rgba(255, 138, 0, 0.18),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 10% 80%,
+            rgba(255, 69, 0, 0.08),
+            transparent 30%
         ),
         #090909;
 }
 
 .verify-card {
     width: 100%;
-    max-width: 430px;
+    max-width: 450px;
 
-    padding: 35px 30px;
+    padding: 38px 32px;
 
-    background: #151515;
+    background:
+        linear-gradient(
+            180deg,
+            #191919 0%,
+            #111111 100%
+        );
 
-    border: 1px solid #2d2d2d;
-    border-radius: 18px;
+    border: 1px solid #303030;
+    border-radius: 20px;
 
     text-align: center;
 
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.55);
+        0 25px 80px rgba(0, 0, 0, 0.60);
+
+    position: relative;
+    overflow: hidden;
 }
 
-.game-icon,
-.player-symbol {
-    width: 72px;
-    height: 72px;
+.verify-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ff8a00,
+            transparent
+        );
+}
+
+.game-icon {
+    width: 78px;
+    height: 78px;
 
     margin: 0 auto 18px;
 
@@ -106,102 +136,229 @@ body {
     align-items: center;
     justify-content: center;
 
-    border-radius: 18px;
+    border-radius: 20px;
 
-    background: #ff8a00;
+    background:
+        linear-gradient(
+            135deg,
+            #ff9d26,
+            #ff5a00
+        );
 
-    font-size: 34px;
+    font-size: 36px;
 
     box-shadow:
-        0 10px 30px rgba(255, 138, 0, 0.22);
+        0 12px 35px rgba(255, 111, 0, 0.25);
+}
+
+.small-badge {
+    display: inline-block;
+
+    padding: 6px 11px;
+
+    margin-bottom: 13px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 138, 0, 0.10);
+
+    border: 1px solid rgba(255, 138, 0, 0.25);
+
+    color: #ff9d26;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
 }
 
 .verify-card h1 {
-    font-size: 30px;
-    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 900;
+
+    margin-bottom: 9px;
 }
 
-.verify-card p {
+.verify-subtitle {
     color: #999999;
-    font-size: 15px;
-    margin-bottom: 27px;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    margin-bottom: 28px;
 }
 
-.verify-card label {
-    display: block;
-
+.input-label {
     text-align: left;
 
     color: #dddddd;
 
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 800;
 
     margin-bottom: 8px;
 }
 
-.verify-card input {
+.uid-input-box {
     width: 100%;
-    height: 52px;
+    height: 56px;
 
-    padding: 0 15px;
+    display: flex;
+    align-items: center;
 
-    background: #0e0e0e;
+    background: #0c0c0c;
 
-    border: 1px solid #343434;
-    border-radius: 10px;
+    border: 1px solid #353535;
+    border-radius: 11px;
 
-    color: #ffffff;
+    padding: 0 14px;
 
-    outline: none;
-
-    font-size: 16px;
-
-    margin-bottom: 15px;
-}
-
-.verify-card input:focus {
-    border-color: #ff8a00;
-
-    box-shadow:
-        0 0 0 2px rgba(255, 138, 0, 0.12);
-}
-
-.verify-btn,
-.primary-btn,
-.buy-btn,
-.paid-btn {
-    border: none;
-    cursor: pointer;
-
-    background: #ff8a00;
-    color: #111111;
-
-    font-weight: 900;
+    margin-bottom: 14px;
 
     transition: 0.2s ease;
 }
 
-.verify-btn {
-    width: 100%;
-    height: 54px;
+.uid-input-box:focus-within {
+    border-color: #ff8a00;
 
-    border-radius: 10px;
-
-    font-size: 16px;
+    box-shadow:
+        0 0 0 3px rgba(255, 138, 0, 0.10);
 }
 
-.verify-btn:hover,
-.primary-btn:hover,
-.buy-btn:hover,
-.paid-btn:hover:not(:disabled) {
+.uid-icon {
+    color: #ff8a00;
+
+    font-size: 19px;
+    font-weight: 900;
+
+    margin-right: 10px;
+}
+
+.uid-input-box input {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.uid-input-box input::placeholder {
+    color: #666666;
+}
+
+.verify-btn {
+    width: 100%;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border: none;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9d26,
+            #ff6900
+        );
+
+    color: #111111;
+
+    font-size: 15px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    box-shadow:
+        0 10px 30px rgba(255, 120, 0, 0.18);
+}
+
+.verify-btn:hover {
     transform: translateY(-2px);
 
     box-shadow:
-        0 10px 25px rgba(255, 138, 0, 0.25);
+        0 14px 35px rgba(255, 120, 0, 0.28);
+}
+
+.verify-btn:active {
+    transform: translateY(0);
+}
+
+.verify-arrow {
+    font-size: 20px;
+    line-height: 1;
 }
 
 #errorMessage {
+    min-height: 22px;
+
+    margin-top: 13px;
+
+    color: #ff6868;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.verify-note {
+    margin-top: 20px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid #252525;
+
+    color: #666666;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   MOBILE UID SCREEN
+========================= */
+
+@media (max-width: 500px) {
+
+    .verify-section {
+        padding: 22px 15px;
+    }
+
+    .verify-card {
+        padding: 30px 20px;
+        border-radius: 17px;
+    }
+
+    .verify-card h1 {
+        font-size: 27px;
+    }
+
+    .verify-subtitle {
+        font-size: 13px;
+    }
+
+    .game-icon {
+        width: 70px;
+        height: 70px;
+
+        font-size: 32px;
+    }
+}
+
+
     min-height: 22px;
 
     margin-top: 13px;
