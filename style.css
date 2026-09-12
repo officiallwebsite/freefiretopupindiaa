@@ -1,4 +1,4 @@
-```css
+
 * {
     margin: 0;
     padding: 0;
@@ -54,8 +54,10 @@ body {
 
     cursor: pointer;
 }
+
+
 /* =========================
-   PROFESSIONAL UID SCREEN
+   UID VERIFICATION
 ========================= */
 
 .verify-section {
@@ -328,59 +330,20 @@ body {
 
 
 /* =========================
-   MOBILE UID SCREEN
-========================= */
-
-@media (max-width: 500px) {
-
-    .verify-section {
-        padding: 22px 15px;
-    }
-
-    .verify-card {
-        padding: 30px 20px;
-        border-radius: 17px;
-    }
-
-    .verify-card h1 {
-        font-size: 27px;
-    }
-
-    .verify-subtitle {
-        font-size: 13px;
-    }
-
-    .game-icon {
-        width: 70px;
-        height: 70px;
-
-        font-size: 32px;
-    }
-}
-
-
-    min-height: 22px;
-
-    margin-top: 13px;
-
-    color: #ff6666;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   MODAL
+   MODALS
 ========================= */
 
 .modal {
-    display: none;
+    display: none !important;
 
     position: fixed;
 
     inset: 0;
 
-    z-index: 1000;
+    z-index: 9999;
+
+    width: 100%;
+    height: 100%;
 
     padding: 20px;
 
@@ -390,6 +353,12 @@ body {
     background: rgba(0, 0, 0, 0.80);
 
     backdrop-filter: blur(5px);
+}
+
+
+/* JavaScript opens the modal */
+.modal[style*="display: flex"] {
+    display: flex !important;
 }
 
 .popup {
@@ -464,24 +433,55 @@ body {
 
 .popup h2 {
     font-size: 25px;
+
     margin-bottom: 8px;
 }
 
 .sub-text {
     color: #999999;
+
     font-size: 14px;
+
     margin-bottom: 22px;
 }
 
 
 /* =========================
-   INFO
+   PLAYER ICON
+========================= */
+
+.player-symbol {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9d26,
+            #ff5a00
+        );
+
+    font-size: 32px;
+}
+
+
+/* =========================
+   INFO GRID
 ========================= */
 
 .info-grid {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+        repeat(2, 1fr);
 
     gap: 10px;
 
@@ -494,6 +494,7 @@ body {
     background: #101010;
 
     border: 1px solid #292929;
+
     border-radius: 10px;
 
     text-align: left;
@@ -507,6 +508,7 @@ body {
     color: #888888;
 
     font-size: 10px;
+
     font-weight: 800;
 }
 
@@ -527,20 +529,47 @@ body {
 
 .primary-btn {
     width: 100%;
+
     min-height: 52px;
+
+    border: none;
 
     border-radius: 10px;
 
+    background:
+        linear-gradient(
+            135deg,
+            #ff9d26,
+            #ff6900
+        );
+
+    color: #111111;
+
     font-size: 15px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(255, 138, 0, 0.25);
 }
 
 .secondary-btn {
     width: 100%;
+
     min-height: 45px;
 
     margin-top: 10px;
 
     border: 1px solid #333333;
+
     border-radius: 9px;
 
     background: #202020;
@@ -548,6 +577,7 @@ body {
     color: #bbbbbb;
 
     font-size: 14px;
+
     font-weight: 700;
 
     cursor: pointer;
@@ -555,6 +585,7 @@ body {
 
 .secondary-btn:hover {
     background: #292929;
+
     color: #ffffff;
 }
 
@@ -579,23 +610,27 @@ body {
 
 .store-container {
     width: 100%;
+
     max-width: 1000px;
 
-    margin: auto;
+    margin: 0 auto;
 }
 
 .store-header {
     text-align: center;
+
     margin-bottom: 35px;
 }
 
 .store-header h1 {
     font-size: 34px;
+
     margin-bottom: 8px;
 }
 
 .store-header p {
     color: #999999;
+
     margin-bottom: 20px;
 }
 
@@ -614,6 +649,7 @@ body {
     background: #151515;
 
     border: 1px solid #292929;
+
     border-radius: 10px;
 
     color: #999999;
@@ -645,6 +681,7 @@ body {
     background: #151515;
 
     border: 1px solid #2b2b2b;
+
     border-radius: 15px;
 
     text-align: center;
@@ -663,11 +700,13 @@ body {
 
 .diamond-icon {
     font-size: 38px;
+
     margin-bottom: 12px;
 }
 
 .package-card h3 {
     font-size: 18px;
+
     margin-bottom: 12px;
 }
 
@@ -675,6 +714,7 @@ body {
     color: #ff9d26;
 
     font-size: 25px;
+
     font-weight: 900;
 
     margin-bottom: 18px;
@@ -682,11 +722,36 @@ body {
 
 .buy-btn {
     width: 100%;
+
     height: 45px;
+
+    border: none;
 
     border-radius: 9px;
 
+    background:
+        linear-gradient(
+            135deg,
+            #ff9d26,
+            #ff6900
+        );
+
+    color: #111111;
+
     font-size: 14px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.buy-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(255, 138, 0, 0.20);
 }
 
 
@@ -710,15 +775,17 @@ body {
 
 .payment-container {
     width: 100%;
+
     max-width: 500px;
 
-    margin: auto;
+    margin: 0 auto;
 
     padding: 30px;
 
     background: #151515;
 
     border: 1px solid #2c2c2c;
+
     border-radius: 18px;
 
     text-align: center;
@@ -729,19 +796,23 @@ body {
 
 .payment-container h1 {
     font-size: 30px;
+
     margin-bottom: 8px;
 }
 
 .payment-container > p {
     color: #999999;
+
     font-size: 14px;
+
     margin-bottom: 25px;
 }
 
 .payment-details {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+        repeat(2, 1fr);
 
     gap: 10px;
 
@@ -754,6 +825,7 @@ body {
     background: #0f0f0f;
 
     border: 1px solid #292929;
+
     border-radius: 10px;
 
     text-align: left;
@@ -765,6 +837,7 @@ body {
     color: #888888;
 
     font-size: 10px;
+
     font-weight: 800;
 
     margin-bottom: 5px;
@@ -787,6 +860,7 @@ body {
 
 .qr-container {
     width: 230px;
+
     height: 230px;
 
     margin: 0 auto 22px;
@@ -798,12 +872,15 @@ body {
     border-radius: 12px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 }
 
 .real-qr {
     width: 100%;
+
     height: 100%;
 
     display: block;
@@ -822,6 +899,7 @@ body {
     flex-wrap: wrap;
 
     align-items: center;
+
     justify-content: center;
 
     gap: 10px;
@@ -833,12 +911,15 @@ body {
     background: #101010;
 
     border: 1px solid #2b2b2b;
+
     border-radius: 10px;
 }
 
 .upi-box span {
     color: #888888;
+
     font-size: 12px;
+
     font-weight: 700;
 }
 
@@ -852,6 +933,7 @@ body {
 
 .copy-btn {
     border: none;
+
     border-radius: 7px;
 
     padding: 8px 12px;
@@ -861,6 +943,7 @@ body {
     color: #ffffff;
 
     font-size: 11px;
+
     font-weight: 800;
 
     cursor: pointer;
@@ -868,6 +951,7 @@ body {
 
 .copy-btn:hover {
     background: #ff8a00;
+
     color: #111111;
 }
 
@@ -890,21 +974,38 @@ body {
     color: #ff5c5c;
 
     font-size: 13px;
+
     font-weight: 800;
 }
 
 
 /* =========================
-   PAID
+   PAID BUTTON
 ========================= */
 
 .paid-btn {
     width: 100%;
+
     min-height: 52px;
+
+    border: none;
 
     border-radius: 10px;
 
+    background:
+        linear-gradient(
+            135deg,
+            #ff9d26,
+            #ff6900
+        );
+
+    color: #111111;
+
     font-size: 15px;
+
+    font-weight: 900;
+
+    cursor: pointer;
 }
 
 .paid-btn:disabled {
@@ -924,6 +1025,7 @@ body {
 
     .header {
         height: 62px;
+
         padding: 0 16px;
     }
 
@@ -933,6 +1035,7 @@ body {
 
     .verify-section {
         min-height: calc(100vh - 62px);
+
         padding: 20px 15px;
     }
 
@@ -945,7 +1048,9 @@ body {
     }
 
     .package-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
         gap: 12px;
     }
 
@@ -987,7 +1092,8 @@ body {
     }
 
     .package-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .payment-details {
@@ -996,6 +1102,7 @@ body {
 
     .qr-container {
         width: 210px;
+
         height: 210px;
     }
 
