@@ -1,6 +1,7 @@
 ```javascript
 let currentUID = "";
 let currentPlayerName = "";
+
 let selectedPackage = "";
 let selectedPrice = 0;
 
@@ -11,29 +12,47 @@ let selectedPrice = 0;
 
 async function verifyUID() {
 
-    const uidInput = document.getElementById("uidInput");
-    const error = document.getElementById("errorMessage");
+    const uidInput =
+        document.getElementById("uidInput");
+
+    const error =
+        document.getElementById("errorMessage");
 
     if (!uidInput || !error) {
         alert("Page error: UID elements not found.");
         return;
     }
 
-    const uid = uidInput.value.trim();
+    const uid =
+        uidInput.value.trim();
 
     error.innerText = "";
 
+
     if (uid === "") {
-        error.innerText = "Please enter your UID.";
+
+        error.innerText =
+            "Please enter your UID.";
+
         return;
     }
 
-    if (!/^[0-9]+$/.test(uid) || uid.length < 6) {
-        error.innerText = "Please enter a valid UID.";
+
+    if (
+        !/^[0-9]+$/.test(uid) ||
+        uid.length < 6
+    ) {
+
+        error.innerText =
+            "Please enter a valid UID.";
+
         return;
     }
 
-    error.innerText = "Verifying UID...";
+
+    error.innerText =
+        "Verifying UID...";
+
 
     try {
 
@@ -41,55 +60,78 @@ async function verifyUID() {
             "https://free-fire-uid-apii.vercel.app/info?uid=" +
             encodeURIComponent(uid);
 
-        const response = await fetch(apiURL);
 
-        const data = await response.json();
+        const response =
+            await fetch(apiURL);
 
-        console.log("API RESPONSE:", data);
 
-        if (!response.ok || !data.basic_info) {
+        const data =
+            await response.json();
+
+
+        console.log(
+            "API RESPONSE:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.basic_info
+        ) {
+
             error.innerText =
                 "UID not found or API error.";
+
             return;
         }
 
-        const player = data.basic_info;
 
-        console.log("PLAYER:", player);
+        const player =
+            data.basic_info;
+
+
+        console.log(
+            "PLAYER DATA:",
+            player
+        );
 
 
         /* =========================
-           SAVE PLAYER DATA
+           SAVE PLAYER
         ========================= */
 
         currentUID =
             player.account_id || uid;
+
 
         currentPlayerName =
             player.nickname || "Unknown Player";
 
 
         /* =========================
-           UID
+           PLAYER UID
         ========================= */
 
         const playerUID =
             document.getElementById("playerUID");
 
         if (playerUID) {
+
             playerUID.innerText =
                 currentUID;
         }
 
 
         /* =========================
-           NAME
+           PLAYER NAME
         ========================= */
 
         const playerName =
             document.getElementById("playerName");
 
         if (playerName) {
+
             playerName.innerText =
                 currentPlayerName;
         }
@@ -103,6 +145,7 @@ async function verifyUID() {
             document.getElementById("playerLevel");
 
         if (playerLevel) {
+
             playerLevel.innerText =
                 player.level ?? "N/A";
         }
@@ -116,6 +159,7 @@ async function verifyUID() {
             document.getElementById("playerRegion");
 
         if (playerRegion) {
+
             playerRegion.innerText =
                 player.region || "IND";
         }
@@ -129,6 +173,7 @@ async function verifyUID() {
             document.getElementById("playerLikes");
 
         if (playerLikes) {
+
             playerLikes.innerText =
                 player.liked ?? "0";
         }
@@ -142,46 +187,9 @@ async function verifyUID() {
             document.getElementById("playerRank");
 
         if (playerRank) {
+
             playerRank.innerText =
                 player.rank ?? "N/A";
-        }
-
-
-        /* =========================
-           AVATAR FALLBACK
-        ========================= */
-
-        const avatar =
-            document.getElementById("playerAvatar");
-
-        const avatarFallback =
-            document.getElementById("avatarFallback");
-
-        if (avatar) {
-            avatar.style.display = "none";
-        }
-
-        if (avatarFallback) {
-
-            let initials = "FF";
-
-            const cleanName =
-                currentPlayerName
-                    .replace(/[^a-zA-Z0-9]/g, "");
-
-            if (cleanName.length >= 2) {
-
-                initials =
-                    cleanName
-                        .substring(0, 2)
-                        .toUpperCase();
-            }
-
-            avatarFallback.innerText =
-                initials;
-
-            avatarFallback.style.display =
-                "flex";
         }
 
 
@@ -200,6 +208,7 @@ async function verifyUID() {
             document.getElementById("playerModal");
 
         if (playerModal) {
+
             playerModal.style.display =
                 "flex";
         }
@@ -218,7 +227,7 @@ async function verifyUID() {
 
 
 /* =========================
-   CLOSE PLAYER MODAL
+   CLOSE PLAYER
 ========================= */
 
 function closePlayerModal() {
@@ -227,6 +236,7 @@ function closePlayerModal() {
         document.getElementById("playerModal");
 
     if (modal) {
+
         modal.style.display =
             "none";
     }
@@ -241,21 +251,27 @@ function goToStore() {
 
     closePlayerModal();
 
+
     const storePlayerName =
         document.getElementById("storePlayerName");
 
     const storePlayerUID =
         document.getElementById("storePlayerUID");
 
+
     if (storePlayerName) {
+
         storePlayerName.innerText =
             currentPlayerName;
     }
 
+
     if (storePlayerUID) {
+
         storePlayerUID.innerText =
             currentUID;
     }
+
 
     const verifySection =
         document.querySelector(".verify-section");
@@ -263,15 +279,20 @@ function goToStore() {
     const storeSection =
         document.getElementById("storeSection");
 
+
     if (verifySection) {
+
         verifySection.style.display =
             "none";
     }
 
+
     if (storeSection) {
+
         storeSection.style.display =
             "block";
     }
+
 
     window.scrollTo({
         top: 0,
@@ -284,13 +305,17 @@ function goToStore() {
    BUY PACKAGE
 ========================= */
 
-function buyPackage(packageName, price) {
+function buyPackage(
+    packageName,
+    price
+) {
 
     selectedPackage =
         packageName;
 
     selectedPrice =
         price;
+
 
     const orderPackage =
         document.getElementById("orderPackage");
@@ -301,25 +326,34 @@ function buyPackage(packageName, price) {
     const orderUID =
         document.getElementById("orderUID");
 
+
     if (orderPackage) {
+
         orderPackage.innerText =
             packageName;
     }
 
+
     if (orderPrice) {
+
         orderPrice.innerText =
             "₹" + price;
     }
 
+
     if (orderUID) {
+
         orderUID.innerText =
             currentUID;
     }
 
+
     const orderModal =
         document.getElementById("orderModal");
 
+
     if (orderModal) {
+
         orderModal.style.display =
             "flex";
     }
@@ -327,7 +361,7 @@ function buyPackage(packageName, price) {
 
 
 /* =========================
-   CLOSE ORDER MODAL
+   CLOSE ORDER
 ========================= */
 
 function closeOrderModal() {
@@ -335,7 +369,9 @@ function closeOrderModal() {
     const modal =
         document.getElementById("orderModal");
 
+
     if (modal) {
+
         modal.style.display =
             "none";
     }
@@ -350,6 +386,7 @@ function proceedToPay() {
 
     closeOrderModal();
 
+
     const paymentPackage =
         document.getElementById("paymentPackage");
 
@@ -359,20 +396,27 @@ function proceedToPay() {
     const paymentUID =
         document.getElementById("paymentUID");
 
+
     if (paymentPackage) {
+
         paymentPackage.innerText =
             selectedPackage;
     }
 
+
     if (paymentPrice) {
+
         paymentPrice.innerText =
             "₹" + selectedPrice;
     }
 
+
     if (paymentUID) {
+
         paymentUID.innerText =
             currentUID;
     }
+
 
     const orderId =
         "FF" +
@@ -380,16 +424,25 @@ function proceedToPay() {
             .toString()
             .slice(-8);
 
+
     const paymentOrderId =
-        document.getElementById("paymentOrderId");
+        document.getElementById(
+            "paymentOrderId"
+        );
+
 
     if (paymentOrderId) {
+
         paymentOrderId.innerText =
             orderId;
     }
 
+
     const paymentStatus =
-        document.getElementById("paymentStatus");
+        document.getElementById(
+            "paymentStatus"
+        );
+
 
     if (paymentStatus) {
 
@@ -400,8 +453,12 @@ function proceedToPay() {
             "";
     }
 
+
     const paidButton =
-        document.getElementById("paidButton");
+        document.getElementById(
+            "paidButton"
+        );
+
 
     if (paidButton) {
 
@@ -412,21 +469,31 @@ function proceedToPay() {
             "I HAVE PAID";
     }
 
+
     const storeSection =
-        document.getElementById("storeSection");
+        document.getElementById(
+            "storeSection"
+        );
 
     const paymentSection =
-        document.getElementById("paymentSection");
+        document.getElementById(
+            "paymentSection"
+        );
+
 
     if (storeSection) {
+
         storeSection.style.display =
             "none";
     }
 
+
     if (paymentSection) {
+
         paymentSection.style.display =
             "block";
     }
+
 
     window.scrollTo({
         top: 0,
@@ -444,12 +511,15 @@ function copyUPI() {
     const upiElement =
         document.getElementById("upiId");
 
+
     if (!upiElement) {
         return;
     }
 
+
     const upi =
         upiElement.innerText;
+
 
     if (navigator.clipboard) {
 
@@ -457,12 +527,16 @@ function copyUPI() {
             .writeText(upi)
             .then(function () {
 
-                alert("UPI ID copied!");
+                alert(
+                    "UPI ID copied!"
+                );
 
             })
             .catch(function () {
 
-                alert("Unable to copy UPI ID.");
+                alert(
+                    "Unable to copy UPI ID."
+                );
 
             });
 
@@ -482,10 +556,15 @@ function copyUPI() {
 function paymentSubmitted() {
 
     const status =
-        document.getElementById("paymentStatus");
+        document.getElementById(
+            "paymentStatus"
+        );
 
     const button =
-        document.getElementById("paidButton");
+        document.getElementById(
+            "paidButton"
+        );
+
 
     if (status) {
 
@@ -495,6 +574,7 @@ function paymentSubmitted() {
         status.style.display =
             "block";
     }
+
 
     if (button) {
 
@@ -514,20 +594,29 @@ function paymentSubmitted() {
 function backToStore() {
 
     const paymentSection =
-        document.getElementById("paymentSection");
+        document.getElementById(
+            "paymentSection"
+        );
 
     const storeSection =
-        document.getElementById("storeSection");
+        document.getElementById(
+            "storeSection"
+        );
+
 
     if (paymentSection) {
+
         paymentSection.style.display =
             "none";
     }
 
+
     if (storeSection) {
+
         storeSection.style.display =
             "block";
     }
+
 
     window.scrollTo({
         top: 0,
