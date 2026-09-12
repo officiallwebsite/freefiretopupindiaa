@@ -1,3 +1,4 @@
+```css id="j9w5p3"
 * {
     margin: 0;
     padding: 0;
@@ -36,6 +37,11 @@ body {
     font-size: 25px;
     cursor: pointer;
 }
+
+
+/* =========================
+   UID VERIFICATION
+========================= */
 
 .verify-section {
     min-height: calc(100vh - 70px);
@@ -121,7 +127,11 @@ body {
     color: #e53935;
     font-size: 14px;
 }
-/* PLAYER VERIFICATION POPUP */
+
+
+/* =========================
+   PLAYER VERIFICATION POPUP
+========================= */
 
 .modal {
     display: none;
@@ -138,16 +148,19 @@ body {
 .player-popup {
     width: 100%;
     max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
     background: #ffffff;
     border-radius: 24px;
     padding: 30px 25px;
     text-align: center;
     position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
     animation: popupIn 0.25s ease;
 }
 
 @keyframes popupIn {
+
     from {
         opacity: 0;
         transform: scale(0.9);
@@ -157,6 +170,7 @@ body {
         opacity: 1;
         transform: scale(1);
     }
+
 }
 
 .close-modal {
@@ -183,21 +197,44 @@ body {
     margin-bottom: 18px;
 }
 
+
+/* PLAYER AVATAR */
+
 .player-avatar {
-    width: 85px;
-    height: 85px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 16px;
     border-radius: 50%;
     background: #fff1df;
+    border: 3px solid #ff8a00;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 42px;
-    margin: 0 auto 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(255, 138, 0, 0.20);
+    position: relative;
 }
+
+.player-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#avatarFallback {
+    position: absolute;
+    font-size: 42px;
+    line-height: 1;
+}
+
+
+/* PLAYER NAME */
 
 .player-popup h2 {
     font-size: 26px;
     margin-bottom: 5px;
+    word-break: break-word;
 }
 
 .verified-text {
@@ -205,6 +242,9 @@ body {
     font-size: 14px;
     margin-bottom: 22px;
 }
+
+
+/* PLAYER INFO */
 
 .player-info {
     display: grid;
@@ -216,503 +256,5 @@ body {
 .player-info div {
     background: #f6f7f9;
     border-radius: 12px;
-    padding: 13px 8px;
-}
-
-.player-info span {
-    display: block;
-    color: #7b8290;
-    font-size: 11px;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.player-info strong {
-    font-size: 14px;
-}
-
-.store-btn {
-    width: 100%;
-    height: 52px;
-    border: none;
-    border-radius: 12px;
-    background: #ff8a00;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.reenter-btn {
-    margin-top: 15px;
-    border: none;
-    background: transparent;
-    color: #737b8c;
-    font-size: 13px;
-    cursor: pointer;
-}
-/* TOP UP CENTRE */
-
-.store-section {
-    display: none;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 35px 20px 60px;
-}
-
-.store-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.store-tag {
-    display: inline-block;
-    color: #ff8a00;
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.store-header h2 {
-    font-size: 32px;
-    margin-bottom: 7px;
-}
-
-.store-header p {
-    color: #737b8c;
-}
-
-.account-bar {
-    background: white;
-    border-radius: 16px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    box-shadow: 0 7px 25px rgba(0,0,0,.06);
-    margin-bottom: 22px;
-}
-
-.account-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #fff1df;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
-}
-
-.account-details {
-    flex: 1;
-}
-
-.account-details strong,
-.account-details span {
-    display: block;
-}
-
-.account-details span {
-    font-size: 12px;
-    color: #737b8c;
-    margin-top: 4px;
-}
-
-.account-verified {
-    color: #16a34a;
-    background: #e9fff0;
-    padding: 6px 9px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 800;
-}
-
-.tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.tabs button {
-    flex: 1;
-    height: 48px;
-    border: 1px solid #e1e4e9;
-    background: white;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.tabs .active-tab {
-    background: #ff8a00;
-    color: white;
-    border-color: #ff8a00;
-}
-
-.diamond-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-}
-
-.diamond-card {
-    background: white;
-    border-radius: 18px;
-    padding: 20px 15px;
-    text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,.06);
-}
-
-.diamond-icon {
-    font-size: 35px;
-    margin-bottom: 8px;
-}
-
-.diamond-card h3 {
-    font-size: 17px;
-    margin-bottom: 7px;
-}
-
-.bonus {
-    display: inline-block;
-    background: #fff1df;
-    color: #ff7b00;
-    padding: 5px 8px;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: 800;
-}
-
-.stock {
-    color: #16a34a;
-    font-size: 11px;
-    margin: 10px 0;
-}
-
-.price {
-    font-size: 22px;
-    font-weight: 900;
-    margin-bottom: 12px;
-}
-
-.price del {
-    color: #9ca3af;
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-.buy-btn {
-    width: 100%;
-    height: 43px;
-    border: none;
-    border-radius: 10px;
-    background: #ff8a00;
-    color: white;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.buy-btn:hover {
-    background: #e97800;
-}
-
-@media (max-width: 700px) {
-
-    .diamond-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-
-@media (max-width: 400px) {
-
-    .diamond-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .diamond-card {
-        padding: 15px 10px;
-    }
-
-}
-@media (max-width: 500px) {
-
-    .header {
-        padding: 0 20px;
-    }
-
-    .verify-card {
-        padding: 32px 22px;
-    }
-
-    .verify-card h1 {
-        font-size: 27px;
-    }
-}
-/* PAYMENT SCREEN */
-
-.payment-section {
-    display: none;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 40px 20px 70px;
-}
-
-.payment-card {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 30px;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.08);
-}
-
-.payment-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.payment-tag {
-    display: inline-block;
-    color: #ff8a00;
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.payment-header h2 {
-    font-size: 30px;
-    margin-bottom: 8px;
-}
-
-.payment-header p {
-    color: #737b8c;
-}
-
-.payment-summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.payment-summary div {
-    background: #f6f7f9;
-    border-radius: 12px;
-    padding: 14px 10px;
-    text-align: center;
-}
-
-.payment-summary span {
-    display: block;
-    color: #7b8290;
-    font-size: 10px;
-    font-weight: 800;
-    margin-bottom: 5px;
-}
-
-.payment-summary strong {
-    font-size: 14px;
-}
-
-.qr-box {
-    text-align: center;
-    background: #fff8ef;
-    border: 1px solid #ffe0b8;
-    border-radius: 18px;
-    padding: 25px 20px;
-    margin-bottom: 20px;
-}
-
-.qr-placeholder {
-    width: 190px;
-    height: 190px;
-    margin: 0 auto 18px;
-    background: #ffffff;
-    border: 2px solid #ff8a00;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.real-qr {
-    width: 175px;
-    height: 175px;
-    object-fit: contain;
-    display: block;
-}
-}
-
-.qr-placeholder span {
-    font-size: 28px;
-    font-weight: 900;
-    color: #ff8a00;
-}
-
-.qr-box h3 {
-    margin-bottom: 7px;
-}
-
-.qr-box p {
-    color: #737b8c;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.payment-instructions {
-    background: #f6f7f9;
-    border-radius: 14px;
-    padding: 18px;
-    margin-bottom: 20px;
-}
-
-.payment-instructions h3 {
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-.payment-instructions p {
-    color: #737b8c;
-    font-size: 13px;
-    margin: 6px 0;
-}
-
-.paid-btn {
-    width: 100%;
-    height: 54px;
-    border: none;
-    border-radius: 12px;
-    background: #ff8a00;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.paid-btn:hover {
-    background: #e97800;
-}
-
-.payment-status {
-    display: none;
-    margin-top: 15px;
-    padding: 16px;
-    border-radius: 12px;
-    background: #fff1f1;
-    border: 1px solid #ffcccc;
-    color: #dc2626;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 800;
-}
-}
-
-.back-store-btn {
-    display: block;
-    margin: 15px auto 0;
-    border: none;
-    background: transparent;
-    color: #737b8c;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-@media (max-width: 600px) {
-
-    .payment-card {
-        padding: 22px 16px;
-    }
-
-    .payment-header h2 {
-        font-size: 25px;
-    }
-
-    .payment-summary {
-        grid-template-columns: 1fr;
-    }
-
-    .qr-placeholder {
-        width: 170px;
-        height: 170px;
-    }
-
-}
-.upi-methods {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.upi-methods span {
-    background: #ffffff;
-    border: 1px solid #e4e6ea;
-    border-radius: 20px;
-    padding: 7px 11px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #4b5563;
-}
-
-.qr-pattern {
-    width: 135px;
-    height: 135px;
-    border: 8px solid #172033;
-    background:
-        linear-gradient(90deg, #172033 10px, transparent 10px),
-        linear-gradient(#172033 10px, transparent 10px);
-    background-size: 22px 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-}
-
-.qr-pattern span {
-    background: #ffffff;
-    padding: 8px;
-    font-size: 20px;
-    font-weight: 900;
-    color: #172033;
-}
-.upi-id-box {
-    margin-top: 18px;
-    padding: 15px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    text-align: center;
-}
-
-.upi-id-box span {
-    display: block;
-    font-size: 11px;
-    color: #737b8c;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.upi-id-box strong {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.upi-id-box button {
-    border: none;
-    background: #172033;
-    color: #ffffff;
-    padding: 9px 15px;
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-}
-.paid-btn:disabled {
-    background: #9ca3af;
-    cursor: not-allowed;
-    opacity: 0.8;
-}
+    padding
+```
