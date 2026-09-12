@@ -1,8 +1,4 @@
 ```css
-/* =========================
-   RESET
-========================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +11,7 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #0b0b0b;
+    background: #090909;
     color: #ffffff;
     min-height: 100vh;
 }
@@ -26,25 +22,22 @@ body {
 ========================= */
 
 .header {
-    width: 100%;
     height: 70px;
-    background: #111111;
-    border-bottom: 1px solid #2a2a2a;
+    width: 100%;
+
+    padding: 0 25px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 25px;
-
-    position: relative;
-    z-index: 10;
+    background: #111111;
+    border-bottom: 1px solid #292929;
 }
 
 .logo {
     font-size: 24px;
     font-weight: 900;
-    color: #ffffff;
     letter-spacing: 1px;
 }
 
@@ -55,49 +48,802 @@ body {
 .menu-btn {
     border: none;
     background: transparent;
+
     color: #ffffff;
     font-size: 25px;
+
     cursor: pointer;
 }
 
 
 /* =========================
-   MAIN
-========================= */
-
-main {
-    width: 100%;
-    min-height: calc(100vh - 70px);
-}
-
-
-/* =========================
-   UID VERIFY SECTION
+   VERIFY
 ========================= */
 
 .verify-section {
     min-height: calc(100vh - 70px);
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     padding: 30px 20px;
 
     background:
         radial-gradient(
             circle at top,
-            rgba(255, 138, 0, 0.12),
+            rgba(255, 138, 0, 0.14),
             transparent 45%
         ),
-        #0b0b0b;
+        #090909;
 }
 
 .verify-card {
     width: 100%;
     max-width: 430px;
 
+    padding: 35px 30px;
+
     background: #151515;
 
-    border:
+    border: 1px solid #2d2d2d;
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.game-icon,
+.player-symbol {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: #ff8a00;
+
+    font-size: 34px;
+
+    box-shadow:
+        0 10px 30px rgba(255, 138, 0, 0.22);
+}
+
+.verify-card h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.verify-card p {
+    color: #999999;
+    font-size: 15px;
+    margin-bottom: 27px;
+}
+
+.verify-card label {
+    display: block;
+
+    text-align: left;
+
+    color: #dddddd;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.verify-card input {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 15px;
+
+    background: #0e0e0e;
+
+    border: 1px solid #343434;
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    outline: none;
+
+    font-size: 16px;
+
+    margin-bottom: 15px;
+}
+
+.verify-card input:focus {
+    border-color: #ff8a00;
+
+    box-shadow:
+        0 0 0 2px rgba(255, 138, 0, 0.12);
+}
+
+.verify-btn,
+.primary-btn,
+.buy-btn,
+.paid-btn {
+    border: none;
+    cursor: pointer;
+
+    background: #ff8a00;
+    color: #111111;
+
+    font-weight: 900;
+
+    transition: 0.2s ease;
+}
+
+.verify-btn {
+    width: 100%;
+    height: 54px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+}
+
+.verify-btn:hover,
+.primary-btn:hover,
+.buy-btn:hover,
+.paid-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(255, 138, 0, 0.25);
+}
+
+#errorMessage {
+    min-height: 22px;
+
+    margin-top: 13px;
+
+    color: #ff6666;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    padding: 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.80);
+
+    backdrop-filter: blur(5px);
+}
+
+.popup {
+    width: 100%;
+    max-width: 450px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    position: relative;
+
+    padding: 30px;
+
+    background: #171717;
+
+    border: 1px solid #333333;
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.65);
+}
+
+.close-modal {
+    position: absolute;
+
+    right: 15px;
+    top: 12px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #292929;
+
+    color: #ffffff;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    background: #ff8a00;
+    color: #111111;
+}
+
+.verified-badge {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    margin-bottom: 15px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 138, 0, 0.12);
+
+    border: 1px solid rgba(255, 138, 0, 0.35);
+
+    color: #ff9d26;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+}
+
+.popup h2 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.sub-text {
+    color: #999999;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+
+/* =========================
+   INFO
+========================= */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 22px;
+}
+
+.info-grid > div {
+    padding: 13px 10px;
+
+    background: #101010;
+
+    border: 1px solid #292929;
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+.info-grid span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #888888;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.info-grid strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-btn {
+    width: 100%;
+    min-height: 52px;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+}
+
+.secondary-btn {
+    width: 100%;
+    min-height: 45px;
+
+    margin-top: 10px;
+
+    border: 1px solid #333333;
+    border-radius: 9px;
+
+    background: #202020;
+
+    color: #bbbbbb;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background: #292929;
+    color: #ffffff;
+}
+
+
+/* =========================
+   STORE
+========================= */
+
+.store-section {
+    min-height: calc(100vh - 70px);
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255, 138, 0, 0.10),
+            transparent 42%
+        ),
+        #090909;
+}
+
+.store-container {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+.store-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.store-header h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.store-header p {
+    color: #999999;
+    margin-bottom: 20px;
+}
+
+.store-player {
+    display: inline-flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    background: #151515;
+
+    border: 1px solid #292929;
+    border-radius: 10px;
+
+    color: #999999;
+
+    font-size: 13px;
+}
+
+.store-player strong {
+    color: #ffffff;
+}
+
+
+/* =========================
+   PACKAGES
+========================= */
+
+.package-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.package-card {
+    padding: 25px 18px;
+
+    background: #151515;
+
+    border: 1px solid #2b2b2b;
+    border-radius: 15px;
+
+    text-align: center;
+
+    transition: 0.2s ease;
+}
+
+.package-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #ff8a00;
+
+    box-shadow:
+        0 15px 40px rgba(255, 138, 0, 0.12);
+}
+
+.diamond-icon {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.package-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.package-price {
+    color: #ff9d26;
+
+    font-size: 25px;
+    font-weight: 900;
+
+    margin-bottom: 18px;
+}
+
+.buy-btn {
+    width: 100%;
+    height: 45px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-section {
+    min-height: calc(100vh - 70px);
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255, 138, 0, 0.10),
+            transparent 42%
+        ),
+        #090909;
+}
+
+.payment-container {
+    width: 100%;
+    max-width: 500px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    background: #151515;
+
+    border: 1px solid #2c2c2c;
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.payment-container h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.payment-container > p {
+    color: #999999;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.payment-details {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+.payment-details > div {
+    padding: 12px;
+
+    background: #0f0f0f;
+
+    border: 1px solid #292929;
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+.payment-details span {
+    display: block;
+
+    color: #888888;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    margin-bottom: 5px;
+}
+
+.payment-details strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    word-break: break-word;
+}
+
+
+/* =========================
+   QR
+========================= */
+
+.qr-container {
+    width: 230px;
+    height: 230px;
+
+    margin: 0 auto 22px;
+
+    padding: 10px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.real-qr {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+
+/* =========================
+   UPI
+========================= */
+
+.upi-box {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 13px;
+
+    margin-bottom: 18px;
+
+    background: #101010;
+
+    border: 1px solid #2b2b2b;
+    border-radius: 10px;
+}
+
+.upi-box span {
+    color: #888888;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.upi-box strong {
+    color: #ffffff;
+
+    font-size: 13px;
+
+    word-break: break-all;
+}
+
+.copy-btn {
+    border: none;
+    border-radius: 7px;
+
+    padding: 8px 12px;
+
+    background: #292929;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.copy-btn:hover {
+    background: #ff8a00;
+    color: #111111;
+}
+
+
+/* =========================
+   PAYMENT STATUS
+========================= */
+
+.payment-status {
+    margin-bottom: 15px;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    background: rgba(255, 60, 60, 0.10);
+
+    border: 1px solid rgba(255, 60, 60, 0.30);
+
+    color: #ff5c5c;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+
+/* =========================
+   PAID
+========================= */
+
+.paid-btn {
+    width: 100%;
+    min-height: 52px;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+}
+
+.paid-btn:disabled {
+    background: #5a2525;
+
+    color: #ffb0b0;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 750px) {
+
+    .header {
+        height: 62px;
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .verify-section {
+        min-height: calc(100vh - 62px);
+        padding: 20px 15px;
+    }
+
+    .verify-card {
+        padding: 28px 20px;
+    }
+
+    .verify-card h1 {
+        font-size: 26px;
+    }
+
+    .package-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .package-card {
+        padding: 20px 12px;
+    }
+
+    .package-card h3 {
+        font-size: 15px;
+    }
+
+    .package-price {
+        font-size: 22px;
+    }
+
+    .store-section,
+    .payment-section {
+        padding: 25px 15px;
+    }
+
+    .store-header h1 {
+        font-size: 28px;
+    }
+
+    .payment-container {
+        padding: 25px 18px;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 420px) {
+
+    .popup {
+        padding: 25px 17px;
+    }
+
+    .package-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-details {
+        gap: 8px;
+    }
+
+    .qr-container {
+        width: 210px;
+        height: 210px;
+    }
+
+    .store-player {
+        font-size: 12px;
+    }
+}
 ```
