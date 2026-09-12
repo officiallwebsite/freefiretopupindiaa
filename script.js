@@ -20,7 +20,27 @@ async function verifyUID() {
     }
 
     error.innerText = "Verifying UID...";
+const verifyBtn = document.getElementById("verifyBtn");
+const verifyBtnText = document.getElementById("verifyBtnText");
+const verifyLoader = document.getElementById("verifyLoader");
+const verifyArrow = document.getElementById("verifyArrow");
 
+if (verifyBtn) {
+    verifyBtn.disabled = true;
+    verifyBtn.classList.add("loading");
+}
+
+if (verifyBtnText) {
+    verifyBtnText.innerText = "VERIFYING...";
+}
+
+if (verifyLoader) {
+    verifyLoader.style.display = "block";
+}
+
+if (verifyArrow) {
+    verifyArrow.style.display = "none";
+}
     try {
         const response = await fetch(
             "https://free-fire-uid-apii.vercel.app/info?uid=" +
