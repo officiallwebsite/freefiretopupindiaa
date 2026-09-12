@@ -32,7 +32,7 @@
 
 <div id="orderModal" class="modal">
 
-    <div class="player-popup">
+    <div class="popup">
 
         <button
             type="button"
@@ -45,15 +45,13 @@
             ✓ ORDER READY
         </div>
 
-        <h2>
-            Confirm Your Order
-        </h2>
+        <h2>Confirm Your Order</h2>
 
-        <p class="verified-text">
+        <p class="sub-text">
             Please check your order details
         </p>
 
-        <div class="player-info">
+        <div class="info-grid">
 
             <div>
                 <span>PACKAGE</span>
@@ -79,14 +77,14 @@
 
         <button
             type="button"
-            class="store-btn"
+            class="primary-btn"
             onclick="proceedToPay()">
             PROCEED TO PAY →
         </button>
 
         <button
             type="button"
-            class="reenter-btn"
+            class="secondary-btn"
             onclick="closeOrderModal()">
             Cancel Order
         </button>
@@ -111,9 +109,7 @@
             🎮
         </div>
 
-        <h1>
-            Verify Your UID
-        </h1>
+        <h1>Verify Your UID</h1>
 
         <p>
             Enter your Free Fire UID to continue
@@ -151,7 +147,7 @@
 
 <div id="playerModal" class="modal">
 
-    <div class="player-popup">
+    <div class="popup">
 
         <button
             type="button"
@@ -164,41 +160,19 @@
             ✓ VERIFIED ACCOUNT
         </div>
 
-
-        <!-- AVATAR -->
-
-        <div class="player-avatar">
-
-            <img
-                id="playerAvatar"
-                src=""
-                alt="Player Avatar"
-                style="display:none;"
-            >
-
-            <div
-                id="avatarFallback"
-                class="generated-avatar">
-                FF
-            </div>
-
+        <div class="player-symbol">
+            👤
         </div>
-
-
-        <!-- PLAYER NAME -->
 
         <h2 id="playerName">
             Player
         </h2>
 
-        <p class="verified-text">
+        <p class="sub-text">
             ✓ UID verified successfully
         </p>
 
-
-        <!-- PLAYER DETAILS -->
-
-        <div class="player-info">
+        <div class="info-grid">
 
             <div>
                 <span>UID</span>
@@ -232,10 +206,9 @@
 
         </div>
 
-
         <button
             type="button"
-            class="store-btn"
+            class="primary-btn"
             onclick="goToStore()">
             PROCEED TO STORE →
         </button>
@@ -262,9 +235,7 @@
                 ✓ UID VERIFIED
             </div>
 
-            <h1>
-                Top Up Centre
-            </h1>
+            <h1>Top Up Centre</h1>
 
             <p>
                 Select your Diamond package
@@ -272,17 +243,13 @@
 
             <div class="store-player">
 
-                <span>
-                    PLAYER:
-                </span>
+                <span>PLAYER:</span>
 
                 <strong id="storePlayerName">
                     ---
                 </strong>
 
-                <span>
-                    UID:
-                </span>
+                <span>UID:</span>
 
                 <strong id="storePlayerUID">
                     ---
@@ -297,18 +264,13 @@
 
         <div class="package-grid">
 
-
-            <!-- 100 DIAMONDS -->
-
             <div class="package-card">
 
                 <div class="diamond-icon">
                     💎
                 </div>
 
-                <h3>
-                    100 Diamonds
-                </h3>
+                <h3>100 Diamonds</h3>
 
                 <div class="package-price">
                     ₹39
@@ -324,17 +286,13 @@
             </div>
 
 
-            <!-- 310 DIAMONDS -->
-
             <div class="package-card">
 
                 <div class="diamond-icon">
                     💎
                 </div>
 
-                <h3>
-                    310 Diamonds
-                </h3>
+                <h3>310 Diamonds</h3>
 
                 <div class="package-price">
                     ₹99
@@ -350,17 +308,13 @@
             </div>
 
 
-            <!-- 520 DIAMONDS -->
-
             <div class="package-card">
 
                 <div class="diamond-icon">
                     💎
                 </div>
 
-                <h3>
-                    520 Diamonds
-                </h3>
+                <h3>520 Diamonds</h3>
 
                 <div class="package-price">
                     ₹149
@@ -376,17 +330,13 @@
             </div>
 
 
-            <!-- 1060 DIAMONDS -->
-
             <div class="package-card">
 
                 <div class="diamond-icon">
                     💎
                 </div>
 
-                <h3>
-                    1060 Diamonds
-                </h3>
+                <h3>1060 Diamonds</h3>
 
                 <div class="package-price">
                     ₹299
@@ -402,17 +352,13 @@
             </div>
 
 
-            <!-- 2180 DIAMONDS -->
-
             <div class="package-card">
 
                 <div class="diamond-icon">
                     💎
                 </div>
 
-                <h3>
-                    2180 Diamonds
-                </h3>
+                <h3>2180 Diamonds</h3>
 
                 <div class="package-price">
                     ₹499
@@ -428,17 +374,13 @@
             </div>
 
 
-            <!-- 5600 DIAMONDS -->
-
             <div class="package-card">
 
                 <div class="diamond-icon">
                     💎
                 </div>
 
-                <h3>
-                    5600 Diamonds
-                </h3>
+                <h3>5600 Diamonds</h3>
 
                 <div class="package-price">
                     ₹799
@@ -475,45 +417,33 @@
             ✓ ORDER CREATED
         </div>
 
-        <h1>
-            Complete Payment
-        </h1>
+        <h1>Complete Payment</h1>
 
         <p>
             Scan the QR code or use the UPI ID below
         </p>
 
 
-        <!-- PAYMENT DETAILS -->
-
         <div class="payment-details">
 
             <div>
                 <span>PACKAGE</span>
-                <strong id="paymentPackage">
-                    ---
-                </strong>
+                <strong id="paymentPackage">---</strong>
             </div>
 
             <div>
                 <span>PRICE</span>
-                <strong id="paymentPrice">
-                    ₹0
-                </strong>
+                <strong id="paymentPrice">₹0</strong>
             </div>
 
             <div>
                 <span>UID</span>
-                <strong id="paymentUID">
-                    ---
-                </strong>
+                <strong id="paymentUID">---</strong>
             </div>
 
             <div>
                 <span>ORDER ID</span>
-                <strong id="paymentOrderId">
-                    ---
-                </strong>
+                <strong id="paymentOrderId">---</strong>
             </div>
 
         </div>
@@ -536,9 +466,7 @@
 
         <div class="upi-box">
 
-            <span>
-                UPI ID
-            </span>
+            <span>UPI ID</span>
 
             <strong id="upiId">
                 raju.2501@ptyes
@@ -559,4 +487,36 @@
         <div
             id="paymentStatus"
             class="payment-status"
+            style="display:none;">
+        </div>
+
+
+        <button
+            type="button"
+            id="paidButton"
+            class="paid-btn"
+            onclick="paymentSubmitted()">
+            I HAVE PAID
+        </button>
+
+
+        <button
+            type="button"
+            class="secondary-btn"
+            onclick="backToStore()">
+            ← Back to Store
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<script src="./script.js"></script>
+
+</body>
+</html>
 ```
