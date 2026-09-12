@@ -2310,3 +2310,76 @@ body {
     flex-direction: column;
     line-height: 1.05;
 }
+/* =========================
+   FREE FIRE BANNER LOGO
+========================= */
+
+.banner-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.game-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+@media (max-width: 600px) {
+
+    .banner-logo {
+        width: 58px;
+        height: 58px;
+    }
+
+    .game-banner-content {
+        gap: 12px;
+    }
+
+}
+.header-logo {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    display: block;
+}
+
+.brand-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+}
+
+.banner-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.game-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+@media (max-width: 600px) {
+
+    .banner-logo {
+        width: 58px;
+        height: 58px;
+    }
+
+    .game-banner-content {
+        gap: 12px;
+    }
+
+}
