@@ -1,4 +1,4 @@
-```javascript
+
 let currentUID = "";
 let currentPlayerName = "";
 let selectedPackage = "";
