@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,87 +18,12 @@
         FREE FIRE <span>TOP UP</span>
     </div>
 
-    <button type="button" class="menu-btn">
-        ☰
-    </button>
+    <button type="button" class="menu-btn">☰</button>
 
 </header>
 
 
-<!-- ================================
-     ORDER MODAL
-================================ -->
-
-<div id="orderModal" class="modal">
-
-    <div class="popup">
-
-        <button
-            type="button"
-            class="close-modal"
-            onclick="closeOrderModal()">
-            ×
-        </button>
-
-        <div class="verified-badge">
-            ✓ ORDER READY
-        </div>
-
-        <h2>Confirm Your Order</h2>
-
-        <p class="sub-text">
-            Please check your order details
-        </p>
-
-        <div class="info-grid">
-
-            <div>
-                <span>PACKAGE</span>
-                <strong id="orderPackage">---</strong>
-            </div>
-
-            <div>
-                <span>PRICE</span>
-                <strong id="orderPrice">₹0</strong>
-            </div>
-
-            <div>
-                <span>UID</span>
-                <strong id="orderUID">---</strong>
-            </div>
-
-            <div>
-                <span>STATUS</span>
-                <strong>Ready</strong>
-            </div>
-
-        </div>
-
-        <button
-            type="button"
-            class="primary-btn"
-            onclick="proceedToPay()">
-            PROCEED TO PAY →
-        </button>
-
-        <button
-            type="button"
-            class="secondary-btn"
-            onclick="closeOrderModal()">
-            Cancel Order
-        </button>
-
-    </div>
-
-</div>
-
-
-<main>
-
-
-<!-- ================================
-     UID VERIFICATION
-================================ -->
+<!-- UID VERIFICATION -->
 
 <section class="verify-section">
 
@@ -127,9 +51,7 @@
 
         <div class="uid-input-box">
 
-            <span class="uid-icon">
-                #
-            </span>
+            <span class="uid-icon">#</span>
 
             <input
                 type="text"
@@ -146,13 +68,8 @@
             class="verify-btn"
             onclick="verifyUID()">
 
-            <span>
-                VERIFY UID
-            </span>
-
-            <span class="verify-arrow">
-                →
-            </span>
+            <span>VERIFY UID</span>
+            <span class="verify-arrow">→</span>
 
         </button>
 
@@ -167,9 +84,7 @@
 </section>
 
 
-<!-- ================================
-     PLAYER MODAL
-================================ -->
+<!-- PLAYER MODAL -->
 
 <div id="playerModal" class="modal">
 
@@ -244,9 +159,75 @@
 </div>
 
 
-<!-- ================================
-     STORE
-================================ -->
+<!-- ORDER MODAL -->
+
+<div id="orderModal" class="modal">
+
+    <div class="popup">
+
+        <button
+            type="button"
+            class="close-modal"
+            onclick="closeOrderModal()">
+            ×
+        </button>
+
+        <div class="verified-badge">
+            ✓ ORDER READY
+        </div>
+
+        <h2>
+            Confirm Your Order
+        </h2>
+
+        <p class="sub-text">
+            Please check your order details
+        </p>
+
+        <div class="info-grid">
+
+            <div>
+                <span>PACKAGE</span>
+                <strong id="orderPackage">---</strong>
+            </div>
+
+            <div>
+                <span>PRICE</span>
+                <strong id="orderPrice">₹0</strong>
+            </div>
+
+            <div>
+                <span>UID</span>
+                <strong id="orderUID">---</strong>
+            </div>
+
+            <div>
+                <span>STATUS</span>
+                <strong>Ready</strong>
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            class="primary-btn"
+            onclick="proceedToPay()">
+            PROCEED TO PAY →
+        </button>
+
+        <button
+            type="button"
+            class="secondary-btn"
+            onclick="closeOrderModal()">
+            Cancel Order
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- STORE -->
 
 <section
     id="storeSection"
@@ -261,7 +242,9 @@
                 ✓ UID VERIFIED
             </div>
 
-            <h1>Top Up Centre</h1>
+            <h1>
+                Top Up Centre
+            </h1>
 
             <p>
                 Select your Diamond package
@@ -286,15 +269,11 @@
         </div>
 
 
-        <!-- PACKAGE GRID -->
-
         <div class="package-grid">
 
             <div class="package-card">
 
-                <div class="diamond-icon">
-                    💎
-                </div>
+                <div class="diamond-icon">💎</div>
 
                 <h3>100 Diamonds</h3>
 
@@ -314,9 +293,7 @@
 
             <div class="package-card">
 
-                <div class="diamond-icon">
-                    💎
-                </div>
+                <div class="diamond-icon">💎</div>
 
                 <h3>310 Diamonds</h3>
 
@@ -336,9 +313,7 @@
 
             <div class="package-card">
 
-                <div class="diamond-icon">
-                    💎
-                </div>
+                <div class="diamond-icon">💎</div>
 
                 <h3>520 Diamonds</h3>
 
@@ -358,9 +333,7 @@
 
             <div class="package-card">
 
-                <div class="diamond-icon">
-                    💎
-                </div>
+                <div class="diamond-icon">💎</div>
 
                 <h3>1060 Diamonds</h3>
 
@@ -380,9 +353,7 @@
 
             <div class="package-card">
 
-                <div class="diamond-icon">
-                    💎
-                </div>
+                <div class="diamond-icon">💎</div>
 
                 <h3>2180 Diamonds</h3>
 
@@ -402,9 +373,7 @@
 
             <div class="package-card">
 
-                <div class="diamond-icon">
-                    💎
-                </div>
+                <div class="diamond-icon">💎</div>
 
                 <h3>5600 Diamonds</h3>
 
@@ -428,9 +397,7 @@
 </section>
 
 
-<!-- ================================
-     PAYMENT
-================================ -->
+<!-- PAYMENT -->
 
 <section
     id="paymentSection"
@@ -443,12 +410,13 @@
             ✓ ORDER CREATED
         </div>
 
-        <h1>Complete Payment</h1>
+        <h1>
+            Complete Payment
+        </h1>
 
         <p>
             Scan the QR code or use the UPI ID below
         </p>
-
 
         <div class="payment-details">
 
@@ -475,8 +443,6 @@
         </div>
 
 
-        <!-- QR CODE -->
-
         <div class="qr-container">
 
             <img
@@ -487,8 +453,6 @@
 
         </div>
 
-
-        <!-- UPI -->
 
         <div class="upi-box">
 
@@ -507,8 +471,6 @@
 
         </div>
 
-
-        <!-- PAYMENT STATUS -->
 
         <div
             id="paymentStatus"
@@ -538,11 +500,7 @@
 </section>
 
 
-</main>
-
-
 <script src="./script.js"></script>
 
 </body>
 </html>
-
