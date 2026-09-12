@@ -106,35 +106,61 @@
     <div class="verify-card">
 
         <div class="game-icon">
-            🎮
+            💎
         </div>
 
-        <h1>Verify Your UID</h1>
+        <div class="small-badge">
+            FREE FIRE TOP UP
+        </div>
 
-        <p>
-            Enter your Free Fire UID to continue
+        <h1>
+            Verify Your UID
+        </h1>
+
+        <p class="verify-subtitle">
+            Enter your player UID to securely continue
         </p>
 
-        <label for="uidInput">
+        <div class="input-label">
             Player UID
-        </label>
+        </div>
 
-        <input
-            type="text"
-            id="uidInput"
-            placeholder="Enter your UID"
-            maxlength="15"
-            autocomplete="off"
-        >
+        <div class="uid-input-box">
+
+            <span class="uid-icon">
+                #
+            </span>
+
+            <input
+                type="text"
+                id="uidInput"
+                placeholder="Enter your UID"
+                maxlength="15"
+                autocomplete="off"
+            >
+
+        </div>
 
         <button
             type="button"
             class="verify-btn"
             onclick="verifyUID()">
-            VERIFY UID
+
+            <span>
+                VERIFY UID
+            </span>
+
+            <span class="verify-arrow">
+                →
+            </span>
+
         </button>
 
         <div id="errorMessage"></div>
+
+        <div class="verify-note">
+            🔒 Your UID is used only to verify your player account.
+        </div>
 
     </div>
 
