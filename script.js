@@ -172,6 +172,7 @@ async function verifyUID() {
                     .replace(/[^a-zA-Z0-9]/g, "");
 
             if (cleanName.length >= 2) {
+
                 initials =
                     cleanName
                         .substring(0, 2)
@@ -200,5 +201,363 @@ async function verifyUID() {
         const playerModal =
             document.getElementById("playerModal");
 
-        if (playerMod
+        if (playerModal) {
+
+            playerModal.style.display =
+                "flex";
+        }
+
+    } catch (err) {
+
+        console.error(
+            "VERIFY UID ERROR:",
+            err
+        );
+
+        error.innerText =
+            "Unable to verify UID. Please try again.";
+    }
+}
+
+
+/* =========================
+   CLOSE PLAYER MODAL
+========================= */
+
+function closePlayerModal() {
+
+    const modal =
+        document.getElementById("playerModal");
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+/* =========================
+   GO TO STORE
+========================= */
+
+function goToStore() {
+
+    closePlayerModal();
+
+    const storePlayerName =
+        document.getElementById("storePlayerName");
+
+    const storePlayerUID =
+        document.getElementById("storePlayerUID");
+
+    if (storePlayerName) {
+        storePlayerName.innerText =
+            currentPlayerName;
+    }
+
+    if (storePlayerUID) {
+        storePlayerUID.innerText =
+            currentUID;
+    }
+
+
+    const verifySection =
+        document.querySelector(".verify-section");
+
+    const storeSection =
+        document.getElementById("storeSection");
+
+    if (verifySection) {
+        verifySection.style.display =
+            "none";
+    }
+
+    if (storeSection) {
+        storeSection.style.display =
+            "block";
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   BUY PACKAGE
+========================= */
+
+function buyPackage(packageName, price) {
+
+    selectedPackage =
+        packageName;
+
+    selectedPrice =
+        price;
+
+
+    const orderPackage =
+        document.getElementById("orderPackage");
+
+    const orderPrice =
+        document.getElementById("orderPrice");
+
+    const orderUID =
+        document.getElementById("orderUID");
+
+
+    if (orderPackage) {
+        orderPackage.innerText =
+            packageName;
+    }
+
+    if (orderPrice) {
+        orderPrice.innerText =
+            "₹" + price;
+    }
+
+    if (orderUID) {
+        orderUID.innerText =
+            currentUID;
+    }
+
+
+    const orderModal =
+        document.getElementById("orderModal");
+
+    if (orderModal) {
+        orderModal.style.display =
+            "flex";
+    }
+}
+
+
+/* =========================
+   CLOSE ORDER MODAL
+========================= */
+
+function closeOrderModal() {
+
+    const modal =
+        document.getElementById("orderModal");
+
+    if (modal) {
+        modal.style.display =
+            "none";
+    }
+}
+
+
+/* =========================
+   PROCEED TO PAYMENT
+========================= */
+
+function proceedToPay() {
+
+    closeOrderModal();
+
+
+    const paymentPackage =
+        document.getElementById("paymentPackage");
+
+    const paymentPrice =
+        document.getElementById("paymentPrice");
+
+    const paymentUID =
+        document.getElementById("paymentUID");
+
+
+    if (paymentPackage) {
+        paymentPackage.innerText =
+            selectedPackage;
+    }
+
+    if (paymentPrice) {
+        paymentPrice.innerText =
+            "₹" + selectedPrice;
+    }
+
+    if (paymentUID) {
+        paymentUID.innerText =
+            currentUID;
+    }
+
+
+    const orderId =
+        "FF" +
+        Date.now()
+            .toString()
+            .slice(-8);
+
+
+    const paymentOrderId =
+        document.getElementById("paymentOrderId");
+
+    if (paymentOrderId) {
+        paymentOrderId.innerText =
+            orderId;
+    }
+
+
+    const paymentStatus =
+        document.getElementById("paymentStatus");
+
+    if (paymentStatus) {
+
+        paymentStatus.style.display =
+            "none";
+
+        paymentStatus.innerText =
+            "";
+    }
+
+
+    const paidButton =
+        document.getElementById("paidButton");
+
+    if (paidButton) {
+
+        paidButton.disabled =
+            false;
+
+        paidButton.innerText =
+            "I HAVE PAID";
+    }
+
+
+    const storeSection =
+        document.getElementById("storeSection");
+
+    const paymentSection =
+        document.getElementById("paymentSection");
+
+
+    if (storeSection) {
+        storeSection.style.display =
+            "none";
+    }
+
+    if (paymentSection) {
+        paymentSection.style.display =
+            "block";
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   COPY UPI
+========================= */
+
+function copyUPI() {
+
+    const upiElement =
+        document.getElementById("upiId");
+
+    if (!upiElement) {
+        return;
+    }
+
+    const upi =
+        upiElement.innerText;
+
+
+    if (navigator.clipboard) {
+
+        navigator.clipboard
+            .writeText(upi)
+            .then(function () {
+
+                alert(
+                    "UPI ID copied!"
+                );
+
+            })
+            .catch(function () {
+
+                alert(
+                    "Unable to copy UPI ID."
+                );
+            });
+
+    } else {
+
+        alert(
+            "Copy not supported on this browser."
+        );
+    }
+}
+
+
+/* =========================
+   PAYMENT SUBMITTED
+========================= */
+
+function paymentSubmitted() {
+
+    const status =
+        document.getElementById("paymentStatus");
+
+    const button =
+        document.getElementById("paidButton");
+
+
+    if (status) {
+
+        status.innerText =
+            "Please pay first. Payment not received.";
+
+        status.style.display =
+            "block";
+    }
+
+
+    if (button) {
+
+        button.disabled =
+            true;
+
+        button.innerText =
+            "PAYMENT NOT RECEIVED";
+    }
+}
+
+
+/* =========================
+   BACK TO STORE
+========================= */
+
+function backToStore() {
+
+    const paymentSection =
+        document.getElementById("paymentSection");
+
+    const storeSection =
+        document.getElementById("storeSection");
+
+
+    if (paymentSection) {
+
+        paymentSection.style.display =
+            "none";
+    }
+
+    if (storeSection) {
+
+        storeSection.style.display =
+            "block";
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 ```
