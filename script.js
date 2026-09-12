@@ -1,7 +1,14 @@
+```javascript
 let currentUID = "";
 let currentPlayerName = "";
+let currentPlayerAvatar = "";
 let selectedPackage = "";
 let selectedPrice = 0;
+
+
+/* =========================
+   VERIFY UID
+========================= */
 
 async function verifyUID() {
 
@@ -37,10 +44,25 @@ async function verifyUID() {
         }
 
         const player = data.basic_info;
-console.log("PLAYER DATA:", player);
-console.log("HEAD PIC:", player.head_pic);
-        currentUID = player.account_id || uid;
-        currentPlayerName = player.nickname || "Unknown Player";
+
+        console.log("PLAYER DATA:", player);
+        console.log("HEAD PIC:", player.head_pic);
+
+
+        /* =========================
+           PLAYER BASIC DATA
+        ========================= */
+
+        currentUID =
+            player.account_id || uid;
+
+        currentPlayerName =
+            player.nickname || "Unknown Player";
+
+
+        /* =========================
+           PLAYER NAME
+        ========================= */
 
         document.getElementById("playerUID").innerText =
             currentUID;
@@ -48,28 +70,73 @@ console.log("HEAD PIC:", player.head_pic);
         document.getElementById("playerName").innerText =
             currentPlayerName;
 
+
+        /* =========================
+           PLAYER LEVEL
+        ========================= */
+
         document.getElementById("playerLevel").innerText =
             player.level ?? "N/A";
+
+
+        /* =========================
+           PLAYER REGION
+        ========================= */
 
         document.getElementById("playerRegion").innerText =
             player.region || "IND";
 
+
+        /* =========================
+           PLAYER LIKES
+        ========================= */
+
         document.getElementById("playerLikes").innerText =
             player.liked ?? "0";
-document.getElementById("playerRank").innerText =
-    player.rank ?? "N/A";
 
-const avatar = document.getElementById("playerAvatar");
 
-if (player.head_pic) {
-    avatar.src =
-        "https://wzapiinfo.vercel.app/" + player.head_pic;
-} else {
-    avatar.style.display = "none";
-}
+        /* =========================
+           PLAYER RANK
+        ========================= */
+
+        document.getElementById("playerRank").innerText =
+            player.rank ?? "N/A";
+
+
+        /* =========================
+           AVATAR
+        ========================= */
+
+        const avatar =
+            document.getElementById("playerAvatar");
+
+        const avatarFallback =
+            document.getElementById("avatarFallback");
+
+
+        /*
+           head_pic is only an ID.
+           It is NOT a direct image URL.
+
+           So we don't create a fake URL.
+           Instead, show the professional fallback avatar.
+        */
+
+        avatar.style.display = "none";
+
+        if (avatarFallback) {
+            avatarFallback.style.display = "flex";
+        }
+
+
+        /* =========================
+           SHOW PLAYER POPUP
+        ========================= */
+
         error.innerText = "";
 
-        document.getElementById("playerModal").style.display = "flex";
+        document.getElementById("playerModal").style.display =
+            "flex";
 
     } catch (err) {
 
@@ -81,11 +148,20 @@ if (player.head_pic) {
 }
 
 
+/* =========================
+   CLOSE PLAYER POPUP
+========================= */
+
 function closePlayerModal() {
 
-    document.getElementById("playerModal").style.display = "none";
+    document.getElementById("playerModal").style.display =
+        "none";
 }
 
+
+/* =========================
+   GO TO STORE
+========================= */
 
 function goToStore() {
 
@@ -97,9 +173,13 @@ function goToStore() {
     document.getElementById("storePlayerUID").innerText =
         currentUID;
 
-    document.querySelector(".verify-section").style.display = "none";
 
-    document.getElementById("storeSection").style.display = "block";
+    document.querySelector(".verify-section").style.display =
+        "none";
+
+    document.getElementById("storeSection").style.display =
+        "block";
+
 
     window.scrollTo({
         top: 0,
@@ -108,24 +188,36 @@ function goToStore() {
 }
 
 
+/* =========================
+   BUY PACKAGE
+========================= */
+
 function buyPackage(packageName, price) {
 
     selectedPackage = packageName;
     selectedPrice = price;
 
+
     document.getElementById("orderPackage").innerText =
         packageName;
+
 
     document.getElementById("orderPrice").innerText =
         "₹" + price;
 
+
     document.getElementById("orderUID").innerText =
         currentUID;
+
 
     document.getElementById("orderModal").style.display =
         "flex";
 }
 
+
+/* =========================
+   CLOSE ORDER POPUP
+========================= */
 
 function closeOrderModal() {
 
@@ -134,36 +226,50 @@ function closeOrderModal() {
 }
 
 
+/* =========================
+   PROCEED TO PAYMENT
+========================= */
+
 function proceedToPay() {
 
     closeOrderModal();
 
+
     document.getElementById("paymentPackage").innerText =
         selectedPackage;
+
 
     document.getElementById("paymentPrice").innerText =
         "₹" + selectedPrice;
 
+
     document.getElementById("paymentUID").innerText =
         currentUID;
+
 
     const orderId =
         "FF" + Date.now().toString().slice(-8);
 
+
     document.getElementById("paymentOrderId").innerText =
         orderId;
+
 
     document.getElementById("paymentStatus").style.display =
         "none";
 
+
     document.getElementById("paymentStatus").innerText =
         "";
+
 
     document.getElementById("storeSection").style.display =
         "none";
 
+
     document.getElementById("paymentSection").style.display =
         "block";
+
 
     window.scrollTo({
         top: 0,
@@ -171,51 +277,85 @@ function proceedToPay() {
     });
 }
 
+
+/* =========================
+   COPY UPI
+========================= */
 
 function copyUPI() {
 
     const upi =
         document.getElementById("upiId").innerText;
 
-    navigator.clipboard.writeText(upi).then(function() {
 
-        alert("UPI ID copied!");
+    if (navigator.clipboard) {
 
-    });
+        navigator.clipboard.writeText(upi).then(function() {
+
+            alert("UPI ID copied!");
+
+        }).catch(function() {
+
+            alert("Unable to copy UPI ID.");
+
+        });
+
+    } else {
+
+        alert("Copy not supported on this browser.");
+
+    }
 }
 
+
+/* =========================
+   PAYMENT SUBMITTED
+========================= */
 
 function paymentSubmitted() {
 
     const status =
         document.getElementById("paymentStatus");
 
+
     const button =
         document.getElementById("paidButton");
+
 
     status.innerText =
         "Please pay first. Payment not received.";
 
+
     status.style.display =
         "block";
 
-    button.disabled = true;
+
+    button.disabled =
+        true;
+
 
     button.innerText =
         "PAYMENT NOT RECEIVED";
 }
 
 
+/* =========================
+   BACK TO STORE
+========================= */
+
 function backToStore() {
 
     document.getElementById("paymentSection").style.display =
         "none";
 
+
     document.getElementById("storeSection").style.display =
         "block";
+
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 }
+```
