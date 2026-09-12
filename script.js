@@ -1,4 +1,5 @@
 let currentUID = "";
+let currentPlayerName = "";
 let selectedPackage = "";
 let selectedPrice = 0;
 
@@ -30,23 +31,21 @@ async function verifyUID() {
 
         const data = await response.json();
 
-        if (
-            !response.ok ||
-            !data.basic_info
-        ) {
+        if (!response.ok || !data.basic_info) {
             error.innerText = "UID not found or API error.";
             return;
         }
 
         const player = data.basic_info;
 
-        currentUID = uid;
+        currentUID = player.account_id || uid;
+        currentPlayerName = player.nickname || "Unknown Player";
 
         document.getElementById("playerUID").innerText =
-            player.account_id || uid;
+            currentUID;
 
         document.getElementById("playerName").innerText =
-            player.nickname || "Unknown Player";
+            currentPlayerName;
 
         document.getElementById("playerLevel").innerText =
             player.level ?? "N/A";
@@ -70,18 +69,25 @@ async function verifyUID() {
     }
 }
 
+
 function closePlayerModal() {
+
     document.getElementById("playerModal").style.display = "none";
 }
+
 
 function goToStore() {
 
     closePlayerModal();
 
-    document.getElementById("storePlayerName").innerText = "Demo Player";
-    document.getElementById("storePlayerUID").innerText = currentUID;
+    document.getElementById("storePlayerName").innerText =
+        currentPlayerName;
+
+    document.getElementById("storePlayerUID").innerText =
+        currentUID;
 
     document.querySelector(".verify-section").style.display = "none";
+
     document.getElementById("storeSection").style.display = "block";
 
     window.scrollTo({
@@ -89,46 +95,64 @@ function goToStore() {
         behavior: "smooth"
     });
 }
+
 
 function buyPackage(packageName, price) {
 
     selectedPackage = packageName;
     selectedPrice = price;
 
-    document.getElementById("orderPackage").innerText = packageName;
-    document.getElementById("orderPrice").innerText = "₹" + price;
-    document.getElementById("orderUID").innerText = currentUID;
+    document.getElementById("orderPackage").innerText =
+        packageName;
 
-    document.getElementById("orderModal").style.display = "flex";
+    document.getElementById("orderPrice").innerText =
+        "₹" + price;
+
+    document.getElementById("orderUID").innerText =
+        currentUID;
+
+    document.getElementById("orderModal").style.display =
+        "flex";
 }
+
 
 function closeOrderModal() {
 
-    document.getElementById("orderModal").style.display = "none";
+    document.getElementById("orderModal").style.display =
+        "none";
 }
+
 
 function proceedToPay() {
 
     closeOrderModal();
 
-    document.getElementById("paymentPackage").innerText = selectedPackage;
+    document.getElementById("paymentPackage").innerText =
+        selectedPackage;
 
     document.getElementById("paymentPrice").innerText =
         "₹" + selectedPrice;
 
-    document.getElementById("paymentUID").innerText = currentUID;
+    document.getElementById("paymentUID").innerText =
+        currentUID;
 
-    const orderId = "FF" + Date.now().toString().slice(-8);
+    const orderId =
+        "FF" + Date.now().toString().slice(-8);
 
-    document.getElementById("paymentOrderId").innerText = orderId;
+    document.getElementById("paymentOrderId").innerText =
+        orderId;
 
-    document.getElementById("paymentStatus").style.display = "none";
+    document.getElementById("paymentStatus").style.display =
+        "none";
 
-    document.getElementById("paymentStatus").innerText = "";
+    document.getElementById("paymentStatus").innerText =
+        "";
 
-    document.getElementById("storeSection").style.display = "none";
+    document.getElementById("storeSection").style.display =
+        "none";
 
-    document.getElementById("paymentSection").style.display = "block";
+    document.getElementById("paymentSection").style.display =
+        "block";
 
     window.scrollTo({
         top: 0,
@@ -136,46 +160,48 @@ function proceedToPay() {
     });
 }
 
+
 function copyUPI() {
 
-    const upi = document.getElementById("upiId").innerText;
+    const upi =
+        document.getElementById("upiId").innerText;
 
     navigator.clipboard.writeText(upi).then(function() {
 
         alert("UPI ID copied!");
 
     });
-
 }
+
+
 function paymentSubmitted() {
 
-    const status = document.getElementById("paymentStatus");
-    const button = document.getElementById("paidButton");
+    const status =
+        document.getElementById("paymentStatus");
+
+    const button =
+        document.getElementById("paidButton");
 
     status.innerText =
         "Please pay first. Payment not received.";
 
-    status.style.display = "block";
+    status.style.display =
+        "block";
 
     button.disabled = true;
-    button.innerText = "PAYMENT NOT RECEIVED";
+
+    button.innerText =
+        "PAYMENT NOT RECEIVED";
 }
+
 
 function backToStore() {
 
-    document.getElementById("paymentSection").style.display = "none";
+    document.getElementById("paymentSection").style.display =
+        "none";
 
-    document.getElementById("storeSection").style.display = "block";
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-    document.getElementById("paymentSection").style.display = "none";
-
-    document.getElementById("storeSection").style.display = "block";
+    document.getElementById("storeSection").style.display =
+        "block";
 
     window.scrollTo({
         top: 0,
