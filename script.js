@@ -93,6 +93,21 @@ function goToStore() {
 
     document.getElementById("storePlayerName").innerText = currentPlayerName;
     document.getElementById("storePlayerUID").innerText = currentUID;
+    const summaryPlayerName =
+    document.getElementById("summaryPlayerName");
+
+const summaryUID =
+    document.getElementById("summaryUID");
+
+if (summaryPlayerName) {
+    summaryPlayerName.innerText =
+        currentPlayerName;
+}
+
+if (summaryUID) {
+    summaryUID.innerText =
+        currentUID;
+}
 const summaryPlayerName =
     document.getElementById("summaryPlayerName");
 
