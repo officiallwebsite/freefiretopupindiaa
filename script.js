@@ -2,7 +2,7 @@ let currentUID = "";
 let selectedPackage = "";
 let selectedPrice = 0;
 
-function verifyUID() {
+async function verifyUID() {
 
     const uid = document.getElementById("uidInput").value.trim();
     const error = document.getElementById("errorMessage");
@@ -19,15 +19,55 @@ function verifyUID() {
         return;
     }
 
-    currentUID = uid;
+    error.innerText = "Verifying UID...";
 
-    document.getElementById("playerUID").innerText = uid;
-    document.getElementById("playerName").innerText = "Demo Player";
-    document.getElementById("playerLevel").innerText = "70";
-    document.getElementById("playerRegion").innerText = "IND";
-    document.getElementById("playerLikes").innerText = "12.5K";
+    try {
 
-    document.getElementById("playerModal").style.display = "flex";
+        const response = await fetch(
+            "https://free-fire-uid-apii.vercel.app/info?uid=" +
+            encodeURIComponent(uid)
+        );
+
+        const data = await response.json();
+
+        if (
+            !response.ok ||
+            !data.basic_info
+        ) {
+            error.innerText = "UID not found or API error.";
+            return;
+        }
+
+        const player = data.basic_info;
+
+        currentUID = uid;
+
+        document.getElementById("playerUID").innerText =
+            player.account_id || uid;
+
+        document.getElementById("playerName").innerText =
+            player.nickname || "Unknown Player";
+
+        document.getElementById("playerLevel").innerText =
+            player.level ?? "N/A";
+
+        document.getElementById("playerRegion").innerText =
+            player.region || "IND";
+
+        document.getElementById("playerLikes").innerText =
+            player.liked ?? "0";
+
+        error.innerText = "";
+
+        document.getElementById("playerModal").style.display = "flex";
+
+    } catch (err) {
+
+        console.error(err);
+
+        error.innerText =
+            "Unable to verify UID. Please try again.";
+    }
 }
 
 function closePlayerModal() {
