@@ -1978,3 +1978,65 @@ body {
         padding: 13px;
     }
 }
+/* =========================
+   UID GAME ICON
+========================= */
+
+.uid-game-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    border-radius: 7px;
+
+    background: #ff7900;
+
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: .5px;
+}
+
+
+/* =========================
+   VERIFY LOADER
+========================= */
+
+.verify-loader {
+    width: 17px;
+    height: 17px;
+
+    border: 2px solid rgba(255,255,255,.35);
+
+    border-top-color: #ffffff;
+
+    border-radius: 50%;
+
+    animation: verifySpin .7s linear infinite;
+}
+
+@keyframes verifySpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.verify-btn.loading {
+    cursor: wait;
+
+    opacity: .92;
+}
+
+.verify-btn.loading:hover {
+    transform: none;
+}
