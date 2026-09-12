@@ -125,8 +125,18 @@ async function verifyUID() {
         avatar.style.display = "none";
 
         if (avatarFallback) {
-            avatarFallback.style.display = "flex";
-        }
+
+    const firstLetter =
+        currentPlayerName
+            .replace(/[^a-zA-Z0-9]/g, "")
+            .substring(0, 2)
+            .toUpperCase();
+
+    avatarFallback.innerText =
+        firstLetter || "FF";
+
+    avatarFallback.style.display = "flex";
+}
 
 
         /* =========================
