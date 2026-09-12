@@ -217,102 +217,157 @@
 
 
 <!-- =========================
-     PLAYER MODAL
+     PLAYER DETAILS MODAL
 ========================= -->
 
-<div
-    id="playerModal"
-    class="modal"
->
+<div id="playerModal" class="modal">
 
-    <div class="player-modal-box">
-
+    <div class="player-details-modal">
 
         <button
             type="button"
-            class="modal-close"
-            onclick="closePlayerModal()"
-        >
+            class="player-modal-close"
+            onclick="closePlayerModal()">
             ×
         </button>
 
 
-        <div class="verified-check">
-            ✓
+        <div class="spark spark-one">✦</div>
+        <div class="spark spark-two">✦</div>
+
+
+        <!-- VERIFIED ICON -->
+
+        <div class="verified-circle-big">
+            <span>✓</span>
         </div>
 
 
-        <div class="verified-small">
-            UID VERIFIED
+        <div class="verified-badge-new">
+            ✓ Verified Account
         </div>
 
+
+        <!-- PLAYER NAME -->
 
         <h2 id="playerName">
             Player
         </h2>
 
 
-        <p>
-            Player details verified successfully.
+        <p class="player-success-text">
+            Congratulations — your account is ready!
         </p>
 
 
-        <div class="player-uid-box">
+        <!-- STATS -->
 
-            <small>
-                PLAYER UID
-            </small>
+        <div class="player-stats">
 
-            <strong id="playerUID">
-                ---
-            </strong>
+
+            <div class="player-stat">
+
+                <strong id="playerLevel">
+                    ---
+                </strong>
+
+                <span>
+                    LEVEL
+                </span>
+
+            </div>
+
+
+            <div class="player-stat">
+
+                <strong id="playerRegion">
+                    ---
+                </strong>
+
+                <span>
+                    REGION
+                </span>
+
+            </div>
+
+
+            <div class="player-stat">
+
+                <strong id="playerLikes">
+                    ---
+                </strong>
+
+                <span>
+                    LIKES
+                </span>
+
+            </div>
 
         </div>
 
 
-        <div class="player-details-grid">
+        <!-- UID / CLAN -->
 
+        <div class="player-extra-details">
 
-            <div>
-                <small>LEVEL</small>
-                <strong id="playerLevel">---</strong>
+            <div class="extra-row">
+
+                <span>
+                    UID
+                </span>
+
+                <strong id="playerUID">
+                    ---
+                </strong>
+
             </div>
 
 
-            <div>
-                <small>REGION</small>
-                <strong id="playerRegion">---</strong>
-            </div>
+            <div class="extra-row">
 
+                <span>
+                    Clan
+                </span>
 
-            <div>
-                <small>LIKES</small>
-                <strong id="playerLikes">---</strong>
-            </div>
+                <strong id="playerClan">
+                    —
+                </strong>
 
-
-            <div>
-                <small>RANK</small>
-                <strong id="playerRank">---</strong>
             </div>
 
         </div>
 
+
+        <!-- CONTINUE -->
 
         <button
             type="button"
-            class="continue-btn"
-            onclick="goToStore()"
-        >
-            Continue
-            <span>→</span>
+            class="player-proceed-btn"
+            onclick="goToStore()">
+
+            Proceed to Store
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+
+        <!-- RE-ENTER -->
+
+        <button
+            type="button"
+            class="reenter-uid-btn"
+            onclick="closePlayerModal()">
+
+            Not my account? Re-enter UID
+
         </button>
 
     </div>
 
 </div>
-
-
 
 <!-- =========================
      STORE
