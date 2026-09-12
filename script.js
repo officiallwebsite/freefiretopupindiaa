@@ -55,7 +55,17 @@ async function verifyUID() {
 
         document.getElementById("playerLikes").innerText =
             player.liked ?? "0";
+document.getElementById("playerRank").innerText =
+    player.rank ?? "N/A";
 
+const avatar = document.getElementById("playerAvatar");
+
+if (player.head_pic) {
+    avatar.src =
+        "https://wzapiinfo.vercel.app/" + player.head_pic;
+} else {
+    avatar.style.display = "none";
+}
         error.innerText = "";
 
         document.getElementById("playerModal").style.display = "flex";
