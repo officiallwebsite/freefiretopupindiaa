@@ -14,11 +14,17 @@ async function verifyUID() {
         return;
     }
 
-    if (!/^[0-9]+$/.test(uid) || uid.length < 6) {
-        error.innerText = "Please enter a valid UID.";
-        return;
-    }
+    if (
+    !/^[0-9]+$/.test(uid) ||
+    uid.length < 8 ||
+    uid.length > 12
+) {
 
+    error.innerText =
+        "Please enter a valid UID (8-12 digits).";
+
+    return;
+}
     error.innerText = "Verifying UID...";
 const verifyBtn = document.getElementById("verifyBtn");
 const verifyBtnText = document.getElementById("verifyBtnText");
