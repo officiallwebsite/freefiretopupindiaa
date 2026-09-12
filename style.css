@@ -2383,3 +2383,39 @@ body {
     }
 
 }
+/* =========================
+   MAIN PAGE LAYOUT FIX
+========================= */
+
+main {
+    display: block !important;
+    width: 100%;
+}
+
+.uid-section,
+.how-section,
+.faq-section {
+    width: 100%;
+    display: block;
+}
+
+/* Sections must stay one below another */
+.uid-section {
+    position: relative;
+}
+
+.how-section {
+    position: relative;
+    clear: both;
+}
+
+.faq-section {
+    position: relative;
+    clear: both;
+}
+
+/* Store/payment are hidden until their JS step */
+#storeSection,
+#paymentSection {
+    width: 100%;
+}
