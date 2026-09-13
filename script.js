@@ -580,22 +580,7 @@ function setupUIDForm() {
    VERIFY BUTTON
    ========================================= */
 
-function setupVerifyButton() {
 
-    const button = get("verifyBtn");
-
-    if (!button) return;
-
-    button.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            verifyUID();
-        }
-    );
-}
 
 
 /* =========================================
@@ -877,7 +862,7 @@ document.addEventListener(
     function() {
 
         setupUIDForm();
-        setupVerifyButton();
+        
         setupProceedButton();
         setupModalButtons();
         setupOverlay();
