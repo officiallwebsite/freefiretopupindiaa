@@ -1,55 +1,2009 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Free Fire Top Up - Store</title>
+<title>Store — Official Top Up Center</title>
 
-  <link rel="stylesheet" href="./style.css">
+<link
+  rel="icon"
+  type="image/png"
+  href="https://freefiretopupindia.site/gen/garena.png"
+/>
 
-  <script>
-    try {
-      if (localStorage.getItem("ff_theme") === "dark") {
-        document.documentElement.classList.add("dark");
-      }
-    } catch (e) {}
-  </script>
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Russo+One&display=swap"
+  rel="stylesheet"
+/>
+
+<script>
+try {
+  if (localStorage.getItem('ff_theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+} catch (e) {}
+</script>
+
+<style>
+*,*::before,*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --primary:#f7971e;
+  --primary-dark:#d97d0d;
+  --primary-light:#fbbf5e;
+  --bg:#f0f2f6;
+  --card-bg:#fff;
+  --text:#0b1a2f;
+  --border:#e4e8ef;
+  --shadow:0 8px 40px rgba(0,0,0,.06);
+  --shadow-hover:0 16px 56px rgba(0,0,0,.10);
+  --radius:20px;
+  --radius-sm:12px;
+  --transition:.3s cubic-bezier(.4,0,.2,1);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --success:#1b7a3d;
+  --success-bg:#e8f5e9;
+}
+
+html.dark{
+  --bg:#0d1624;
+  --card-bg:#172232;
+  --text:#eef2f7;
+  --border:#2a3a4e;
+  --shadow:0 8px 40px rgba(0,0,0,.4);
+  --shadow-hover:0 16px 56px rgba(0,0,0,.5);
+  --success-bg:#1e3a2a;
+  --success:#81c784;
+}
+
+html{
+  scroll-behavior:smooth;
+  -webkit-font-smoothing:antialiased;
+  background:var(--bg);
+  color:var(--text);
+}
+
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:1160px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+button{
+  font-family:inherit;
+  cursor:pointer;
+}
+
+.gradient-text{
+  background:linear-gradient(135deg,var(--primary),#ffd200);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* BACKGROUND */
+
+.bg-orbs{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.15;
+  animation:orbFloat 20s ease-in-out infinite alternate;
+}
+
+.orb-1{
+  width:50vw;
+  height:50vw;
+  top:-15%;
+  right:-10%;
+  background:var(--primary);
+}
+
+.orb-2{
+  width:40vw;
+  height:40vw;
+  bottom:-10%;
+  left:-10%;
+  background:#ff6b6b;
+  opacity:.08;
+  animation-delay:-7s;
+}
+
+.orb-3{
+  width:30vw;
+  height:30vw;
+  top:40%;
+  left:50%;
+  transform:translateX(-50%);
+  background:#6c5ce7;
+  opacity:.06;
+  animation-delay:-14s;
+}
+
+@keyframes orbFloat{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(4%,4%) scale(1.1)}
+}
+
+/* HEADER */
+
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(240,242,246,.75);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+
+html.dark .site-header{
+  background:rgba(13,22,36,.75);
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:72px;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:700;
+  font-size:1.05rem;
+  white-space:nowrap;
+}
+
+.brand-logo{
+  height:40px;
+  width:auto;
+  border-radius:10px;
+}
+
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.1;
+}
+
+.brand-text strong{
+  font-weight:700;
+  font-size:1rem;
+}
+
+.brand-text small{
+  font-weight:400;
+  font-size:.68rem;
+  opacity:.5;
+}
+
+.main-nav{
+  display:flex;
+  align-items:center;
+  gap:32px;
+  font-size:.9rem;
+  font-weight:500;
+}
+
+.main-nav a{
+  opacity:.6;
+  transition:opacity var(--transition);
+  position:relative;
+}
+
+.main-nav a:hover,
+.main-nav a.active{
+  opacity:1;
+}
+
+.theme-toggle{
+  background:var(--border);
+  border:none;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text);
+  font-size:1.1rem;
+  flex-shrink:0;
+}
+
+.theme-toggle:hover{
+  background:var(--primary);
+  color:#fff;
+}
+
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  padding:6px;
+  color:var(--text);
+}
+
+.nav-toggle span{
+  width:24px;
+  height:2.5px;
+  background:currentColor;
+  border-radius:4px;
+}
+
+@media(max-width:720px){
+  .main-nav{
+    display:none;
+    position:absolute;
+    top:72px;
+    left:0;
+    right:0;
+    flex-direction:column;
+    background:var(--card-bg);
+    padding:24px;
+    gap:16px;
+    border-bottom:1px solid var(--border);
+    box-shadow:var(--shadow);
+  }
+
+  .main-nav.open{
+    display:flex;
+  }
+
+  .nav-toggle{
+    display:flex;
+  }
+}
+
+/* VERIFIED BAR */
+
+.verified-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--card-bg);
+  padding:14px 24px;
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow);
+  margin:20px 0 16px;
+  flex-wrap:wrap;
+  gap:12px;
+  border:1px solid var(--border);
+}
+
+.vb-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.vb-avatar{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),#ffd200);
+  padding:3px;
+  flex-shrink:0;
+}
+
+.vb-avatar img{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  background:var(--card-bg);
+}
+
+.vb-label{
+  font-size:.7rem;
+  opacity:.5;
+  display:block;
+}
+
+.vb-info strong{
+  font-size:1rem;
+  font-weight:700;
+}
+
+.vb-meta{
+  font-size:.75rem;
+  opacity:.5;
+  margin-left:4px;
+}
+
+.vb-badge{
+  background:var(--success-bg);
+  color:var(--success);
+  font-size:.7rem;
+  font-weight:700;
+  padding:2px 14px;
+  border-radius:40px;
+}
+
+.vb-change{
+  font-size:.8rem;
+  opacity:.5;
+  transition:opacity var(--transition);
+}
+
+.vb-change:hover{
+  opacity:1;
+}
+
+/* SECTION */
+
+.section{
+  padding:28px 0 48px;
+}
+
+.section-head{
+  text-align:center;
+  margin-bottom:32px;
+}
+
+.section-head h2{
+  font-size:2rem;
+  font-weight:800;
+}
+
+.section-head p{
+  opacity:.6;
+  max-width:460px;
+  margin:6px auto 0;
+  font-size:.95rem;
+}
+
+/* TABS */
+
+.tabs{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:32px;
+  flex-wrap:wrap;
+}
+
+.tab{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--border);
+  border:none;
+  padding:8px 22px;
+  border-radius:40px;
+  font-weight:600;
+  font-size:.9rem;
+  color:var(--text);
+  opacity:.6;
+}
+
+.tab.active{
+  background:linear-gradient(135deg,var(--primary),#ffd200);
+  color:#0b1a2f;
+  opacity:1;
+  box-shadow:0 4px 16px rgba(247,151,30,.3);
+}
+
+.tab-ic{
+  width:20px;
+  height:20px;
+}
+
+/* PRODUCTS */
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:20px;
+}
+
+.product{
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  padding:20px 14px 14px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+}
+
+.product:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-hover);
+}
+
+.product .tag{
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:.55rem;
+  font-weight:700;
+  text-transform:uppercase;
+  padding:2px 12px;
+  border-radius:40px;
+  background:#ffd200;
+  color:#0b1a2f;
+}
+
+.product .tag.hot{
+  background:#ff6b6b;
+  color:#fff;
+}
+
+.product .tag.best{
+  background:var(--success);
+  color:#fff;
+}
+
+.product .p-icon{
+  width:60px;
+  height:60px;
+  margin:0 auto 8px;
+  border-radius:50%;
+  background:var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px;
+}
+
+.product .p-img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.product .p-amount{
+  font-family:'Russo One',sans-serif;
+  font-size:1.45rem;
+  line-height:1.2;
+}
+
+.product .p-name{
+  font-weight:600;
+  font-size:.85rem;
+  margin:2px 0;
+}
+
+.product .p-sub{
+  font-size:.7rem;
+  opacity:.5;
+  margin-bottom:4px;
+}
+
+.product .p-stock{
+  font-size:.65rem;
+  opacity:.35;
+  display:block;
+  margin-bottom:10px;
+}
+
+.product .p-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid var(--border);
+  padding-top:10px;
+  margin-top:auto;
+}
+
+.product .p-price{
+  font-weight:700;
+  font-size:1.05rem;
+}
+
+.product .p-old{
+  font-weight:400;
+  font-size:.7rem;
+  opacity:.4;
+  text-decoration:line-through;
+  margin-left:4px;
+}
+
+.product .p-buy{
+  font-weight:600;
+  font-size:.78rem;
+  color:var(--primary);
+  background:rgba(247,151,30,.10);
+  padding:5px 12px;
+  border-radius:40px;
+}
+
+.product:hover .p-buy{
+  background:var(--primary);
+  color:#fff;
+}
+
+/* FOOTER */
+
+.footer{
+  background:var(--card-bg);
+  border-top:1px solid var(--border);
+  padding:40px 0 20px;
+  margin-top:8px;
+}
+
+.footer-inner{
+  display:grid;
+  grid-template-columns:1.5fr 2fr;
+  gap:40px;
+  margin-bottom:28px;
+}
+
+.footer-cols{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.footer-cols h4{
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  opacity:.4;
+  margin-bottom:8px;
+}
+
+.footer-cols a{
+  display:block;
+  font-size:.85rem;
+  opacity:.6;
+  padding:3px 0;
+}
+
+.footer-bottom{
+  text-align:center;
+  font-size:.75rem;
+  opacity:.3;
+  padding-top:16px;
+  border-top:1px solid var(--border);
+}
+
+@media(max-width:600px){
+  .footer-inner{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  .footer-cols{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* MODAL */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(12px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  opacity:0;
+  visibility:hidden;
+  transition:.4s;
+}
+
+.modal-overlay.open{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal{
+  background:var(--card-bg);
+  border-radius:28px;
+  max-width:480px;
+  width:100%;
+  max-height:95vh;
+  overflow-y:auto;
+  padding:32px 28px 28px;
+  position:relative;
+  transform:scale(.92) translateY(20px);
+  transition:
+    transform .4s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 40px 100px rgba(0,0,0,.25);
+}
+
+.modal-overlay.open .modal{
+  transform:scale(1) translateY(0);
+}
+
+.modal-close{
+  position:absolute;
+  top:16px;
+  right:18px;
+  background:var(--border);
+  border:none;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  font-size:1.05rem;
+  color:var(--text);
+  opacity:.5;
+  z-index:5;
+}
+
+.modal-close:hover{
+  opacity:1;
+  background:var(--primary);
+  color:#fff;
+}
+
+.modal-title{
+  font-size:1.45rem;
+  font-weight:800;
+  text-align:center;
+}
+
+.modal-sub{
+  text-align:center;
+  font-size:.88rem;
+  opacity:.6;
+  margin-bottom:18px;
+}
+
+.modal-summary{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px 18px;
+  margin:12px 0 18px;
+}
+
+.modal-summary .row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:6px 0;
+  font-size:.9rem;
+  gap:12px;
+}
+
+.modal-summary .row+.row{
+  border-top:1px solid var(--border);
+}
+
+.modal-summary .row>span:first-child{
+  opacity:.55;
+  flex-shrink:0;
+}
+
+.modal-summary .row strong{
+  font-weight:600;
+  text-align:right;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.modal-summary .row .item-display{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:flex-end;
+  min-width:0;
+}
+
+.modal-summary .row .item-display img{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  object-fit:contain;
+  background:var(--card-bg);
+  padding:3px;
+  border:1px solid var(--border);
+}
+
+.qty-control{
+  display:flex;
+  align-items:center;
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:40px;
+  padding:2px;
+}
+
+.qty-btn{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:none;
+  background:transparent;
+  color:var(--text);
+  font-size:1.02rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+}
+
+.qty-btn:hover:not(:disabled){
+  background:var(--primary);
+  color:#fff;
+}
+
+.qty-btn:disabled{
+  opacity:.3;
+  cursor:not-allowed;
+}
+
+.qty-val{
+  min-width:32px;
+  text-align:center;
+  font-weight:700;
+  font-size:.92rem;
+}
+
+.modal-summary .row.discount-row{
+  color:var(--success);
+  font-weight:600;
+}
+
+.modal-summary .row.total-row{
+  font-size:1.02rem;
+  padding-top:10px;
+  margin-top:4px;
+  border-top:2px dashed var(--border)!important;
+}
+
+.modal-summary .row.total-row strong{
+  font-weight:800;
+  font-size:1.15rem;
+  color:var(--primary-dark);
+}
+
+.coupon-applied{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:0 auto 14px;
+  padding:9px 16px;
+  max-width:360px;
+  border-radius:40px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(247,151,30,.12),
+      rgba(255,210,0,.10)
+    );
+  border:1.6px dashed rgba(247,151,30,.55);
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--primary-dark);
+}
+
+.coupon-applied .ca-saved{
+  font-weight:800;
+  color:var(--success);
+}
+
+.qr-box{
+  background:var(--card-bg);
+  padding:12px;
+  border-radius:var(--radius-sm);
+  display:flex;
+  justify-content:center;
+  margin:0 auto 12px;
+  width:fit-content;
+  border:1px solid var(--border);
+}
+
+.qr-box img{
+  display:block;
+  width:220px;
+  height:220px;
+}
+
+.qr-timer{
+  text-align:center;
+  font-size:.85rem;
+  font-weight:600;
+  color:var(--primary);
+  background:rgba(247,151,30,.08);
+  padding:6px 16px;
+  border-radius:40px;
+  display:inline-block;
+  margin:0 auto 10px;
+}
+
+.qr-timer.expired{
+  color:#e65100;
+}
+
+.pay-amount{
+  font-family:'Russo One',sans-serif;
+  font-size:2.2rem;
+  text-align:center;
+  margin:4px 0 2px;
+}
+
+.pay-amount-note{
+  text-align:center;
+  font-size:.72rem;
+  opacity:.5;
+  margin-bottom:14px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:14px 24px;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-weight:600;
+  font-size:.95rem;
+  width:100%;
+  font-family:inherit;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),#ffd200);
+  color:#0b1a2f;
+  box-shadow:0 4px 20px rgba(247,151,30,.3);
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.btn-ghost{
+  background:transparent;
+  border:1px solid var(--border);
+  margin-top:6px;
+}
+
+.btn-text{
+  background:none;
+  border:none;
+  font-size:.85rem;
+  opacity:.4;
+  padding:8px 0;
+  width:100%;
+  text-align:center;
+  color:var(--text);
+}
+
+.btn-text:hover{
+  opacity:1;
+}
+
+.utr-section{
+  display:none;
+  margin:12px 0;
+}
+
+.utr-section.show{
+  display:block;
+}
+
+.utr-group{
+  display:flex;
+  gap:10px;
+}
+
+.utr-group input{
+  flex:1;
+  padding:12px 16px;
+  border:2px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-size:.95rem;
+  background:var(--bg);
+  color:var(--text);
+  min-width:0;
+}
+
+.utr-group input:focus{
+  border-color:var(--primary);
+  outline:none;
+}
+
+.utr-group button{
+  padding:12px 22px;
+  background:linear-gradient(135deg,var(--primary),#ffd200);
+  border:none;
+  border-radius:var(--radius-sm);
+  font-weight:600;
+  color:#0b1a2f;
+  flex-shrink:0;
+}
+
+.notice{
+  background:#fff3e0;
+  color:#e65100;
+  padding:10px 16px;
+  border-radius:var(--radius-sm);
+  font-size:.85rem;
+  margin-bottom:14px;
+}
+
+html.dark .notice{
+  background:#2d1a0a;
+  color:#ffa726;
+}
+
+.result{
+  text-align:center;
+  padding:20px 0;
+}
+
+.result .icon{
+  font-size:4rem;
+}
+
+.result .msg{
+  font-weight:700;
+  font-size:1.2rem;
+  margin-top:8px;
+}
+
+.result .sub{
+  font-size:.9rem;
+  opacity:.5;
+  margin-top:4px;
+}
+
+.processing{
+  position:fixed;
+  inset:0;
+  z-index:199;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(6px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  color:#fff;
+  gap:14px;
+}
+
+.processing.show{
+  display:flex;
+}
+
+.processing .loader{
+  width:48px;
+  height:48px;
+  border:4px solid rgba(255,255,255,.15);
+  border-top-color:#ffd200;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.toast{
+  position:fixed;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:var(--text);
+  color:var(--bg);
+  padding:12px 26px;
+  border-radius:var(--radius-sm);
+  font-weight:500;
+  font-size:.88rem;
+  box-shadow:0 8px 32px rgba(0,0,0,.2);
+  z-index:300;
+  transition:.3s;
+  max-width:90%;
+  text-align:center;
+  opacity:0;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.toast.hidden{
+  opacity:0;
+  transform:translateX(-50%) translateY(12px);
+  pointer-events:none;
+}
+
+/* UPI ID */
+
+.upi-id-box{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;
+  margin:0 auto 14px;
+  max-width:360px;
+  text-align:center;
+}
+
+.upi-label{
+  font-size:.7rem;
+  opacity:.5;
+  margin-bottom:5px;
+}
+
+.upi-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.upi-row strong{
+  font-size:.9rem;
+  font-weight:700;
+}
+
+.upi-row button{
+  border:none;
+  background:var(--primary);
+  color:#fff;
+  padding:5px 10px;
+  border-radius:8px;
+  font-size:.7rem;
+  font-weight:700;
+}
+
+@media(max-width:480px){
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .product{
+    padding:14px 8px 10px;
+  }
+
+  .product .p-amount{
+    font-size:1.15rem;
+  }
+
+  .modal{
+    padding:24px 16px 20px;
+  }
+
+  .qr-box img{
+    width:170px;
+    height:170px;
+  }
+
+  .container{
+    padding:0 16px;
+  }
+
+  .section-head h2{
+    font-size:1.6rem;
+  }
+}
+
+@media(min-width:481px) and (max-width:768px){
+  .product-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- TOP NOTICE -->
+<div class="bg-orbs" aria-hidden="true">
+  <span class="orb orb-1"></span>
+  <span class="orb orb-2"></span>
+  <span class="orb orb-3"></span>
+</div>
 
-  <div class="announce">
+<div
+  class="processing"
+  id="processingOverlay"
+>
+  <div class="loader"></div>
+  <span>Processing your request...</span>
+</div>
 
-    <span>🎁</span>
 
-    <span>
-      Welcome Offer —
-      Get <strong>5% OFF</strong>
-      with code
-    </span>
+<header class="site-header">
 
-    <span class="coupon-code">
-      WEL67
+  <div class="container header-inner">
 
-      <button
-        type="button"
-        data-coupon-copy
+    <a href="./index.html" class="brand">
+
+      <img
+        src="https://freefiretopupindia.site/gen/garena.png"
+        alt="Garena"
+        class="brand-logo"
       >
-        COPY
-      </button>
-    </span>
+
+      <span class="brand-text">
+        <strong>Official Top Up</strong>
+        <small>Center</small>
+      </span>
+
+    </a>
+
+
+    <nav class="main-nav" id="mainNav">
+
+      <a
+        href="./index.html"
+      >
+        Home
+      </a>
+
+      <a
+        href="./store.html"
+        class="active"
+      >
+        Store
+      </a>
+
+    </nav>
+
+
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      type="button"
+    >
+      🌙
+    </button>
+
+
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      type="button"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
   </div>
 
+</header>
 
-  <!-- HEADER -->
 
-  <header class="site-header">
+<section class="store-hero">
 
-    <div class="container header-inner">
+  <div class="container">
+
+    <div class="verified-bar">
+
+      <div class="vb-left">
+
+        <div class="vb-avatar">
+
+          <img
+            src="https://freefiretopupindia.site/gen/g/icon.png"
+            alt="Free Fire"
+          >
+
+        </div>
+
+
+        <div class="vb-info">
+
+          <span class="vb-label">
+            Topping up for
+          </span>
+
+          <strong id="vNick">
+            Loading…
+          </strong>
+
+          <span class="vb-meta">
+
+            UID
+            <b id="vUid">—</b>
+
+            ·
+
+            <span id="vLevel">
+              —
+            </span>
+
+          </span>
+
+        </div>
+
+
+        <span class="vb-badge">
+          ✓ Verified
+        </span>
+
+      </div>
+
+
+      <a
+        href="./index.html"
+        id="changeAccount"
+        class="vb-change"
+      >
+        Change account
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section
+  class="section"
+  id="products"
+>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <h2>
+        Top Up
+        <span class="gradient-text">
+          Centre
+        </span>
+      </h2>
+
+      <p>
+        Pick a pack — delivered instantly to your verified account.
+      </p>
+
+    </div>
+
+
+    <div
+      class="tabs"
+      id="tabs"
+    >
+
+      <button
+        type="button"
+        class="tab active"
+        data-cat="diamonds"
+      >
+        💎 Diamonds
+      </button>
+
+      <button
+        type="button"
+        class="tab"
+        data-cat="passes"
+      >
+        🎟️ Passes
+      </button>
+
+    </div>
+
+
+    <div
+      class="product-grid"
+      id="productGrid"
+    >
+
+
+      <!-- 100 DIAMONDS -->
+
+      <article
+        class="product"
+        data-category="diamonds"
+        data-id="p1"
+      >
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130216_7f8d25.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          100
+        </div>
+
+        <div class="p-name">
+          100 Diamonds
+        </div>
+
+        <div class="p-sub">
+          +10 bonus
+        </div>
+
+        <span class="p-stock">
+          292 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹39
+            <span class="p-old">
+              ₹90
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- 310 DIAMONDS -->
+
+      <article
+        class="product"
+        data-category="diamonds"
+        data-id="p2"
+      >
+
+        <span class="tag best">
+          Best value
+        </span>
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          310
+        </div>
+
+        <div class="p-name">
+          310 Diamonds
+        </div>
+
+        <div class="p-sub">
+          +31 bonus
+        </div>
+
+        <span class="p-stock">
+          143 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹99
+            <span class="p-old">
+              ₹260
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- 520 DIAMONDS -->
+
+      <article
+        class="product"
+        data-category="diamonds"
+        data-id="p3"
+      >
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130756_687fd4.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          520
+        </div>
+
+        <div class="p-name">
+          520 Diamonds
+        </div>
+
+        <div class="p-sub">
+          +52 bonus
+        </div>
+
+        <span class="p-stock">
+          64 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹149
+            <span class="p-old">
+              ₹440
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- 1060 DIAMONDS -->
+
+      <article
+        class="product"
+        data-category="diamonds"
+        data-id="p4"
+      >
+
+        <span class="tag hot">
+          Hot
+        </span>
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131428_da9e7d.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          1060
+        </div>
+
+        <div class="p-name">
+          1060 Diamonds
+        </div>
+
+        <div class="p-sub">
+          +106 bonus
+        </div>
+
+        <span class="p-stock">
+          398 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹299
+            <span class="p-old">
+              ₹860
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- 2180 DIAMONDS -->
+
+      <article
+        class="product"
+        data-category="diamonds"
+        data-id="p5"
+      >
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131446_ae70d5.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          2180
+        </div>
+
+        <div class="p-name">
+          2180 Diamonds
+        </div>
+
+        <div class="p-sub">
+          +218 bonus
+        </div>
+
+        <span class="p-stock">
+          345 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹499
+            <span class="p-old">
+              ₹1,700
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- 5600 DIAMONDS -->
+
+      <article
+        class="product"
+        data-category="diamonds"
+        data-id="p6"
+      >
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131503_e48bb6.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          5600
+        </div>
+
+        <div class="p-name">
+          5600 Diamonds
+        </div>
+
+        <div class="p-sub">
+          +560 bonus
+        </div>
+
+        <span class="p-stock">
+          131 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹799
+            <span class="p-old">
+              ₹4,300
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- BOOYAH PASS -->
+
+      <article
+        class="product"
+        data-category="passes"
+        data-id="p7"
+      >
+
+        <span class="tag hot">
+          Hot
+        </span>
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132321_6d00cf.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          Booyah
+        </div>
+
+        <div class="p-name">
+          Booyah Pass
+        </div>
+
+        <div class="p-sub">
+          +50% XP boost
+        </div>
+
+        <span class="p-stock">
+          78 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹159
+            <span class="p-old">
+              ₹299
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- BOOYAH PASS+ -->
+
+      <article
+        class="product"
+        data-category="passes"
+        data-id="p8"
+      >
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132415_969094.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          Booyah+
+        </div>
+
+        <div class="p-name">
+          Booyah Pass+
+        </div>
+
+        <div class="p-sub">
+          +100% XP
+        </div>
+
+        <span class="p-stock">
+          45 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹299
+            <span class="p-old">
+              ₹599
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- WEEKLY PASS -->
+
+      <article
+        class="product"
+        data-category="passes"
+        data-id="p9"
+      >
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618133127_78497d.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          Weekly
+        </div>
+
+        <div class="p-name">
+          Weekly Pass
+        </div>
+
+        <div class="p-sub">
+          7 days
+        </div>
+
+        <span class="p-stock">
+          120 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹99
+            <span class="p-old">
+              ₹159
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- MONTHLY PASS -->
+
+      <article
+        class="product"
+        data-category="passes"
+        data-id="p10"
+      >
+
+        <span class="tag best">
+          Best value
+        </span>
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618144016_48b5e4.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          Monthly
+        </div>
+
+        <div class="p-name">
+          Monthly Pass
+        </div>
+
+        <div class="p-sub">
+          30 days
+        </div>
+
+        <span class="p-stock">
+          60 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹299
+            <span class="p-old">
+              ₹799
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- 30D EVO PASS -->
+
+      <article
+        class="product"
+        data-category="passes"
+        data-id="p11"
+      >
+
+        <span class="tag hot">
+          Hot
+        </span>
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618144137_8f687e.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          30D Evo
+        </div>
+
+        <div class="p-name">
+          30D Evo Pass
+        </div>
+
+        <div class="p-sub">
+          Evolve items
+        </div>
+
+        <span class="p-stock">
+          40 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹259
+            <span class="p-old">
+              ₹5,999
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- WEEKLY LITE PASS -->
+
+      <article
+        class="product"
+        data-category="passes"
+        data-id="p12"
+      >
+
+        <div class="p-icon">
+
+          <img
+            class="p-img"
+            src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132946_87d030.png"
+            alt=""
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="p-amount">
+          Lite
+        </div>
+
+        <div class="p-name">
+          Weekly Lite Pass
+        </div>
+
+        <div class="p-sub">
+          Budget friendly
+        </div>
+
+        <span class="p-stock">
+          200 in stock
+        </span>
+
+        <div class="p-foot">
+
+          <span class="p-price">
+            ₹39
+            <span class="p-old">
+              ₹120
+            </span>
+          </span>
+
+          <span class="p-buy">
+            Buy →
+          </span>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer class="footer">
+
+  <div class="container footer-inner">
+
+    <div>
 
       <a
         href="./index.html"
@@ -58,1265 +2012,669 @@
 
         <img
           src="https://freefiretopupindia.site/gen/garena.png"
-          alt="Logo"
+          alt="Garena"
           class="brand-logo"
         >
 
         <span class="brand-text">
-          <strong>Top Up</strong>
+          <strong>Official Top Up</strong>
           <small>Center</small>
         </span>
 
       </a>
 
-
-      <nav
-        class="main-nav"
-        id="mainNav"
+      <p
+        style="
+          opacity:.4;
+          font-size:.85rem;
+          margin-top:6px
+        "
       >
+        Genuine Free Fire top-ups, delivered instantly.
+      </p>
 
-        <a href="./index.html">
-          Home
+    </div>
+
+
+    <div class="footer-cols">
+
+      <div>
+        <h4>Store</h4>
+
+        <a href="#products">
+          Diamonds
         </a>
 
-        <a href="./store.html">
-          Store
+        <a href="#products">
+          Booyah Pass
         </a>
+      </div>
 
-        <a href="./index.html#how">
-          How it works
-        </a>
+
+      <div>
+        <h4>Help</h4>
 
         <a href="./index.html#faq">
           FAQ
         </a>
 
-      </nav>
+        <a href="./index.html#how">
+          How it works
+        </a>
+      </div>
 
 
-      <button
-        class="theme-toggle"
-        id="themeToggle"
-        type="button"
-      >
-        🌙
-      </button>
+      <div>
+        <h4>Legal</h4>
 
-
-      <button
-        class="nav-toggle"
-        id="navToggle"
-        type="button"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <!-- VERIFIED ACCOUNT -->
-
-  <section class="store-hero">
-
-    <div class="container">
-
-      <div class="verified-bar">
-
-        <div class="vb-left">
-
-          <div class="vb-avatar">
-
-            <img
-              src="https://freefiretopupindia.site/gen/g/icon.png"
-              alt="Free Fire"
-            >
-
-          </div>
-
-
-          <div class="vb-info">
-
-            <span class="vb-label">
-              Verified account
-            </span>
-
-            <strong id="vNick">
-              Loading…
-            </strong>
-
-            <span class="vb-meta">
-
-              UID
-              <b id="vUid">—</b>
-
-              ·
-
-              <span id="vLevel">
-                Lvl —
-              </span>
-
-            </span>
-
-          </div>
-
-
-          <span class="vb-badge">
-            ✓ Verified
-          </span>
-
-        </div>
-
-
-        <a
-          href="./index.html"
-          id="changeAccount"
-          class="vb-change"
-        >
-          Change account
+        <a href="#">
+          Terms
         </a>
 
+        <a href="#">
+          Privacy
+        </a>
       </div>
 
     </div>
 
-  </section>
+  </div>
 
 
-  <!-- STORE -->
+  <div class="container footer-bottom">
 
-  <section
-    class="section"
-    id="products"
-  >
+    ©
+    <span id="year">
+      2026
+    </span>
+    FreeFireTopUp.
 
-    <div class="container">
+  </div>
 
-      <div class="section-head">
+</footer>
 
-        <h2>
-          Top Up
-          <span class="gradient-text">
-            Centre
-          </span>
-        </h2>
 
-        <p>
-          Select your diamonds or pass.
-        </p>
+<!-- PAYMENT MODAL -->
 
-      </div>
+<div
+  class="modal-overlay"
+  id="payModal"
+>
 
+  <div class="modal">
 
-      <!-- TABS -->
-
-      <div
-        class="tabs"
-        id="tabs"
-      >
-
-        <button
-          type="button"
-          class="tab active"
-          data-cat="diamonds"
-        >
-          💎 Diamonds
-        </button>
-
-
-        <button
-          type="button"
-          class="tab"
-          data-cat="passes"
-        >
-          🎟️ Passes
-        </button>
-
-      </div>
-
-
-      <!-- PRODUCTS -->
-
-      <div
-        class="product-grid"
-        id="productGrid"
-      >
-
-
-        <!-- =========================
-             DIAMONDS
-             ========================= -->
-
-
-        <article
-          class="product"
-          data-id="p1"
-          data-category="diamonds"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130216_7f8d25.png"
-              alt="100 Diamonds"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              100 Diamonds
-            </h3>
-
-            <p>
-              Instant delivery
-            </p>
-
-            <div class="product-price">
-              ₹39
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p2"
-          data-category="diamonds"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png"
-              alt="310 Diamonds"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              310 Diamonds
-            </h3>
-
-            <p>
-              Instant delivery
-            </p>
-
-            <div class="product-price">
-              ₹99
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p3"
-          data-category="diamonds"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130756_687fd4.png"
-              alt="520 Diamonds"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              520 Diamonds
-            </h3>
-
-            <p>
-              Instant delivery
-            </p>
-
-            <div class="product-price">
-              ₹149
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p4"
-          data-category="diamonds"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131428_da9e7d.png"
-              alt="1060 Diamonds"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              1060 Diamonds
-            </h3>
-
-            <p>
-              Instant delivery
-            </p>
-
-            <div class="product-price">
-              ₹299
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p5"
-          data-category="diamonds"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131446_ae70d5.png"
-              alt="2180 Diamonds"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              2180 Diamonds
-            </h3>
-
-            <p>
-              Instant delivery
-            </p>
-
-            <div class="product-price">
-              ₹499
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p6"
-          data-category="diamonds"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131503_e48bb6.png"
-              alt="5600 Diamonds"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              5600 Diamonds
-            </h3>
-
-            <p>
-              Instant delivery
-            </p>
-
-            <div class="product-price">
-              ₹799
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <!-- =========================
-             PASSES
-             ========================= -->
-
-
-        <article
-          class="product"
-          data-id="p7"
-          data-category="passes"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132321_6d00cf.png"
-              alt="Booyah Pass"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              Booyah Pass
-            </h3>
-
-            <p>
-              Season rewards
-            </p>
-
-            <div class="product-price">
-              ₹159
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p8"
-          data-category="passes"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132415_969094.png"
-              alt="Booyah Pass Plus"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              Booyah Pass+
-            </h3>
-
-            <p>
-              Premium rewards
-            </p>
-
-            <div class="product-price">
-              ₹299
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p9"
-          data-category="passes"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618133127_78497d.png"
-              alt="Weekly Pass"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              Weekly Pass
-            </h3>
-
-            <p>
-              7 days rewards
-            </p>
-
-            <div class="product-price">
-              ₹99
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p10"
-          data-category="passes"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618144016_48b5e4.png"
-              alt="Monthly Pass"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              Monthly Pass
-            </h3>
-
-            <p>
-              30 days rewards
-            </p>
-
-            <div class="product-price">
-              ₹299
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p11"
-          data-category="passes"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618144137_8f687e.png"
-              alt="30D Evo Pass"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              30D Evo Pass
-            </h3>
-
-            <p>
-              Exclusive items
-            </p>
-
-            <div class="product-price">
-              ₹259
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-        <article
-          class="product"
-          data-id="p12"
-          data-category="passes"
-        >
-
-          <div class="product-image">
-
-            <img
-              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132946_87d030.png"
-              alt="Weekly Lite Pass"
-            >
-
-          </div>
-
-          <div class="product-info">
-
-            <h3>
-              Weekly Lite Pass
-            </h3>
-
-            <p>
-              Budget friendly
-            </p>
-
-            <div class="product-price">
-              ₹39
-            </div>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-          >
-            BUY NOW
-          </button>
-
-        </article>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================================
-       PAYMENT / ORDER MODAL
-       ========================================= -->
-
-  <div
-    class="modal-overlay"
-    id="payModal"
-  >
-
-    <div
-      class="modal"
-      role="dialog"
-      aria-modal="true"
+    <button
+      class="modal-close"
+      id="modalClose"
+      type="button"
     >
-
-      <button
-        class="modal-close"
-        id="modalClose"
-        type="button"
-      >
-        ✕
-      </button>
+      ✕
+    </button>
 
 
-      <!-- CONFIRM -->
+    <!-- CONFIRM ORDER -->
 
-      <div id="stepConfirm">
+    <div id="stepConfirm">
 
-        <h3 class="modal-title">
-          Confirm Your Order
-        </h3>
+      <h3 class="modal-title">
+        Confirm Order
+      </h3>
 
-        <p class="modal-sub">
-          Review your order before payment.
-        </p>
+      <p class="modal-sub">
+        Review your order before proceeding to payment.
+      </p>
 
 
-        <div class="modal-summary">
+      <div class="modal-summary">
 
-          <div class="row">
-            <span>Account</span>
-            <strong id="cNick">—</strong>
-          </div>
-
-          <div class="row">
-            <span>UID</span>
-            <strong id="cUid">—</strong>
-          </div>
-
-          <div class="row">
-            <span>Item</span>
-            <strong
-              class="item-display"
-              id="cItem"
-            ></strong>
-          </div>
-
-          <div class="row">
-
-            <span>
-              Quantity
-            </span>
-
-            <div
-              class="qty-control"
-              id="modalQtyControl"
-            >
-
-              <button
-                type="button"
-                class="qty-btn"
-                data-action="dec"
-              >
-                −
-              </button>
-
-              <span
-                class="qty-val"
-                id="cQty"
-              >
-                1
-              </span>
-
-              <button
-                type="button"
-                class="qty-btn"
-                data-action="inc"
-              >
-                +
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="row">
-            <span>Unit price</span>
-            <strong id="cUnit">—</strong>
-          </div>
-
-          <div class="row">
-            <span>Subtotal</span>
-            <strong id="cSubtotal">—</strong>
-          </div>
-
-          <div class="row discount-row">
-
-            <span>
-              🏷️
-              <span id="cCouponLabel">
-                WEL67
-              </span>
-              (
-              <span id="cDiscountPct">
-                5
-              </span>
-              % OFF)
-            </span>
-
-            <strong id="cDiscount">
-              −₹0
-            </strong>
-
-          </div>
-
-          <div class="row total-row">
-
-            <span>Total</span>
-
-            <strong id="cTotal">
-              —
-            </strong>
-
-          </div>
-
+        <div class="row">
+          <span>Account</span>
+          <strong id="cNick">—</strong>
         </div>
 
-
-        <button
-          class="btn btn-primary"
-          id="confirmBtn"
-          type="button"
-        >
-          PROCEED TO PAY
-        </button>
-
-
-        <button
-          class="btn-text"
-          id="cancelConfirmBtn"
-          type="button"
-        >
-          Cancel
-        </button>
-
-      </div>
-
-
-      <!-- PAYMENT -->
-
-      <div
-        id="stepPayment"
-        style="display:none;"
-      >
-
-        <h3 class="modal-title">
-          Payment
-        </h3>
-
-        <p class="modal-sub">
-          Scan the QR code to continue.
-        </p>
-
-
-        <div
-          class="qr-timer"
-          id="qrTimer"
-        >
-          ⏱️ QR valid for 10:00
+        <div class="row">
+          <span>UID</span>
+          <strong id="cUid">—</strong>
         </div>
 
-
-        <div
-          class="qr-box"
-        >
-
-          <img
-            id="qrImg"
-            src="./upi-qr.png.jpeg"
-            alt="UPI QR Code"
-          >
-
+        <div class="row">
+          <span>Item</span>
+          <strong
+            class="item-display"
+            id="cItem"
+          ></strong>
         </div>
 
+        <div class="row">
 
-        <!-- UPI ID -->
-
-        <div
-          style="
-            width:100%;
-            margin-top:12px;
-            padding:12px 14px;
-            border:1px solid #e5e7eb;
-            border-radius:12px;
-            background:#fff;
-            box-sizing:border-box;
-            text-align:center;
-          "
-        >
+          <span>
+            Quantity
+          </span>
 
           <div
-            style="
-              font-size:12px;
-              color:#777;
-              margin-bottom:6px;
-            "
+            class="qty-control"
+            id="modalQtyControl"
           >
-            UPI ID
-          </div>
-
-
-          <div
-            style="
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              gap:10px;
-              flex-wrap:wrap;
-            "
-          >
-
-            <strong
-              id="upiId"
-              style="
-                font-size:15px;
-                color:#111827;
-                word-break:break-all;
-              "
-            >
-              fftopupsite@axl
-            </strong>
-
 
             <button
+              class="qty-btn"
+              data-action="dec"
               type="button"
-              id="copyUpiBtn"
-              style="
-                border:0;
-                border-radius:8px;
-                padding:7px 11px;
-                background:#f97316;
-                color:white;
-                font-size:12px;
-                font-weight:700;
-                cursor:pointer;
-              "
             >
-              COPY
+              −
+            </button>
+
+            <span
+              class="qty-val"
+              id="cQty"
+            >
+              1
+            </span>
+
+            <button
+              class="qty-btn"
+              data-action="inc"
+              type="button"
+            >
+              +
             </button>
 
           </div>
 
         </div>
 
-
-        <div
-          class="pay-amount"
-          id="payAmount"
-        >
-          ₹0
+        <div class="row">
+          <span>Unit price</span>
+          <strong id="cUnit">—</strong>
         </div>
 
-
-        <div
-          class="pay-amount-note"
-          id="payAmountNote"
-        >
-          after 5% coupon discount
+        <div class="row">
+          <span>Subtotal</span>
+          <strong id="cSubtotal">—</strong>
         </div>
 
-
-        <div class="coupon-applied">
+        <div class="row discount-row">
 
           <span>
             🏷️
-            <span id="payCouponLabel">
+            <span id="cCouponLabel">
               WEL67
             </span>
-            applied
+
+            (
+            <span id="cDiscountPct">
+              5
+            </span>
+            % OFF)
           </span>
 
-          <span
-            class="ca-saved"
-            id="paySaved"
-          >
-            Saved ₹0
-          </span>
+          <strong id="cDiscount">
+            −₹0
+          </strong>
 
         </div>
 
+        <div class="row total-row">
 
-        <div class="modal-summary">
+          <span>
+            Total
+          </span>
 
-          <div class="row">
-            <span>Account</span>
-            <strong id="pNick">—</strong>
-          </div>
-
-          <div class="row">
-            <span>UID</span>
-            <strong id="pUid">—</strong>
-          </div>
-
-          <div class="row">
-            <span>Item</span>
-            <strong
-              class="item-display"
-              id="pItem"
-            ></strong>
-          </div>
-
-          <div class="row">
-            <span>Quantity</span>
-            <strong id="pQty">1</strong>
-          </div>
-
-          <div class="row">
-            <span>Order</span>
-            <strong id="pOrder">—</strong>
-          </div>
+          <strong id="cTotal">
+            —
+          </strong>
 
         </div>
-
-
-        <button
-          class="btn btn-primary"
-          id="paidBtn"
-          type="button"
-        >
-          ✓ I HAVE PAID
-        </button>
-
-
-        <button
-          class="btn btn-ghost"
-          id="downloadQrBtn"
-          type="button"
-        >
-          ⬇ DOWNLOAD QR
-        </button>
-
-
-        <button
-          class="btn-text"
-          id="cancelPayBtn"
-          type="button"
-        >
-          Cancel
-        </button>
 
       </div>
 
 
-      <!-- UTR -->
+      <button
+        class="btn btn-primary"
+        id="confirmBtn"
+        type="button"
+      >
+        ✔ Proceed to Pay
+      </button>
+
+
+      <button
+        class="btn-text"
+        id="cancelConfirmBtn"
+        type="button"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+
+    <!-- PAYMENT -->
+
+    <div
+      id="stepPayment"
+      style="display:none"
+    >
+
+      <h3 class="modal-title">
+        Scan &amp; Pay
+      </h3>
+
+      <p class="modal-sub">
+        Pay the exact amount using any UPI app.
+      </p>
+
 
       <div
-        id="stepUtr"
-        style="display:none;"
+        style="
+          text-align:center;
+          margin-bottom:8px;
+        "
       >
 
-        <h3 class="modal-title">
-          Enter UTR Number
-        </h3>
+        <span
+          class="qr-timer"
+          id="qrTimer"
+        >
+          ⏱️ 10:00
+        </span>
 
-        <p class="modal-sub">
-          Enter the UTR number from your payment.
-        </p>
+      </div>
 
+
+      <div class="qr-box">
+
+        <img
+          id="qrImg"
+          src="./upi-qr.png.jpeg"
+          alt="UPI QR"
+          width="220"
+          height="220"
+        >
+
+      </div>
+
+
+      <!-- UPI ID -->
+
+      <div class="upi-id-box">
+
+        <div class="upi-label">
+          UPI ID
+        </div>
+
+        <div class="upi-row">
+
+          <strong id="upiId">
+            fftopupsite@axl
+          </strong>
+
+          <button
+            type="button"
+            id="copyUpiBtn"
+          >
+            COPY
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="pay-amount"
+        id="payAmount"
+      >
+        ₹0
+      </div>
+
+
+      <div
+        class="pay-amount-note"
+        id="payAmountNote"
+      >
+        after coupon discount
+      </div>
+
+
+      <div class="coupon-applied">
+
+        <span>
+          🏷️
+          <span id="payCouponLabel">
+            WEL67
+          </span>
+          applied
+        </span>
+
+        <span
+          class="ca-saved"
+          id="paySaved"
+        >
+          Saved ₹0
+        </span>
+
+      </div>
+
+
+      <div class="modal-summary">
+
+        <div class="row">
+
+          <span>
+            Account
+          </span>
+
+          <strong id="pNick">
+            —
+          </strong>
+
+        </div>
+
+        <div class="row">
+
+          <span>
+            Item
+          </span>
+
+          <strong
+            class="item-display"
+            id="pItem"
+          ></strong>
+
+        </div>
+
+        <div class="row">
+
+          <span>
+            Quantity
+          </span>
+
+          <strong id="pQty">
+            1
+          </strong>
+
+        </div>
+
+        <div class="row">
+
+          <span>
+            Order
+          </span>
+
+          <strong id="pOrder">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary"
+        id="paidBtn"
+        type="button"
+      >
+        ✓ I have paid
+      </button>
+
+
+      <button
+        class="btn btn-ghost"
+        id="downloadQrBtn"
+        type="button"
+      >
+        ⬇ Download QR
+      </button>
+
+
+      <button
+        class="btn-text"
+        id="cancelPayBtn"
+        type="button"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+
+    <!-- UTR -->
+
+    <div
+      id="stepUtr"
+      style="display:none"
+    >
+
+      <h3 class="modal-title">
+        Enter UTR Number
+      </h3>
+
+      <p class="modal-sub">
+        Please enter the UTR from your bank app.
+      </p>
+
+
+      <div class="notice">
+        Waiting for your UTR. Please enter it below.
+      </div>
+
+
+      <div class="utr-section show">
+
+        <div class="utr-group">
+
+          <input
+            type="text"
+            id="utrInput"
+            placeholder="e.g. 123456789012"
+            maxlength="20"
+            autocomplete="off"
+          >
+
+          <button
+            id="submitUtrBtn"
+            type="button"
+          >
+            Submit
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn-text"
+        id="backToPayBtn"
+        type="button"
+      >
+        ← Back
+      </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+      id="stepResult"
+      style="display:none"
+    >
+
+      <div class="result">
 
         <div
-          class="notice show"
+          class="icon"
+          id="resultIcon"
         >
-          Payment verification is handled separately.
+          ✅
         </div>
 
-
-        <div class="utr-section show">
-
-          <label for="utrInput">
-            UTR Number
-          </label>
-
-          <div class="utr-group">
-
-            <input
-              type="text"
-              id="utrInput"
-              placeholder="Enter UTR"
-              maxlength="20"
-              autocomplete="off"
-            >
-
-            <button
-              type="button"
-              id="submitUtrBtn"
-            >
-              Submit
-            </button>
-
-          </div>
-
+        <div
+          class="msg"
+          id="resultMsg"
+        >
+          Payment Submitted!
         </div>
 
-
-        <button
-          class="btn-text"
-          id="backToPayBtn"
-          type="button"
+        <div
+          class="sub"
+          id="resultSub"
         >
-          ← Back
-        </button>
+          Our team will verify your payment shortly.
+        </div>
 
       </div>
 
 
-      <!-- RESULT -->
-
-      <div
-        id="stepResult"
-        style="display:none;"
+      <button
+        class="btn btn-primary"
+        id="resultOkBtn"
+        type="button"
       >
-
-        <div class="result">
-
-          <div
-            class="icon"
-            id="resultIcon"
-          >
-            ✅
-          </div>
-
-          <div
-            class="msg"
-            id="resultMsg"
-          >
-            Payment Submitted
-          </div>
-
-          <div
-            class="sub"
-            id="resultSub"
-          >
-            Your submission has been recorded.
-          </div>
-
-        </div>
-
-
-        <button
-          class="btn btn-primary"
-          id="resultOkBtn"
-          type="button"
-        >
-          OK
-        </button>
-
-      </div>
+        OK
+      </button>
 
     </div>
 
   </div>
 
-
-  <!-- PROCESSING -->
-
-  <div
-    class="processing"
-    id="processingOverlay"
-  >
-
-    <div class="loader"></div>
-
-    <span>
-      Processing...
-    </span>
-
-  </div>
+</div>
 
 
-  <!-- TOAST -->
-
-  <div
-    class="toast hidden"
-    id="toast"
-  ></div>
+<div
+  class="toast hidden"
+  id="toast"
+></div>
 
 
-  <!-- YEAR -->
+<script>
+(function(){
 
-  <script>
-    document.addEventListener(
-      "DOMContentLoaded",
-      function () {
+  'use strict';
 
-        const button =
-          document.getElementById(
-            "copyUpiBtn"
+  /* COPY UPI */
+
+  const copyUpiBtn =
+    document.getElementById('copyUpiBtn');
+
+  const upiId =
+    document.getElementById('upiId');
+
+  if(copyUpiBtn && upiId){
+
+    copyUpiBtn.addEventListener(
+      'click',
+      async function(){
+
+        const text =
+          upiId.textContent.trim();
+
+        try{
+
+          await navigator.clipboard.writeText(text);
+
+          copyUpiBtn.textContent =
+            'COPIED ✓';
+
+          setTimeout(
+            function(){
+              copyUpiBtn.textContent =
+                'COPY';
+            },
+            1500
           );
 
-        const upi =
-          document.getElementById(
-            "upiId"
+        }catch(e){
+
+          alert(
+            'UPI ID: ' +
+            text
           );
 
-        if (!button || !upi) {
-          return;
         }
-
-        button.addEventListener(
-          "click",
-          async function () {
-
-            try {
-
-              await navigator.clipboard.writeText(
-                upi.textContent.trim()
-              );
-
-              button.textContent =
-                "COPIED ✓";
-
-              setTimeout(
-                function () {
-                  button.textContent =
-                    "COPY";
-                },
-                1500
-              );
-
-            } catch (e) {
-
-              alert(
-                "UPI ID: " +
-                upi.textContent.trim()
-              );
-
-            }
-
-          }
-        );
 
       }
     );
-  </script>
+
+  }
 
 
-  <!-- STORE JS -->
+  /* NAVIGATION */
 
-  <script
-    src="./store.js"
-    defer
-  ></script>
+  const navToggle =
+    document.getElementById('navToggle');
+
+  const mainNav =
+    document.getElementById('mainNav');
+
+  if(navToggle && mainNav){
+
+    navToggle.addEventListener(
+      'click',
+      function(){
+        mainNav.classList.toggle('open');
+      }
+    );
+
+  }
+
+
+  /* THEME */
+
+  const themeToggle =
+    document.getElementById('themeToggle');
+
+  if(themeToggle){
+
+    themeToggle.addEventListener(
+      'click',
+      function(){
+
+        const dark =
+          !document.documentElement.classList.contains('dark');
+
+        document.documentElement.classList.toggle(
+          'dark',
+          dark
+        );
+
+        try{
+          localStorage.setItem(
+            'ff_theme',
+            dark ? 'dark' : 'light'
+          );
+        }catch(e){}
+
+        themeToggle.textContent =
+          dark ? '☀️' : '🌙';
+
+      }
+    );
+
+  }
+
+
+  /* YEAR */
+
+  const year =
+    document.getElementById('year');
+
+  if(year){
+    year.textContent =
+      new Date().getFullYear();
+  }
+
+
+})();
+</script>
+
+
+<!-- YOUR EXISTING STORE JS -->
+
+<script src="./store.js"></script>
 
 </body>
 </html>
