@@ -8,591 +8,187 @@
     QR_IMAGE: './upi-qr.png.jpeg'
   };
 
-  const PRODUCTS = {
-    p1: {
-      name: '100 Diamonds',
-      amount: '100',
-      sub: '+10 bonus',
-      price: 39,
-      old: 90,
-      category: 'diamonds',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618130216_7f8d25.png',
-      tag: ''
-    },
+  const $ = (s,c=document)=>c.querySelector(s);
+  const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
 
-    p2: {
-      name: '310 Diamonds',
-      amount: '310',
-      sub: '+31 bonus',
-      price: 99,
-      old: 260,
-      category: 'diamonds',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png',
-      tag: 'best'
-    },
-
-    p3: {
-      name: '520 Diamonds',
-      amount: '520',
-      sub: '+52 bonus',
-      price: 149,
-      old: 440,
-      category: 'diamonds',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618130756_687fd4.png',
-      tag: 'best'
-    },
-
-    p4: {
-      name: '1060 Diamonds',
-      amount: '1060',
-      sub: '+106 bonus',
-      price: 299,
-      old: 860,
-      category: 'diamonds',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618131428_da9e7d.png',
-      tag: 'hot'
-    },
-
-    p5: {
-      name: '2180 Diamonds',
-      amount: '2180',
-      sub: '+218 bonus',
-      price: 499,
-      old: 1700,
-      category: 'diamonds',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618131446_ae70d5.png',
-      tag: 'best'
-    },
-
-    p6: {
-      name: '5600 Diamonds',
-      amount: '5600',
-      sub: '+560 bonus',
-      price: 799,
-      old: 4300,
-      category: 'diamonds',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618131503_e48bb6.png',
-      tag: 'best'
-    },
-
-    p7: {
-      name: 'Booyah Pass',
-      amount: 'Booyah',
-      sub: '+50% XP boost',
-      price: 159,
-      old: 299,
-      category: 'passes',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618132321_6d00cf.png',
-      tag: 'hot'
-    },
-
-    p8: {
-      name: 'Booyah Pass+',
-      amount: 'Booyah+',
-      sub: '+100% XP + exclusive skins',
-      price: 299,
-      old: 599,
-      category: 'passes',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618132415_969094.png',
-      tag: 'best'
-    },
-
-    p9: {
-      name: 'Weekly Pass',
-      amount: 'Weekly',
-      sub: '7 days of rewards',
-      price: 99,
-      old: 159,
-      category: 'passes',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618133127_78497d.png',
-      tag: ''
-    },
-
-    p10: {
-      name: 'Monthly Pass',
-      amount: 'Monthly',
-      sub: '30 days premium',
-      price: 299,
-      old: 799,
-      category: 'passes',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618144016_48b5e4.png',
-      tag: 'best'
-    },
-
-    p11: {
-      name: '30D Evo Pass',
-      amount: '30D Evo',
-      sub: 'Evolve with exclusive items',
-      price: 259,
-      old: 5999,
-      category: 'passes',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618144137_8f687e.png',
-      tag: 'hot'
-    },
-
-    p12: {
-      name: 'Weekly Lite Pass',
-      amount: 'Lite',
-      sub: 'Budget friendly',
-      price: 39,
-      old: 120,
-      category: 'passes',
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618132946_87d030.png',
-      tag: ''
-    }
-  };
-
-  const $ =
-    (s, c = document) =>
-      c.querySelector(s);
-
-  const $$ =
-    (s, c = document) =>
-      [...c.querySelectorAll(s)];
-
-  let COUPON =
-    CONFIG.COUPON;
-
-  let COUPON_DISCOUNT =
-    CONFIG.DISCOUNT;
+  let COUPON = CONFIG.COUPON;
+  let COUPON_DISCOUNT = CONFIG.DISCOUNT;
 
   try {
-    const c =
-      localStorage.getItem(
-        'ff_coupon'
-      );
-
-    const d =
-      parseFloat(
-        localStorage.getItem(
-          'ff_coupon_discount'
-        )
-      );
-
-    if (c) {
-      COUPON = c;
-    }
-
-    if (!isNaN(d) && d > 0) {
-      COUPON_DISCOUNT = d;
-    }
+    const sc = localStorage.getItem('ff_coupon');
+    const sp = parseFloat(localStorage.getItem('ff_coupon_discount'));
+    if (sc) COUPON = sc;
+    if (!isNaN(sp) && sp > 0) COUPON_DISCOUNT = sp;
   } catch (_) {}
+
+  const PRODUCTS = {
+    p1:{name:'100 Diamonds',amount:'100',price:39,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618130216_7f8d25.png'},
+    p2:{name:'310 Diamonds',amount:'310',price:99,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png'},
+    p3:{name:'520 Diamonds',amount:'520',price:149,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618130756_687fd4.png'},
+    p4:{name:'1060 Diamonds',amount:'1060',price:299,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618131428_da9e7d.png'},
+    p5:{name:'2180 Diamonds',amount:'2180',price:499,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618131446_ae70d5.png'},
+    p6:{name:'5600 Diamonds',amount:'5600',price:799,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618131503_e48bb6.png'},
+    p7:{name:'Booyah Pass',amount:'Booyah',price:159,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618132321_6d00cf.png'},
+    p8:{name:'Booyah Pass+',amount:'Booyah+',price:299,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618132415_969094.png'},
+    p9:{name:'Weekly Pass',amount:'Weekly',price:99,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618133127_78497d.png'},
+    p10:{name:'Monthly Pass',amount:'Monthly',price:299,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618144016_48b5e4.png'},
+    p11:{name:'30D Evo Pass',amount:'30D Evo',price:259,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618144137_8f687e.png'},
+    p12:{name:'Weekly Lite Pass',amount:'Lite',price:39,image:'https://freefiretopupindia.site/gen/uploads/products/products_20260618132946_87d030.png'}
+  };
 
   const state = {
     player: null,
     order: null,
     quantity: 1,
-    step: 'confirm',
     timer: 600,
     timerId: null
   };
 
-  function getStorage(k) {
-    try {
-      return localStorage.getItem(k);
-    } catch (_) {
-      return null;
-    }
+  function lsGet(k){
+    try{return localStorage.getItem(k)}
+    catch(_){return null}
   }
 
-  function readPlayer() {
-    try {
-      const raw =
-        localStorage.getItem(
-          'ff_player'
-        );
+  function readPlayer(){
+    try{
+      const raw=localStorage.getItem('ff_player');
 
-      if (raw) {
-        return JSON.parse(raw);
+      if(raw){
+        const p=JSON.parse(raw);
+        if(p && p.nickname && p.uid) return p;
       }
-    } catch (_) {}
+    }catch(_){}
 
-    return null;
-  }
+    const uid=lsGet('ff_uid');
+    const nick=lsGet('ff_nick');
 
-  function showToast(
-    msg,
-    type = ''
-  ) {
-    const toast =
-      $('#toast');
-
-    if (!toast) return;
-
-    toast.textContent =
-      msg;
-
-    toast.className =
-      `toast ${type}`;
-
-    toast.classList.add(
-      'show'
-    );
-
-    toast.classList.remove(
-      'hidden'
-    );
-
-    clearTimeout(
-      showToast._t
-    );
-
-    showToast._t =
-      setTimeout(
-        () => {
-          toast.classList.remove(
-            'show'
-          );
-
-          toast.classList.add(
-            'hidden'
-          );
-        },
-        3200
-      );
-  }
-
-  function setTheme(dark) {
-    document.documentElement.classList.toggle(
-      'dark',
-      dark
-    );
-
-    try {
-      localStorage.setItem(
-        'ff_theme',
-        dark
-          ? 'dark'
-          : 'light'
-      );
-    } catch (_) {}
-
-    const btn =
-      $('#themeToggle');
-
-    if (btn) {
-      btn.textContent =
-        dark
-          ? '☀️'
-          : '🌙';
-    }
-  }
-
-  function initTheme() {
-    let dark = false;
-
-    try {
-      dark =
-        localStorage.getItem(
-          'ff_theme'
-        ) === 'dark';
-    } catch (_) {}
-
-    setTheme(dark);
-
-    $('#themeToggle')?.addEventListener(
-      'click',
-      () => {
-        setTheme(
-          !document.documentElement.classList.contains(
-            'dark'
-          )
-        );
-      }
-    );
-  }
-
-  function initNav() {
-    const toggle =
-      $('#navToggle');
-
-    const nav =
-      $('#mainNav');
-
-    if (!toggle || !nav) {
-      return;
-    }
-
-    toggle.addEventListener(
-      'click',
-      () =>
-        nav.classList.toggle(
-          'open'
-        )
-    );
-
-    $$('a', nav).forEach(
-      a =>
-        a.addEventListener(
-          'click',
-          () =>
-            nav.classList.remove(
-              'open'
-            )
-        )
-    );
-  }
-
-  function money(n) {
-    const v =
-      Math.round(
-        Number(n) * 100
-      ) / 100;
-
-    return Math.abs(
-      v - Math.round(v)
-    ) < 0.001
-      ? `₹${Math.round(v).toLocaleString('en-IN')}`
-      : `₹${v.toFixed(2)}`;
-  }
-
-  function escapeHtml(s) {
-    return String(s).replace(
-      /[&<>"']/g,
-      c =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
-        }[c])
-    );
-  }
-
-  function loadPlayer() {
-    const saved =
-      readPlayer();
-
-    if (
-      saved?.nickname &&
-      saved?.uid
-    ) {
-      return saved;
-    }
-
-    const uid =
-      getStorage(
-        'ff_uid'
-      );
-
-    const nickname =
-      getStorage(
-        'ff_nick'
-      );
-
-    const level =
-      getStorage(
-        'ff_level'
-      ) || '—';
-
-    const region =
-      getStorage(
-        'ff_region'
-      ) || '—';
-
-    if (
-      uid &&
-      nickname
-    ) {
+    if(uid && nick){
       return {
-        uid: String(uid),
-        nickname,
-        level,
-        region,
-        likes: null,
-        clan: null
+        uid:String(uid),
+        nickname:nick,
+        level:lsGet('ff_level')||'—',
+        region:lsGet('ff_region')||''
       };
     }
 
     return null;
   }
 
-  function paintPlayer() {
-    const p =
-      state.player;
+  function showToast(msg,dur=3000){
+    const toast=$('#toast');
+    if(!toast)return;
 
-    if (!p) return;
+    toast.textContent=msg;
+    toast.classList.remove('hidden');
+    toast.classList.add('show');
 
-    $('#vNick').textContent =
-      p.nickname || '—';
+    clearTimeout(showToast._t);
 
-    $('#vUid').textContent =
-      p.uid || '—';
-
-    $('#vLevel').textContent =
-      p.level != null
-        ? `Lvl ${p.level}`
-        : '—';
+    showToast._t=setTimeout(()=>{
+      toast.classList.remove('show');
+      toast.classList.add('hidden');
+    },dur);
   }
 
-  function filterCategory(cat) {
-    $$('.product').forEach(
-      card => {
-        card.style.display =
-          card.dataset.category === cat
-            ? ''
-            : 'none';
+  function setTheme(dark){
+    const html=document.documentElement;
+
+    html.classList.toggle(
+      'dark',
+      dark
+    );
+
+    try{
+      localStorage.setItem(
+        'ff_theme',
+        dark?'dark':'light'
+      );
+    }catch(_){}
+
+    const b=$('#themeToggle');
+
+    if(b){
+      b.textContent=
+        dark?'☀️':'🌙';
+    }
+  }
+
+  function initTheme(){
+    let dark=false;
+
+    try{
+      dark=
+        localStorage.getItem(
+          'ff_theme'
+        )==='dark';
+    }catch(_){}
+
+    setTheme(dark);
+
+    $('#themeToggle')?.addEventListener(
+      'click',
+      ()=>{
+        setTheme(
+          !document.documentElement.classList.contains('dark')
+        );
       }
     );
   }
 
-  function initTabs() {
-    $$('.tab').forEach(
-      tab => {
-        tab.addEventListener(
+  function initNav(){
+    const navToggle=$('#navToggle');
+    const mainNav=$('#mainNav');
+
+    if(!navToggle||!mainNav)return;
+
+    navToggle.addEventListener(
+      'click',
+      ()=>{
+        mainNav.classList.toggle('open');
+      }
+    );
+
+    mainNav.querySelectorAll('a').forEach(
+      a=>{
+        a.addEventListener(
           'click',
-          () => {
-            $$('.tab').forEach(
-              t =>
-                t.classList.remove(
-                  'active'
-                )
-            );
-
-            tab.classList.add(
-              'active'
-            );
-
-            filterCategory(
-              tab.dataset.cat
-            );
+          ()=>{
+            mainNav.classList.remove('open');
           }
         );
       }
     );
-
-    filterCategory(
-      'diamonds'
-    );
   }
 
-  function renderProducts() {
-    const grid =
-      $('#productGrid');
-
-    if (!grid) return;
-
-    grid.innerHTML =
-      Object.entries(
-        PRODUCTS
-      )
-        .map(
-          ([id, p]) => `
-            <article
-              class="product"
-              data-category="${p.category}"
-              data-id="${id}"
-            >
-
-              ${
-                p.tag
-                  ? `<span class="tag ${p.tag}">
-                      ${
-                        p.tag === 'best'
-                          ? 'Best value'
-                          : 'Hot'
-                      }
-                    </span>`
-                  : ''
-              }
-
-              <div class="p-icon">
-                <img
-                  class="p-img"
-                  src="${p.image}"
-                  alt=""
-                  loading="lazy"
-                >
-              </div>
-
-              <div class="p-amount">
-                ${escapeHtml(p.amount)}
-              </div>
-
-              <div class="p-name">
-                ${escapeHtml(p.name)}
-              </div>
-
-              <div class="p-sub">
-                ${escapeHtml(p.sub)}
-              </div>
-
-              <span class="p-stock">
-                ${Math.floor(40 + Math.random() * 361)}
-                in stock
-              </span>
-
-              <div class="p-foot">
-                <div class="p-price-wrap">
-                  <span class="p-price">
-                    ${money(p.price)}
-                    <span class="p-old">
-                      ${money(p.old)}
-                    </span>
-                  </span>
-                </div>
-
-                <span class="p-buy">
-                  Buy →
-                </span>
-              </div>
-
-              <span class="p-coupon show">
-                🏷️ ${escapeHtml(COUPON)}
-                · ${COUPON_DISCOUNT}% OFF
-              </span>
-
-            </article>
-          `
-        )
-        .join('');
-
-    filterCategory(
-      'diamonds'
-    );
-  }
-
-  function initCoupon() {
+  function initCoupon(){
     $$('[data-coupon-copy]').forEach(
-      btn => {
+      btn=>{
         btn.addEventListener(
           'click',
-          async () => {
-            const original =
-              btn.textContent;
+          async()=>{
+            const orig=btn.textContent;
 
-            try {
-              await navigator.clipboard.writeText(
-                COUPON
-              );
+            try{
+              await navigator.clipboard.writeText(COUPON);
 
-              btn.textContent =
-                'COPIED ✓';
-
-              btn.classList.add(
-                'copied'
-              );
+              btn.textContent='COPIED ✓';
+              btn.classList.add('copied');
 
               showToast(
-                `🎉 Coupon ${COUPON} copied — ${COUPON_DISCOUNT}% OFF!`,
-                'ok'
+                `🎉 Coupon ${COUPON} copied — ${COUPON_DISCOUNT}% OFF on every product!`,
+                3200
               );
-
-            } catch (_) {
+            }catch(_){
               showToast(
-                `Coupon code: ${COUPON}`
+                `Coupon code: ${COUPON} (${COUPON_DISCOUNT}% OFF)`,
+                3200
               );
             }
 
             setTimeout(
-              () => {
-                btn.textContent =
-                  original;
-
-                btn.classList.remove(
-                  'copied'
-                );
+              ()=>{
+                btn.textContent=orig;
+                btn.classList.remove('copied');
               },
               2200
             );
@@ -600,226 +196,378 @@
         );
       }
     );
+
+    $$('[data-coupon-badge]').forEach(
+      el=>{
+        el.textContent=
+          `🏷️ ${COUPON} · ${COUPON_DISCOUNT}% OFF applied`;
+
+        el.classList.add('show');
+      }
+    );
   }
 
-  function calc() {
-    const subtotal =
-      state.order.price *
-      state.quantity;
+  function paintBar(p){
+    $('#vNick').textContent=
+      p.nickname||'—';
 
-    const discount =
+    $('#vUid').textContent=
+      p.uid||'—';
+
+    $('#vLevel').textContent=
+      'Lvl '+(p.level??'—');
+  }
+
+  function recoverPlayer(){
+    const p=readPlayer();
+
+    if(p){
+      paintBar(p);
+      return p;
+    }
+
+    return null;
+  }
+
+  $('#changeAccount').addEventListener(
+    'click',
+    e=>{
+      e.preventDefault();
+
+      try{
+        [
+          'ff_uid',
+          'ff_nick',
+          'ff_level',
+          'ff_region',
+          'ff_player'
+        ].forEach(
+          k=>{
+            localStorage.removeItem(k);
+            sessionStorage.removeItem(k);
+          }
+        );
+      }catch(_){}
+
+      location.href='index.html';
+    }
+  );
+
+  const tabs=$$('.tab');
+  const products=$$('.product');
+
+  function filterCategory(cat){
+    products.forEach(
+      p=>{
+        p.style.display=
+          p.dataset.category===cat
+            ? ''
+            : 'none';
+      }
+    );
+  }
+
+  tabs.forEach(
+    tab=>{
+      tab.addEventListener(
+        'click',
+        function(){
+          tabs.forEach(
+            t=>t.classList.remove('active')
+          );
+
+          this.classList.add('active');
+
+          filterCategory(
+            this.dataset.cat
+          );
+        }
+      );
+    }
+  );
+
+  filterCategory('diamonds');
+
+  const processing=$('#processingOverlay');
+  const modal=$('#payModal');
+
+  const stepConfirm=$('#stepConfirm');
+  const stepPayment=$('#stepPayment');
+  const stepUtr=$('#stepUtr');
+  const stepResult=$('#stepResult');
+
+  const cNick=$('#cNick');
+  const cUid=$('#cUid');
+  const cItem=$('#cItem');
+  const cQty=$('#cQty');
+  const cUnit=$('#cUnit');
+  const cSubtotal=$('#cSubtotal');
+  const cDiscount=$('#cDiscount');
+  const cTotal=$('#cTotal');
+
+  const pNick=$('#pNick');
+  const pUid=$('#pUid');
+  const pItem=$('#pItem');
+  const pQty=$('#pQty');
+  const pOrder=$('#pOrder');
+
+  const payAmount=$('#payAmount');
+  const payAmountNote=$('#payAmountNote');
+  const paySaved=$('#paySaved');
+  const payCouponLabel=$('#payCouponLabel');
+  const qrImg=$('#qrImg');
+  const qrTimer=$('#qrTimer');
+
+  let currentOrder=null;
+  let isProcessing=false;
+
+  function formatINR(n){
+    const v=
+      Math.round(n*100)/100;
+
+    const r=
+      Math.round(v);
+
+    if(
+      Math.abs(v-r)<0.001
+    ){
+      return '₹'+r.toLocaleString('en-IN');
+    }
+
+    return '₹'+v.toFixed(2);
+  }
+
+  function totals(){
+    if(!currentOrder){
+      return {
+        subtotal:0,
+        discount:0,
+        total:0
+      };
+    }
+
+    const subtotal=
+      currentOrder.price *
+      currentOrder.quantity;
+
+    const discount=
       subtotal *
-      (COUPON_DISCOUNT / 100);
+      (COUPON_DISCOUNT/100);
 
     return {
       subtotal,
       discount,
       total:
-        subtotal -
-        discount
+        subtotal-discount
     };
   }
 
-  function renderConfirm() {
-    const p =
-      state.player;
+  function renderConfirm(){
+    if(!currentOrder)return;
 
-    const o =
-      state.order;
+    const t=totals();
 
-    const t =
-      calc();
+    cQty.textContent=
+      currentOrder.quantity;
 
-    $('#cNick').textContent =
-      p.nickname;
-
-    $('#cUid').textContent =
-      p.uid;
-
-    $('#cQty').textContent =
-      state.quantity;
-
-    $('#cUnit').textContent =
-      money(
-        o.price
+    cUnit.textContent=
+      formatINR(
+        currentOrder.price
       );
 
-    $('#cSubtotal').textContent =
-      money(
+    cSubtotal.textContent=
+      formatINR(
         t.subtotal
       );
 
-    $('#cDiscount').textContent =
-      `−${money(
+    cDiscount.textContent=
+      '−'+
+      formatINR(
         t.discount
-      )}`;
+      );
 
-    $('#cTotal').textContent =
-      money(
+    cTotal.textContent=
+      formatINR(
         t.total
       );
 
-    $('#cCouponLabel').textContent =
+    $('#cCouponLabel').textContent=
       COUPON;
 
-    $('#cDiscountPct').textContent =
+    $('#cDiscountPct').textContent=
       COUPON_DISCOUNT;
 
-    const name =
-      state.quantity > 1
-        ? `${o.name} × ${state.quantity}`
-        : o.name;
+    const name=
+      currentOrder.quantity>1
+        ? `${currentOrder.name} × ${currentOrder.quantity}`
+        : currentOrder.name;
 
-    $('#cItem').innerHTML =
-      `
-        <img
-          src="${o.image}"
-          alt=""
-        >
-        <span>
-          ${escapeHtml(name)}
-        </span>
-      `;
+    cItem.innerHTML=
+      `<img src="${currentOrder.image}" alt=""><span>${name}</span>`;
 
-    $(
-      '#modalQtyControl [data-action="dec"]'
-    ).disabled =
-      state.quantity <= 1;
+    $('#modalQtyControl [data-action="dec"]').disabled=
+      currentOrder.quantity<=1;
 
-    $(
-      '#modalQtyControl [data-action="inc"]'
-    ).disabled =
-      state.quantity >= 99;
+    $('#modalQtyControl [data-action="inc"]').disabled=
+      currentOrder.quantity>=99;
   }
 
-  function resetSteps() {
-    $('#stepConfirm').style.display =
-      'block';
+  function closeModal(){
+    modal.classList.remove('open');
 
-    $('#stepPayment').style.display =
-      'none';
-
-    $('#stepUtr').style.display =
-      'none';
-
-    $('#stepResult').style.display =
-      'none';
-  }
-
-  function openPayModal() {
-    $('#payModal').classList.add(
-      'open'
-    );
-
-    document.body.style.overflow =
-      'hidden';
-
-    resetSteps();
-  }
-
-  function closePayModal() {
-    $('#payModal').classList.remove(
-      'open'
-    );
-
-    document.body.style.overflow =
-      '';
+    document.body.style.overflow='';
 
     clearInterval(
       state.timerId
     );
 
-    state.timerId =
-      null;
+    state.timerId=null;
+    state.timer=600;
+    currentOrder=null;
 
-    state.timer =
-      600;
+    stepConfirm.style.display='block';
+    stepPayment.style.display='none';
+    stepUtr.style.display='none';
+    stepResult.style.display='none';
 
-    state.order =
-      null;
-
-    state.quantity =
-      1;
-
-    resetSteps();
-
-    const timer =
-      $('#qrTimer');
-
-    timer.textContent =
+    qrTimer.textContent=
       '⏱️ QR valid for 10:00';
 
-    timer.classList.remove(
+    qrTimer.classList.remove(
       'expired'
     );
   }
 
-  function updateTimer() {
-    const m =
+  function showConfirm(data){
+    currentOrder={
+      ...data,
+      quantity:1,
+      orderId:
+        'FT'+
+        Date.now()+
+        Math.floor(
+          Math.random()*1000
+        )
+          .toString()
+          .padStart(
+            3,
+            '0'
+          )
+    };
+
+    isProcessing=true;
+
+    processing.classList.add(
+      'show'
+    );
+
+    setTimeout(
+      ()=>{
+        processing.classList.remove(
+          'show'
+        );
+
+        isProcessing=false;
+
+        cNick.textContent=
+          state.player.nickname;
+
+        cUid.textContent=
+          state.player.uid;
+
+        renderConfirm();
+
+        stepConfirm.style.display=
+          'block';
+
+        stepPayment.style.display=
+          'none';
+
+        stepUtr.style.display=
+          'none';
+
+        stepResult.style.display=
+          'none';
+
+        modal.classList.add(
+          'open'
+        );
+
+        document.body.style.overflow=
+          'hidden';
+      },
+      700
+    );
+  }
+
+  function updateTimer(){
+    const m=
       String(
         Math.floor(
-          state.timer / 60
+          state.timer/60
         )
       ).padStart(
         2,
         '0'
       );
 
-    const s =
+    const s=
       String(
-        state.timer % 60
+        state.timer%60
       ).padStart(
         2,
         '0'
       );
 
-    const el =
-      $('#qrTimer');
-
-    el.textContent =
-      state.timer > 0
+    qrTimer.textContent=
+      state.timer>0
         ? `⏱️ QR valid for ${m}:${s}`
         : '⏱️ QR expired';
 
-    el.classList.toggle(
-      'expired',
-      state.timer <= 60
-    );
+    if(
+      state.timer<=60
+    ){
+      qrTimer.classList.add(
+        'expired'
+      );
+    }else{
+      qrTimer.classList.remove(
+        'expired'
+      );
+    }
   }
 
-  function startTimer() {
+  function startTimer(){
     clearInterval(
       state.timerId
     );
 
-    state.timer =
-      600;
+    state.timer=600;
 
     updateTimer();
 
-    state.timerId =
+    state.timerId=
       setInterval(
-        () => {
+        ()=>{
           state.timer--;
 
           updateTimer();
 
-          if (
-            state.timer <= 0
-          ) {
+          if(
+            state.timer<=0
+          ){
             clearInterval(
               state.timerId
             );
 
-            state.timerId =
-              null;
+            state.timerId=null;
 
-            $('#paidBtn').disabled =
+            $('#paidBtn').disabled=
               true;
 
             showToast(
               'QR expired. Please restart.',
-              'err'
+              4000
             );
           }
         },
@@ -827,192 +575,233 @@
       );
   }
 
-  function showConfirm(product) {
-    state.order =
-      product;
+  $('#modalQtyControl')
+    .querySelectorAll(
+      '[data-action]'
+    )
+    .forEach(
+      btn=>{
+        btn.addEventListener(
+          'click',
+          ()=>{
+            if(
+              !currentOrder
+            )return;
 
-    state.quantity =
-      1;
+            const d=
+              btn.dataset.action===
+              'inc'
+                ? 1
+                : -1;
 
-    renderConfirm();
+            currentOrder.quantity=
+              Math.max(
+                1,
+                Math.min(
+                  99,
+                  currentOrder.quantity+d
+                )
+              );
 
-    openPayModal();
-  }
+            renderConfirm();
+          }
+        );
+      }
+    );
 
-  function showPayment() {
-    if (!state.order) {
-      return;
+  $('#confirmBtn').addEventListener(
+    'click',
+    ()=>{
+      if(!currentOrder)return;
+
+      const t=totals();
+
+      const name=
+        currentOrder.quantity>1
+          ? `${currentOrder.name} × ${currentOrder.quantity}`
+          : currentOrder.name;
+
+      pNick.textContent=
+        currentOrder.nick;
+
+      pUid.textContent=
+        currentOrder.uid;
+
+      pItem.innerHTML=
+        `<img src="${currentOrder.image}" alt=""><span>${name}</span>`;
+
+      pQty.textContent=
+        currentOrder.quantity;
+
+      pOrder.textContent=
+        currentOrder.orderId;
+
+      payAmount.textContent=
+        formatINR(
+          t.total
+        );
+
+      payAmountNote.textContent=
+        `after ${COUPON_DISCOUNT}% coupon discount`;
+
+      paySaved.textContent=
+        `Saved ${formatINR(t.discount)}`;
+
+      payCouponLabel.textContent=
+        COUPON;
+
+      qrImg.src=
+        CONFIG.QR_IMAGE;
+
+      stepConfirm.style.display=
+        'none';
+
+      stepPayment.style.display=
+        'block';
+
+      stepUtr.style.display=
+        'none';
+
+      stepResult.style.display=
+        'none';
+
+      $('#paidBtn').disabled=
+        false;
+
+      $('#paidBtn').innerHTML=
+        '✓ I have paid';
+
+      startTimer();
     }
+  );
 
-    const totals =
-      calc();
+  $('#paidBtn').addEventListener(
+    'click',
+    ()=>{
+      if(
+        state.timer<=0
+      ){
+        showToast(
+          'QR expired. Restart.',
+          3000
+        );
+        return;
+      }
 
-    const name =
-      state.quantity > 1
-        ? `${state.order.name} × ${state.quantity}`
-        : state.order.name;
-
-    $('#pNick').textContent =
-      state.player.nickname;
-
-    $('#pUid').textContent =
-      state.player.uid;
-
-    $('#pItem').innerHTML =
-      `
-        <img
-          src="${state.order.image}"
-          alt=""
-        >
-        <span>
-          ${escapeHtml(name)}
-        </span>
-      `;
-
-    $('#pQty').textContent =
-      state.quantity;
-
-    $('#pOrder').textContent =
-      state.order.orderId;
-
-    $('#payAmount').textContent =
-      money(
-        totals.total
+      clearInterval(
+        state.timerId
       );
 
-    $('#payAmountNote').textContent =
-      `after ${COUPON_DISCOUNT}% coupon discount`;
+      state.timerId=null;
 
-    $('#paySaved').textContent =
-      `Saved ${money(
-        totals.discount
-      )}`;
+      stepPayment.style.display=
+        'none';
 
-    $('#payCouponLabel').textContent =
-      COUPON;
+      stepUtr.style.display=
+        'block';
 
-    /*
-      User's own QR image.
-      No remote QR generator is used.
-    */
-    $('#qrImg').src =
-      CONFIG.QR_IMAGE;
-
-    $('#paidBtn').disabled =
-      false;
-
-    $('#paidBtn').textContent =
-      '✓ I have paid';
-
-    $('#stepConfirm').style.display =
-      'none';
-
-    $('#stepPayment').style.display =
-      'block';
-
-    $('#stepUtr').style.display =
-      'none';
-
-    $('#stepResult').style.display =
-      'none';
-
-    const demoNotice =
-      $('#demoPaymentNotice');
-
-    if (demoNotice) {
-      demoNotice.textContent =
-        'DEMO PAYMENT: This page does not verify or confirm a real payment automatically. Use the QR for your own test/demo flow.';
+      $('#utrInput').focus();
     }
+  );
 
-    startTimer();
-  }
+  $('#backToPayBtn').addEventListener(
+    'click',
+    ()=>{
+      stepUtr.style.display=
+        'none';
 
-  function showUtr() {
-    if (
-      state.timer <= 0
-    ) {
+      stepPayment.style.display=
+        'block';
+
+      if(
+        state.timer>0
+      ){
+        startTimer();
+      }
+    }
+  );
+
+  $('#downloadQrBtn').addEventListener(
+    'click',
+    ()=>{
+      const a=
+        document.createElement('a');
+
+      a.href=
+        CONFIG.QR_IMAGE;
+
+      a.download=
+        `QR_${
+          currentOrder?.orderId||
+          'payment'
+        }.png`;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      a.remove();
+
       showToast(
-        'QR expired. Restart the order.',
-        'err'
+        '⬇ QR downloaded!',
+        2000
       );
+    }
+  );
 
+  function submitUtr(){
+    if(
+      !currentOrder
+    )return;
+
+    const utr=
+      $('#utrInput')
+        .value
+        .trim();
+
+    if(!utr){
+      showToast(
+        '❌ Enter UTR.',
+        2500
+      );
       return;
     }
 
-    clearInterval(
-      state.timerId
-    );
+    if(
+      utr.length<6
+    ){
+      showToast(
+        '❌ UTR: min 6 chars.',
+        2500
+      );
+      return;
+    }
 
-    state.timerId =
-      null;
+    const t=totals();
 
-    $('#stepPayment').style.display =
-      'none';
-
-    $('#stepUtr').style.display =
-      'block';
-
-    $('#utrNotice').classList.add(
-      'show'
-    );
-
-    $('#utrInput').value =
-      '';
-
-    $('#utrInput').focus();
-  }
-
-  function showResult() {
-    $('#stepUtr').style.display =
-      'none';
-
-    $('#stepResult').style.display =
-      'block';
-
-    $('#resultIcon').textContent =
-      '🧪';
-
-    $('#resultMsg').textContent =
-      'Demo Submission Saved';
-
-    $('#resultSub').textContent =
-      'This demo does not verify payment or deliver items automatically.';
-
-    showToast(
-      'Demo UTR saved locally.',
-      'ok'
-    );
-  }
-
-  function saveDemoUTR(utr) {
-    const totals =
-      calc();
-
-    const payload = {
-      demo: true,
-
+    const payload={
       order_id:
-        state.order.orderId,
+        currentOrder.orderId,
 
       uid:
-        state.player.uid,
+        currentOrder.uid,
 
       nickname:
-        state.player.nickname,
+        currentOrder.nick,
 
       item:
-        state.order.name,
+        currentOrder.name,
 
       quantity:
-        state.quantity,
+        currentOrder.quantity,
 
       unit_price:
-        state.order.price,
+        currentOrder.price,
 
       subtotal:
         Math.round(
-          totals.subtotal * 100
-        ) / 100,
+          t.subtotal*100
+        )/100,
 
       coupon:
         COUPON,
@@ -1022,13 +811,13 @@
 
       discount_amount:
         Math.round(
-          totals.discount * 100
-        ) / 100,
+          t.discount*100
+        )/100,
 
       amount:
         Math.round(
-          totals.total * 100
-        ) / 100,
+          t.total*100
+        )/100,
 
       utr,
 
@@ -1039,300 +828,130 @@
         new Date().toISOString()
     };
 
-    try {
+    try{
       localStorage.setItem(
-        `ff_demo_order_${state.order.orderId}`,
-        JSON.stringify(
-          payload
-        )
+        `ff_order_${currentOrder.orderId}`,
+        JSON.stringify(payload)
       );
+    }catch(_){}
 
-      return true;
+    stepUtr.style.display=
+      'none';
 
-    } catch (_) {
-      return false;
-    }
+    stepResult.style.display=
+      'block';
+
+    $('#resultIcon').textContent=
+      '✅';
+
+    $('#resultMsg').textContent=
+      'Payment Submitted!';
+
+    $('#resultSub').textContent=
+      'Order information has been saved in this browser.';
   }
 
-  $('#changeAccount')?.addEventListener(
-    'click',
-    e => {
-      e.preventDefault();
-
-      try {
-        [
-          'ff_uid',
-          'ff_nick',
-          'ff_level',
-          'ff_region',
-          'ff_player'
-        ].forEach(
-          k => {
-            localStorage.removeItem(
-              k
-            );
-
-            sessionStorage.removeItem(
-              k
-            );
-          }
-        );
-      } catch (_) {}
-
-      location.href =
-        'index.html';
-    }
-  );
-
-  $('#modalClose')?.addEventListener(
-    'click',
-    closePayModal
-  );
-
-  $('#cancelConfirmBtn')?.addEventListener(
-    'click',
-    closePayModal
-  );
-
-  $('#cancelPayBtn')?.addEventListener(
-    'click',
-    closePayModal
-  );
-
-  $('#resultOkBtn')?.addEventListener(
-    'click',
-    closePayModal
-  );
-
-  $('#payModal')?.addEventListener(
-    'click',
-    e => {
-      if (
-        e.target ===
-        $('#payModal')
-      ) {
-        closePayModal();
-      }
-    }
-  );
-
-  $('#modalQtyControl')?.addEventListener(
-    'click',
-    e => {
-      const btn =
-        e.target.closest(
-          '[data-action]'
-        );
-
-      if (
-        !btn ||
-        !state.order
-      ) {
-        return;
-      }
-
-      state.quantity +=
-        btn.dataset.action ===
-        'inc'
-          ? 1
-          : -1;
-
-      state.quantity =
-        Math.max(
-          1,
-          Math.min(
-            99,
-            state.quantity
-          )
-        );
-
-      renderConfirm();
-    }
-  );
-
-  $('#confirmBtn')?.addEventListener(
-    'click',
-    showPayment
-  );
-
-  $('#paidBtn')?.addEventListener(
-    'click',
-    showUtr
-  );
-
-  $('#backToPayBtn')?.addEventListener(
-    'click',
-    () => {
-      $('#stepUtr').style.display =
-        'none';
-
-      $('#stepPayment').style.display =
-        'block';
-
-      if (
-        state.timer > 0
-      ) {
-        startTimer();
-      }
-    }
-  );
-
-  async function submitUtr() {
-    const utr =
-      $('#utrInput').value.trim();
-
-    if (!utr) {
-      showToast(
-        '❌ Enter UTR.',
-        'err'
-      );
-
-      $('#utrInput').focus();
-
-      return;
-    }
-
-    if (
-      utr.length < 6
-    ) {
-      showToast(
-        '❌ UTR must be at least 6 characters.',
-        'err'
-      );
-
-      $('#utrInput').focus();
-
-      return;
-    }
-
-    const btn =
-      $('#submitUtrBtn');
-
-    btn.disabled =
-      true;
-
-    btn.textContent =
-      'Saving...';
-
-    const ok =
-      saveDemoUTR(
-        utr
-      );
-
-    if (ok) {
-      showResult();
-
-    } else {
-      showToast(
-        'Could not save demo order locally.',
-        'err'
-      );
-
-      btn.disabled =
-        false;
-
-      btn.textContent =
-        'Submit';
-    }
-  }
-
-  $('#submitUtrBtn')?.addEventListener(
+  $('#submitUtrBtn').addEventListener(
     'click',
     submitUtr
   );
 
-  $('#utrInput')?.addEventListener(
+  $('#utrInput').addEventListener(
     'keydown',
-    e => {
-      if (
-        e.key ===
-        'Enter'
-      ) {
+    e=>{
+      if(
+        e.key==='Enter'
+      ){
         submitUtr();
       }
     }
   );
 
-  $('#downloadQrBtn')?.addEventListener(
+  $('#modalClose').addEventListener(
     'click',
-    () => {
-      const a =
-        document.createElement(
-          'a'
-        );
+    closeModal
+  );
 
-      a.href =
-        CONFIG.QR_IMAGE;
+  $('#cancelConfirmBtn').addEventListener(
+    'click',
+    closeModal
+  );
 
-      a.download =
-        `UPI_QR_${
-          state.order?.orderId ||
-          'DEMO'
-        }.png`;
+  $('#cancelPayBtn').addEventListener(
+    'click',
+    closeModal
+  );
 
-      document.body.appendChild(
-        a
-      );
+  $('#resultOkBtn').addEventListener(
+    'click',
+    closeModal
+  );
 
-      a.click();
-
-      a.remove();
-
-      showToast(
-        '⬇ QR download started.',
-        'ok'
-      );
+  modal.addEventListener(
+    'click',
+    e=>{
+      if(
+        e.target===modal
+      ){
+        closeModal();
+      }
     }
   );
 
-  $('#productGrid')?.addEventListener(
+  $('#productGrid').addEventListener(
     'click',
-    e => {
-      const card =
+    e=>{
+      const card=
         e.target.closest(
           '.product'
         );
 
-      if (!card) return;
+      if(!card)return;
 
-      if (!state.player) {
+      if(!state.player){
         showToast(
           'Please verify your UID first.',
-          'err'
+          2500
         );
 
         return;
       }
 
-      const p =
+      const p=
         PRODUCTS[
           card.dataset.id
         ];
 
-      if (!p) return;
+      if(!p)return;
 
       showConfirm({
-        ...p,
-
-        orderId:
-          `FT${Date.now()}${Math.floor(
-            Math.random() * 1000
-          )
-            .toString()
-            .padStart(
-              3,
-              '0'
-            )}`
+        name:p.name,
+        amount:p.amount,
+        price:p.price,
+        image:p.image,
+        nick:state.player.nickname,
+        uid:state.player.uid
       });
     }
   );
 
-  function initSalePopup() {
-    const sale =
-      $('.sale-popup');
+  document.addEventListener(
+    'keydown',
+    e=>{
+      if(
+        e.key==='Escape'
+      ){
+        closeModal();
+      }
+    }
+  );
 
-    if (!sale) return;
+  const sale=
+    document.querySelector(
+      '.sale-popup'
+    );
 
+  if(sale){
     setTimeout(
       () =>
         sale.removeAttribute(
@@ -1351,112 +970,35 @@
     );
   }
 
-  function initReveal() {
-    const els =
-      $$('.section-head,.product,.verified-bar');
+  const year=
+    $('#year');
 
-    if (
-      !(
-        'IntersectionObserver'
-        in window
-      )
-    ) {
-      els.forEach(
-        el =>
-          el.classList.add(
-            'in'
-          )
-      );
-
-      return;
-    }
-
-    const io =
-      new IntersectionObserver(
-        entries => {
-          entries.forEach(
-            e => {
-              if (
-                e.isIntersecting
-              ) {
-                e.target.classList.add(
-                  'in'
-                );
-
-                io.unobserve(
-                  e.target
-                );
-              }
-            }
-          );
-        },
-        {
-          threshold: 0.08
-        }
-      );
-
-    els.forEach(
-      el => {
-        el.classList.add(
-          'reveal'
-        );
-
-        io.observe(el);
-      }
-    );
-  }
-
-  async function boot() {
-    state.player =
-      loadPlayer();
-
-    if (
-      !state.player?.uid
-    ) {
-      showToast(
-        'Please verify your UID first.',
-        'err'
-      );
-
-      setTimeout(
-        () => {
-          location.href =
-            'index.html';
-        },
-        1600
-      );
-
-      return;
-    }
-
-    paintPlayer();
-
-    renderProducts();
-
-    try {
-      localStorage.setItem(
-        'ff_coupon',
-        COUPON
-      );
-
-      localStorage.setItem(
-        'ff_coupon_discount',
-        String(
-          COUPON_DISCOUNT
-        )
-      );
-    } catch (_) {}
-
-    $('#year').textContent =
+  if(year){
+    year.textContent=
       new Date().getFullYear();
   }
 
   initTheme();
   initNav();
-  initTabs();
   initCoupon();
-  initSalePopup();
-  initReveal();
-  boot();
+
+  state.player=
+    recoverPlayer();
+
+  if(
+    !state.player?.uid
+  ){
+    showToast(
+      'Please verify your UID first.',
+      2500
+    );
+
+    setTimeout(
+      () =>
+        location.href=
+          'index.html',
+      1800
+    );
+  }
 
 })();
