@@ -282,7 +282,44 @@ html.dark .toast{background:var(--card-bg);color:var(--text);border:1px solid va
     font-weight: 700;
     cursor: pointer;
 }
+.upi-id-box{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;
+  margin:0 auto 14px;
+  max-width:360px;
+  text-align:center;
+}
 
+.upi-label{
+  font-size:.7rem;
+  opacity:.5;
+  margin-bottom:5px;
+}
+
+.upi-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.upi-row strong{
+  font-size:.9rem;
+  font-weight:700;
+}
+
+.upi-row button{
+  border:none;
+  background:var(--primary);
+  color:#fff;
+  padding:5px 10px;
+  border-radius:8px;
+  font-size:.7rem;
+  font-weight:700;
+}
 .upi-row button:hover {
     opacity: 0.9;
 }
