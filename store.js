@@ -1,6 +1,7 @@
 'use strict';
 
 (() => {
+
   const CONFIG = {
     COUPON: 'WEL67',
     DISCOUNT: 5,
@@ -8,305 +9,581 @@
     QR_IMAGE: './upi-qr.png.jpeg'
   };
 
-  const $ = (s, c = document) => c.querySelector(s);
-  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const $ = (s, c = document) =>
+    c.querySelector(s);
+
+  const $$ = (s, c = document) =>
+    [...c.querySelectorAll(s)];
+
+
+  /* =========================
+     COUPON
+     ========================= */
 
   let COUPON = CONFIG.COUPON;
   let COUPON_DISCOUNT = CONFIG.DISCOUNT;
 
   try {
-    const sc = localStorage.getItem('ff_coupon');
-    const sp = parseFloat(localStorage.getItem('ff_coupon_discount'));
 
-    if (sc) COUPON = sc;
-    if (!isNaN(sp) && sp > 0) COUPON_DISCOUNT = sp;
+    const savedCoupon =
+      localStorage.getItem('ff_coupon');
+
+    const savedDiscount =
+      parseFloat(
+        localStorage.getItem('ff_coupon_discount')
+      );
+
+    if (savedCoupon) {
+      COUPON = savedCoupon;
+    }
+
+    if (
+      !isNaN(savedDiscount) &&
+      savedDiscount > 0
+    ) {
+      COUPON_DISCOUNT =
+        savedDiscount;
+    }
+
   } catch (_) {}
 
+
+  /* =========================
+     PRODUCTS
+     ========================= */
+
   const PRODUCTS = {
+
     p1: {
       name: '100 Diamonds',
       amount: '100',
       price: 39,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618130216_7f8d25.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618130216_7f8d25.png'
     },
+
     p2: {
       name: '310 Diamonds',
       amount: '310',
       price: 99,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png'
     },
+
     p3: {
       name: '520 Diamonds',
       amount: '520',
       price: 149,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618130756_687fd4.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618130756_687fd4.png'
     },
+
     p4: {
       name: '1060 Diamonds',
       amount: '1060',
       price: 299,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618131428_da9e7d.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618131428_da9e7d.png'
     },
+
     p5: {
       name: '2180 Diamonds',
       amount: '2180',
       price: 499,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618131446_ae70d5.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618131446_ae70d5.png'
     },
+
     p6: {
       name: '5600 Diamonds',
       amount: '5600',
       price: 799,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618131503_e48bb6.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618131503_e48bb6.png'
     },
+
     p7: {
       name: 'Booyah Pass',
       amount: 'Booyah',
       price: 159,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618132321_6d00cf.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618132321_6d00cf.png'
     },
+
     p8: {
       name: 'Booyah Pass+',
       amount: 'Booyah+',
       price: 299,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618132415_969094.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618132415_969094.png'
     },
+
     p9: {
       name: 'Weekly Pass',
       amount: 'Weekly',
       price: 99,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618133127_78497d.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618133127_78497d.png'
     },
+
     p10: {
       name: 'Monthly Pass',
       amount: 'Monthly',
       price: 299,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618144016_48b5e4.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618144016_48b5e4.png'
     },
+
     p11: {
       name: '30D Evo Pass',
       amount: '30D Evo',
       price: 259,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618144137_8f687e.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618144137_8f687e.png'
     },
+
     p12: {
       name: 'Weekly Lite Pass',
       amount: 'Lite',
       price: 39,
-      image: 'https://freefiretopupindia.site/gen/uploads/products/products_20260618132946_87d030.png'
+      image:
+        'https://freefiretopupindia.site/gen/uploads/products/products_20260618132946_87d030.png'
     }
+
   };
+
+
+  /* =========================
+     STATE
+     ========================= */
 
   const state = {
+
     player: null,
-    order: null,
+
     quantity: 1,
+
     timer: 600,
+
     timerId: null
+
   };
 
-  function lsGet(k) {
+
+  let currentOrder = null;
+
+
+  /* =========================
+     LOCAL STORAGE
+     ========================= */
+
+  function lsGet(key) {
+
     try {
-      return localStorage.getItem(k);
+
+      return localStorage.getItem(key);
+
     } catch (_) {
+
       return null;
+
     }
+
   }
 
+
   function readPlayer() {
+
     try {
-      const raw = localStorage.getItem('ff_player');
+
+      const raw =
+        localStorage.getItem('ff_player');
 
       if (raw) {
-        const p = JSON.parse(raw);
 
-        if (p && p.nickname && p.uid) {
-          return p;
+        const player =
+          JSON.parse(raw);
+
+        if (
+          player &&
+          player.nickname &&
+          player.uid
+        ) {
+
+          return player;
+
         }
+
       }
+
     } catch (_) {}
 
-    const uid = lsGet('ff_uid');
-    const nick = lsGet('ff_nick');
+
+    const uid =
+      lsGet('ff_uid');
+
+    const nick =
+      lsGet('ff_nick');
 
     if (uid && nick) {
+
       return {
+
         uid: String(uid),
+
         nickname: nick,
-        level: lsGet('ff_level') || '—',
-        region: lsGet('ff_region') || ''
+
+        level:
+          lsGet('ff_level') || '—',
+
+        region:
+          lsGet('ff_region') || ''
+
       };
+
     }
 
     return null;
+
   }
 
-  function showToast(msg, dur = 3000) {
-    const toast = $('#toast');
+
+  /* =========================
+     TOAST
+     ========================= */
+
+  function showToast(
+    message,
+    duration = 3000
+  ) {
+
+    const toast =
+      $('#toast');
 
     if (!toast) return;
 
-    toast.textContent = msg;
-    toast.classList.remove('hidden');
-    toast.classList.add('show');
+    toast.textContent =
+      message;
 
-    clearTimeout(showToast._t);
+    toast.classList.remove(
+      'hidden'
+    );
 
-    showToast._t = setTimeout(() => {
-      toast.classList.remove('show');
-      toast.classList.add('hidden');
-    }, dur);
+    toast.classList.add(
+      'show'
+    );
+
+    clearTimeout(
+      showToast._timer
+    );
+
+    showToast._timer =
+      setTimeout(
+        () => {
+
+          toast.classList.remove(
+            'show'
+          );
+
+          toast.classList.add(
+            'hidden'
+          );
+
+        },
+        duration
+      );
+
   }
+
+
+  /* =========================
+     THEME
+     ========================= */
 
   function setTheme(dark) {
-    const html = document.documentElement;
 
-    html.classList.toggle('dark', dark);
+    document.documentElement
+      .classList
+      .toggle(
+        'dark',
+        dark
+      );
 
     try {
+
       localStorage.setItem(
         'ff_theme',
-        dark ? 'dark' : 'light'
+        dark
+          ? 'dark'
+          : 'light'
       );
+
     } catch (_) {}
 
-    const b = $('#themeToggle');
+    const button =
+      $('#themeToggle');
 
-    if (b) {
-      b.textContent = dark ? '☀️' : '🌙';
+    if (button) {
+
+      button.textContent =
+        dark
+          ? '☀️'
+          : '🌙';
+
     }
+
   }
 
+
   function initTheme() {
+
     let dark = false;
 
     try {
+
       dark =
-        localStorage.getItem('ff_theme') === 'dark';
+        localStorage.getItem(
+          'ff_theme'
+        ) === 'dark';
+
     } catch (_) {}
 
     setTheme(dark);
 
-    $('#themeToggle')?.addEventListener(
-      'click',
-      () => {
-        setTheme(
-          !document.documentElement.classList.contains('dark')
-        );
-      }
-    );
+    const button =
+      $('#themeToggle');
+
+    if (button) {
+
+      button.addEventListener(
+        'click',
+        () => {
+
+          setTheme(
+            !document.documentElement
+              .classList
+              .contains('dark')
+          );
+
+        }
+      );
+
+    }
+
   }
 
-  function initNav() {
-    const navToggle = $('#navToggle');
-    const mainNav = $('#mainNav');
 
-    if (!navToggle || !mainNav) return;
+  /* =========================
+     NAV
+     ========================= */
+
+  function initNav() {
+
+    const navToggle =
+      $('#navToggle');
+
+    const mainNav =
+      $('#mainNav');
+
+    if (
+      !navToggle ||
+      !mainNav
+    ) {
+      return;
+    }
 
     navToggle.addEventListener(
       'click',
       () => {
-        mainNav.classList.toggle('open');
+
+        mainNav.classList.toggle(
+          'open'
+        );
+
       }
     );
 
-    mainNav.querySelectorAll('a').forEach(
-      a => {
-        a.addEventListener(
-          'click',
-          () => {
-            mainNav.classList.remove('open');
-          }
-        );
-      }
-    );
+    mainNav
+      .querySelectorAll('a')
+      .forEach(
+        link => {
+
+          link.addEventListener(
+            'click',
+            () => {
+
+              mainNav.classList.remove(
+                'open'
+              );
+
+            }
+          );
+
+        }
+      );
+
   }
+
+
+  /* =========================
+     COUPON BUTTONS
+     ========================= */
 
   function initCoupon() {
-    $$('[data-coupon-copy]').forEach(
-      btn => {
-        btn.addEventListener(
-          'click',
-          async () => {
-            const orig = btn.textContent;
 
-            try {
-              await navigator.clipboard.writeText(COUPON);
+    $$('[data-coupon-copy]')
+      .forEach(
+        button => {
 
-              btn.textContent = 'COPIED ✓';
-              btn.classList.add('copied');
+          button.addEventListener(
+            'click',
+            async () => {
 
-              showToast(
-                `🎉 Coupon ${COUPON} copied — ${COUPON_DISCOUNT}% OFF on every product!`,
-                3200
+              const original =
+                button.textContent;
+
+              try {
+
+                await navigator
+                  .clipboard
+                  .writeText(
+                    COUPON
+                  );
+
+                button.textContent =
+                  'COPIED ✓';
+
+                button.classList.add(
+                  'copied'
+                );
+
+                showToast(
+                  `🎉 Coupon ${COUPON} copied — ${COUPON_DISCOUNT}% OFF on every product!`,
+                  3200
+                );
+
+              } catch (_) {
+
+                showToast(
+                  `Coupon code: ${COUPON} (${COUPON_DISCOUNT}% OFF)`,
+                  3200
+                );
+
+              }
+
+              setTimeout(
+                () => {
+
+                  button.textContent =
+                    original;
+
+                  button.classList.remove(
+                    'copied'
+                  );
+
+                },
+                2200
               );
-            } catch (_) {
-              showToast(
-                `Coupon code: ${COUPON} (${COUPON_DISCOUNT}% OFF)`,
-                3200
-              );
+
             }
+          );
 
-            setTimeout(
-              () => {
-                btn.textContent = orig;
-                btn.classList.remove('copied');
-              },
-              2200
-            );
-          }
-        );
-      }
-    );
+        }
+      );
 
-    $$('[data-coupon-badge]').forEach(
-      el => {
-        el.textContent =
-          `🏷️ ${COUPON} · ${COUPON_DISCOUNT}% OFF applied`;
 
-        el.classList.add('show');
-      }
-    );
+    $$('[data-coupon-badge]')
+      .forEach(
+        element => {
+
+          element.textContent =
+            `🏷️ ${COUPON} · ${COUPON_DISCOUNT}% OFF applied`;
+
+          element.classList.add(
+            'show'
+          );
+
+        }
+      );
+
   }
 
-  function paintBar(p) {
-    const vNick = $('#vNick');
-    const vUid = $('#vUid');
-    const vLevel = $('#vLevel');
 
-    if (vNick) {
-      vNick.textContent = p.nickname || '—';
+  /* =========================
+     VERIFIED PLAYER BAR
+     ========================= */
+
+  function paintBar(player) {
+
+    const nick =
+      $('#vNick');
+
+    const uid =
+      $('#vUid');
+
+    const level =
+      $('#vLevel');
+
+    if (nick) {
+
+      nick.textContent =
+        player.nickname || '—';
+
     }
 
-    if (vUid) {
-      vUid.textContent = p.uid || '—';
+    if (uid) {
+
+      uid.textContent =
+        player.uid || '—';
+
     }
 
-    if (vLevel) {
-      vLevel.textContent = 'Lvl ' + (p.level ?? '—');
+    if (level) {
+
+      level.textContent =
+        'Lvl ' +
+        (player.level ?? '—');
+
     }
+
   }
+
 
   function recoverPlayer() {
-    const p = readPlayer();
 
-    if (p) {
-      paintBar(p);
-      return p;
+    const player =
+      readPlayer();
+
+    if (player) {
+
+      paintBar(player);
+
+      return player;
+
     }
 
     return null;
+
   }
 
-  const changeAccount = $('#changeAccount');
+
+  /* =========================
+     CHANGE ACCOUNT
+     ========================= */
+
+  const changeAccount =
+    $('#changeAccount');
 
   if (changeAccount) {
+
     changeAccount.addEventListener(
       'click',
-      e => {
-        e.preventDefault();
+      event => {
+
+        event.preventDefault();
 
         try {
+
           [
             'ff_uid',
             'ff_nick',
@@ -314,576 +591,1219 @@
             'ff_region',
             'ff_player'
           ].forEach(
-            k => {
-              localStorage.removeItem(k);
-              sessionStorage.removeItem(k);
+            key => {
+
+              localStorage.removeItem(
+                key
+              );
+
+              sessionStorage.removeItem(
+                key
+              );
+
             }
           );
+
         } catch (_) {}
 
-        location.href = 'index.html';
+        location.href =
+          'index.html';
+
       }
     );
+
   }
 
-  const tabs = $$('.tab');
-  const products = $$('.product');
 
-  function filterCategory(cat) {
+  /* =========================
+     CATEGORY TABS
+     ========================= */
+
+  const tabs =
+    $$('.tab');
+
+  const products =
+    $$('.product');
+
+
+  function filterCategory(category) {
+
     products.forEach(
-      p => {
-        p.style.display =
-          p.dataset.category === cat
+      product => {
+
+        product.style.display =
+          product.dataset.category ===
+          category
             ? ''
             : 'none';
+
       }
     );
+
   }
+
 
   tabs.forEach(
     tab => {
+
       tab.addEventListener(
         'click',
         function () {
+
           tabs.forEach(
-            t => t.classList.remove('active')
+            item =>
+              item.classList.remove(
+                'active'
+              )
           );
 
-          this.classList.add('active');
+          this.classList.add(
+            'active'
+          );
 
           filterCategory(
             this.dataset.cat
           );
+
         }
       );
+
     }
   );
 
-  filterCategory('diamonds');
 
-  const processing = $('#processingOverlay');
-  const modal = $('#payModal');
+  filterCategory(
+    'diamonds'
+  );
 
-  const stepConfirm = $('#stepConfirm');
-  const stepPayment = $('#stepPayment');
-  const stepUtr = $('#stepUtr');
-  const stepResult = $('#stepResult');
 
-  const cNick = $('#cNick');
-  const cUid = $('#cUid');
-  const cItem = $('#cItem');
-  const cQty = $('#cQty');
-  const cUnit = $('#cUnit');
-  const cSubtotal = $('#cSubtotal');
-  const cDiscount = $('#cDiscount');
-  const cTotal = $('#cTotal');
+  /* =========================
+     MODAL ELEMENTS
+     ========================= */
 
-  const pNick = $('#pNick');
-  const pUid = $('#pUid');
-  const pItem = $('#pItem');
-  const pQty = $('#pQty');
-  const pOrder = $('#pOrder');
+  const processing =
+    $('#processingOverlay');
 
-  const payAmount = $('#payAmount');
-  const payAmountNote = $('#payAmountNote');
-  const paySaved = $('#paySaved');
-  const payCouponLabel = $('#payCouponLabel');
-  const qrImg = $('#qrImg');
-  const qrTimer = $('#qrTimer');
+  const modal =
+    $('#payModal');
 
-  let currentOrder = null;
-  let isProcessing = false;
+  const stepConfirm =
+    $('#stepConfirm');
 
-  function formatINR(n) {
-    const v =
-      Math.round(n * 100) / 100;
+  const stepPayment =
+    $('#stepPayment');
 
-    const r =
-      Math.round(v);
+  const stepUtr =
+    $('#stepUtr');
+
+  const stepResult =
+    $('#stepResult');
+
+
+  const cNick =
+    $('#cNick');
+
+  const cUid =
+    $('#cUid');
+
+  const cItem =
+    $('#cItem');
+
+  const cQty =
+    $('#cQty');
+
+  const cUnit =
+    $('#cUnit');
+
+  const cSubtotal =
+    $('#cSubtotal');
+
+  const cDiscount =
+    $('#cDiscount');
+
+  const cTotal =
+    $('#cTotal');
+
+
+  const pNick =
+    $('#pNick');
+
+  const pUid =
+    $('#pUid');
+
+  const pItem =
+    $('#pItem');
+
+  const pQty =
+    $('#pQty');
+
+  const pOrder =
+    $('#pOrder');
+
+
+  const payAmount =
+    $('#payAmount');
+
+  const payAmountNote =
+    $('#payAmountNote');
+
+  const paySaved =
+    $('#paySaved');
+
+  const payCouponLabel =
+    $('#payCouponLabel');
+
+  const qrImg =
+    $('#qrImg');
+
+  const qrTimer =
+    $('#qrTimer');
+
+
+  /* =========================
+     FORMAT MONEY
+     ========================= */
+
+  function formatINR(value) {
+
+    const number =
+      Math.round(
+        value * 100
+      ) / 100;
+
+    const rounded =
+      Math.round(number);
 
     if (
-      Math.abs(v - r) < 0.001
+      Math.abs(
+        number - rounded
+      ) < 0.001
     ) {
-      return '₹' +
-        r.toLocaleString('en-IN');
+
+      return (
+        '₹' +
+        rounded.toLocaleString(
+          'en-IN'
+        )
+      );
+
     }
 
-    return '₹' +
-      v.toFixed(2);
+    return (
+      '₹' +
+      number.toFixed(2)
+    );
+
   }
 
+
+  /* =========================
+     TOTALS
+     ========================= */
+
   function totals() {
+
     if (!currentOrder) {
+
       return {
+
         subtotal: 0,
+
         discount: 0,
+
         total: 0
+
       };
+
     }
+
 
     const subtotal =
       currentOrder.price *
       currentOrder.quantity;
 
+
     const discount =
       subtotal *
-      (COUPON_DISCOUNT / 100);
+      (
+        COUPON_DISCOUNT /
+        100
+      );
+
 
     return {
+
       subtotal,
+
       discount,
+
       total:
-        subtotal - discount
+        subtotal -
+        discount
+
     };
+
   }
+
+
+  /* =========================
+     RENDER CONFIRM ORDER
+     ========================= */
 
   function renderConfirm() {
-    if (!currentOrder) return;
 
-    const t = totals();
+    if (!currentOrder) {
+      return;
+    }
 
-    cQty.textContent =
-      currentOrder.quantity;
 
-    cUnit.textContent =
-      formatINR(
-        currentOrder.price
-      );
+    const t =
+      totals();
 
-    cSubtotal.textContent =
-      formatINR(
-        t.subtotal
-      );
 
-    cDiscount.textContent =
-      '−' +
-      formatINR(
-        t.discount
-      );
+    if (cQty) {
 
-    cTotal.textContent =
-      formatINR(
-        t.total
-      );
+      cQty.textContent =
+        currentOrder.quantity;
 
-    const cCouponLabel = $('#cCouponLabel');
-    const cDiscountPct = $('#cDiscountPct');
+    }
 
-    if (cCouponLabel) {
-      cCouponLabel.textContent =
+
+    if (cUnit) {
+
+      cUnit.textContent =
+        formatINR(
+          currentOrder.price
+        );
+
+    }
+
+
+    if (cSubtotal) {
+
+      cSubtotal.textContent =
+        formatINR(
+          t.subtotal
+        );
+
+    }
+
+
+    if (cDiscount) {
+
+      cDiscount.textContent =
+        '−' +
+        formatINR(
+          t.discount
+        );
+
+    }
+
+
+    if (cTotal) {
+
+      cTotal.textContent =
+        formatINR(
+          t.total
+        );
+
+    }
+
+
+    const couponLabel =
+      $('#cCouponLabel');
+
+    const discountPct =
+      $('#cDiscountPct');
+
+
+    if (couponLabel) {
+
+      couponLabel.textContent =
         COUPON;
+
     }
 
-    if (cDiscountPct) {
-      cDiscountPct.textContent =
+
+    if (discountPct) {
+
+      discountPct.textContent =
         COUPON_DISCOUNT;
+
     }
 
-    const name =
+
+    const itemName =
       currentOrder.quantity > 1
+
         ? `${currentOrder.name} × ${currentOrder.quantity}`
+
         : currentOrder.name;
 
-    cItem.innerHTML =
-      `<img src="${currentOrder.image}" alt=""><span>${name}</span>`;
 
-    const dec =
+    if (cItem) {
+
+      cItem.innerHTML =
+        `
+          <img
+            src="${currentOrder.image}"
+            alt=""
+          >
+          <span>
+            ${itemName}
+          </span>
+        `;
+
+    }
+
+
+    const decrease =
       $('#modalQtyControl [data-action="dec"]');
 
-    const inc =
+    const increase =
       $('#modalQtyControl [data-action="inc"]');
 
-    if (dec) {
-      dec.disabled =
+
+    if (decrease) {
+
+      decrease.disabled =
         currentOrder.quantity <= 1;
+
     }
 
-    if (inc) {
-      inc.disabled =
+
+    if (increase) {
+
+      increase.disabled =
         currentOrder.quantity >= 99;
+
     }
+
   }
 
+
+  /* =========================
+     CLOSE MODAL
+     ========================= */
+
   function closeModal() {
-    if (!modal) return;
 
-    modal.classList.remove('open');
+    if (!modal) {
+      return;
+    }
 
-    document.body.style.overflow = '';
+
+    modal.classList.remove(
+      'open'
+    );
+
+
+    document.body.style.overflow =
+      '';
+
 
     clearInterval(
       state.timerId
     );
 
-    state.timerId = null;
-    state.timer = 600;
-    currentOrder = null;
+    state.timerId =
+      null;
 
-    stepConfirm.style.display = 'block';
-    stepPayment.style.display = 'none';
-    stepUtr.style.display = 'none';
-    stepResult.style.display = 'none';
+    state.timer =
+      600;
+
+    currentOrder =
+      null;
+
+
+    if (stepConfirm) {
+      stepConfirm.style.display =
+        'block';
+    }
+
+    if (stepPayment) {
+      stepPayment.style.display =
+        'none';
+    }
+
+    if (stepUtr) {
+      stepUtr.style.display =
+        'none';
+    }
+
+    if (stepResult) {
+      stepResult.style.display =
+        'none';
+    }
+
 
     if (qrTimer) {
+
       qrTimer.textContent =
         '⏱️ QR valid for 10:00';
 
-      qrTimer.classList.remove('expired');
+      qrTimer.classList.remove(
+        'expired'
+      );
+
     }
+
   }
 
+
+  /* =========================
+     SHOW CONFIRM MODAL
+     ========================= */
+
   function showConfirm(data) {
+
     currentOrder = {
+
       ...data,
+
       quantity: 1,
+
       orderId:
         'FT' +
         Date.now() +
         Math.floor(
-          Math.random() * 1000
+          Math.random() *
+          1000
         )
           .toString()
-          .padStart(3, '0')
+          .padStart(
+            3,
+            '0'
+          )
+
     };
 
-    isProcessing = true;
 
     if (processing) {
-      processing.classList.add('show');
+
+      processing.classList.add(
+        'show'
+      );
+
     }
+
 
     setTimeout(
       () => {
+
         if (processing) {
-          processing.classList.remove('show');
+
+          processing.classList.remove(
+            'show'
+          );
+
         }
 
-        isProcessing = false;
 
-        cNick.textContent =
-          state.player.nickname;
+        if (state.player) {
 
-        cUid.textContent =
-          state.player.uid;
+          if (cNick) {
+
+            cNick.textContent =
+              state.player.nickname;
+
+          }
+
+          if (cUid) {
+
+            cUid.textContent =
+              state.player.uid;
+
+          }
+
+        }
+
 
         renderConfirm();
 
-        stepConfirm.style.display = 'block';
-        stepPayment.style.display = 'none';
-        stepUtr.style.display = 'none';
-        stepResult.style.display = 'none';
 
-        modal.classList.add('open');
+        if (stepConfirm) {
 
-        document.body.style.overflow = 'hidden';
+          stepConfirm.style.display =
+            'block';
+
+        }
+
+
+        if (stepPayment) {
+
+          stepPayment.style.display =
+            'none';
+
+        }
+
+
+        if (stepUtr) {
+
+          stepUtr.style.display =
+            'none';
+
+        }
+
+
+        if (stepResult) {
+
+          stepResult.style.display =
+            'none';
+
+        }
+
+
+        if (modal) {
+
+          modal.classList.add(
+            'open'
+          );
+
+          document.body.style.overflow =
+            'hidden';
+
+        }
+
       },
-      700
-    );
-  }
-
-  function updateTimer() {
-    const m =
-      String(
-        Math.floor(
-          state.timer / 60
-        )
-      ).padStart(2, '0');
-
-    const s =
-      String(
-        state.timer % 60
-      ).padStart(2, '0');
-
-    qrTimer.textContent =
-      state.timer > 0
-        ? `⏱️ QR valid for ${m}:${s}`
-        : '⏱️ QR expired';
-
-    if (
-      state.timer <= 60
-    ) {
-      qrTimer.classList.add('expired');
-    } else {
-      qrTimer.classList.remove('expired');
-    }
-  }
-
-  function startTimer() {
-    clearInterval(
-      state.timerId
+      500
     );
 
-    state.timer = 600;
-
-    updateTimer();
-
-    state.timerId =
-      setInterval(
-        () => {
-          state.timer--;
-
-          updateTimer();
-
-          if (
-            state.timer <= 0
-          ) {
-            clearInterval(
-              state.timerId
-            );
-
-            state.timerId = null;
-
-            const paidBtn = $('#paidBtn');
-
-            if (paidBtn) {
-              paidBtn.disabled = true;
-            }
-
-            showToast(
-              'QR expired. Please restart.',
-              4000
-            );
-          }
-        },
-        1000
-      );
   }
 
-  const qtyControl = $('#modalQtyControl');
+
+  /* =========================
+     QUANTITY
+     ========================= */
+
+  const qtyControl =
+    $('#modalQtyControl');
 
   if (qtyControl) {
+
     qtyControl
-      .querySelectorAll('[data-action]')
+      .querySelectorAll(
+        '[data-action]'
+      )
       .forEach(
-        btn => {
-          btn.addEventListener(
+        button => {
+
+          button.addEventListener(
             'click',
             () => {
-              if (!currentOrder) return;
 
-              const d =
-                btn.dataset.action === 'inc'
+              if (!currentOrder) {
+                return;
+              }
+
+
+              const change =
+                button.dataset.action ===
+                'inc'
                   ? 1
                   : -1;
+
 
               currentOrder.quantity =
                 Math.max(
                   1,
                   Math.min(
                     99,
-                    currentOrder.quantity + d
+                    currentOrder.quantity +
+                      change
                   )
                 );
 
+
               renderConfirm();
+
             }
           );
+
         }
       );
+
   }
+
 
   /* =========================
      PROCEED TO PAY
-     GitHub Pages compatible
      ========================= */
 
-  const confirmBtn = $('#confirmBtn');
+  document.addEventListener(
+    'click',
+    event => {
 
-  if (confirmBtn) {
-    confirmBtn.addEventListener(
-      'click',
-      () => {
-        if (!currentOrder) return;
+      const button =
+        event.target.closest(
+          '#confirmBtn'
+        );
 
-        const t = totals();
 
-        currentOrder.signature =
-          'demo_' + Date.now();
+      if (!button) {
+        return;
+      }
+
+
+      event.preventDefault();
+      event.stopPropagation();
+
+
+      console.log(
+        'Proceed to Pay clicked'
+      );
+
+
+      if (!currentOrder) {
+
+        console.log(
+          'currentOrder is null'
+        );
+
+        showToast(
+          'Please select a product again.',
+          2500
+        );
+
+        return;
+
+      }
+
+
+      const t =
+        totals();
+
+
+      /* Demo signature */
+
+      currentOrder.signature =
+        'demo_' +
+        Date.now();
+
+
+      /* Player */
+
+      if (pNick) {
 
         pNick.textContent =
-          currentOrder.nick;
+          currentOrder.nick ||
+          '—';
+
+      }
+
+
+      if (pUid) {
 
         pUid.textContent =
-          currentOrder.uid;
+          currentOrder.uid ||
+          '—';
 
-        const name =
-          currentOrder.quantity > 1
-            ? `${currentOrder.name} × ${currentOrder.quantity}`
-            : currentOrder.name;
+      }
+
+
+      /* Item */
+
+      const itemName =
+        currentOrder.quantity > 1
+
+          ? `${currentOrder.name} × ${currentOrder.quantity}`
+
+          : currentOrder.name;
+
+
+      if (pItem) {
 
         pItem.innerHTML =
-          `<img src="${currentOrder.image}" alt=""><span>${name}</span>`;
+          `
+            <img
+              src="${currentOrder.image}"
+              alt=""
+            >
+            <span>
+              ${itemName}
+            </span>
+          `;
+
+      }
+
+
+      /* Quantity */
+
+      if (pQty) {
 
         pQty.textContent =
           currentOrder.quantity;
 
+      }
+
+
+      /* Order ID */
+
+      if (pOrder) {
+
         pOrder.textContent =
           currentOrder.orderId;
 
+      }
+
+
+      /* Amount */
+
+      if (payAmount) {
+
         payAmount.textContent =
-          formatINR(t.total);
+          formatINR(
+            t.total
+          );
+
+      }
+
+
+      if (payAmountNote) {
 
         payAmountNote.textContent =
           `after ${COUPON_DISCOUNT}% coupon discount`;
 
+      }
+
+
+      if (paySaved) {
+
         paySaved.textContent =
           `Saved ${formatINR(t.discount)}`;
+
+      }
+
+
+      if (payCouponLabel) {
 
         payCouponLabel.textContent =
           COUPON;
 
+      }
+
+
+      /* QR */
+
+      if (qrImg) {
+
         qrImg.src =
           CONFIG.QR_IMAGE;
+
+      }
+
+
+      /* Switch screens */
+
+      if (stepConfirm) {
 
         stepConfirm.style.display =
           'none';
 
+      }
+
+
+      if (stepPayment) {
+
         stepPayment.style.display =
           'block';
+
+      }
+
+
+      if (stepUtr) {
 
         stepUtr.style.display =
           'none';
 
+      }
+
+
+      if (stepResult) {
+
         stepResult.style.display =
           'none';
 
-        const paidBtn =
-          $('#paidBtn');
-
-        if (paidBtn) {
-          paidBtn.disabled = false;
-          paidBtn.textContent =
-            '✓ I have paid';
-        }
-
-        startTimer();
       }
-    );
+
+
+      /* Paid button */
+
+      const paidButton =
+        $('#paidBtn');
+
+
+      if (paidButton) {
+
+        paidButton.disabled =
+          false;
+
+        paidButton.textContent =
+          '✓ I have paid';
+
+      }
+
+
+      /* Start QR timer */
+
+      startTimer();
+
+
+      console.log(
+        'Payment screen opened'
+      );
+
+    }
+  );
+
+
+  /* =========================
+     QR TIMER
+     ========================= */
+
+  function updateTimer() {
+
+    if (!qrTimer) {
+      return;
+    }
+
+
+    const minutes =
+      String(
+        Math.floor(
+          state.timer / 60
+        )
+      ).padStart(
+        2,
+        '0'
+      );
+
+
+    const seconds =
+      String(
+        state.timer % 60
+      ).padStart(
+        2,
+        '0'
+      );
+
+
+    if (
+      state.timer > 0
+    ) {
+
+      qrTimer.textContent =
+        `⏱️ QR valid for ${minutes}:${seconds}`;
+
+    } else {
+
+      qrTimer.textContent =
+        '⏱️ QR expired';
+
+    }
+
+
+    if (
+      state.timer <= 60
+    ) {
+
+      qrTimer.classList.add(
+        'expired'
+      );
+
+    } else {
+
+      qrTimer.classList.remove(
+        'expired'
+      );
+
+    }
+
   }
 
-  const paidBtn = $('#paidBtn');
+
+  function startTimer() {
+
+    clearInterval(
+      state.timerId
+    );
+
+
+    state.timer =
+      600;
+
+
+    updateTimer();
+
+
+    state.timerId =
+      setInterval(
+        () => {
+
+          state.timer--;
+
+          updateTimer();
+
+
+          if (
+            state.timer <= 0
+          ) {
+
+            clearInterval(
+              state.timerId
+            );
+
+            state.timerId =
+              null;
+
+
+            const paidButton =
+              $('#paidBtn');
+
+
+            if (paidButton) {
+
+              paidButton.disabled =
+                true;
+
+            }
+
+
+            showToast(
+              'QR expired. Please restart.',
+              4000
+            );
+
+          }
+
+        },
+        1000
+      );
+
+  }
+
+
+  /* =========================
+     I HAVE PAID
+     ========================= */
+
+  const paidBtn =
+    $('#paidBtn');
+
 
   if (paidBtn) {
+
     paidBtn.addEventListener(
       'click',
       () => {
+
         if (
           state.timer <= 0
         ) {
+
           showToast(
             'QR expired. Restart.',
             3000
           );
+
           return;
+
         }
+
 
         clearInterval(
           state.timerId
         );
 
-        state.timerId = null;
+        state.timerId =
+          null;
 
-        stepPayment.style.display =
-          'none';
 
-        stepUtr.style.display =
-          'block';
+        if (stepPayment) {
 
-        const utrInput =
+          stepPayment.style.display =
+            'none';
+
+        }
+
+
+        if (stepUtr) {
+
+          stepUtr.style.display =
+            'block';
+
+        }
+
+
+        const input =
           $('#utrInput');
 
-        if (utrInput) {
-          utrInput.focus();
+
+        if (input) {
+
+          input.focus();
+
         }
+
       }
     );
+
   }
+
+
+  /* =========================
+     BACK TO PAYMENT
+     ========================= */
 
   const backToPayBtn =
     $('#backToPayBtn');
 
+
   if (backToPayBtn) {
+
     backToPayBtn.addEventListener(
       'click',
       () => {
-        stepUtr.style.display =
-          'none';
 
-        stepPayment.style.display =
-          'block';
+        if (stepUtr) {
 
-        if (state.timer > 0) {
-          startTimer();
+          stepUtr.style.display =
+            'none';
+
         }
+
+
+        if (stepPayment) {
+
+          stepPayment.style.display =
+            'block';
+
+        }
+
+
+        if (
+          state.timer > 0
+        ) {
+
+          startTimer();
+
+        }
+
       }
     );
+
   }
+
+
+  /* =========================
+     DOWNLOAD QR
+     ========================= */
 
   const downloadQrBtn =
     $('#downloadQrBtn');
 
+
   if (downloadQrBtn) {
+
     downloadQrBtn.addEventListener(
       'click',
       () => {
-        const a =
-          document.createElement('a');
 
-        a.href =
+        const link =
+          document.createElement(
+            'a'
+          );
+
+
+        link.href =
           CONFIG.QR_IMAGE;
 
-        a.download =
+
+        link.download =
           `QR_${
             currentOrder?.orderId ||
             'payment'
           }.png`;
 
-        document.body.appendChild(a);
 
-        a.click();
+        document.body.appendChild(
+          link
+        );
 
-        a.remove();
+
+        link.click();
+
+
+        link.remove();
+
 
         showToast(
           '⬇ QR downloaded!',
           2000
         );
+
       }
     );
+
   }
 
-  function submitUtr() {
-    if (!currentOrder) return;
 
-    const utrInput =
+  /* =========================
+     UTR SUBMIT
+     ========================= */
+
+  function submitUtr() {
+
+    if (!currentOrder) {
+      return;
+    }
+
+
+    const input =
       $('#utrInput');
 
-    if (!utrInput) return;
+
+    if (!input) {
+      return;
+    }
+
 
     const utr =
-      utrInput.value.trim();
+      input.value.trim();
+
 
     if (!utr) {
+
       showToast(
         '❌ Enter UTR.',
         2500
       );
+
       return;
+
     }
+
 
     if (
       utr.length < 6
     ) {
+
       showToast(
         '❌ UTR: min 6 chars.',
         2500
       );
+
       return;
+
     }
 
-    const t = totals();
+
+    const t =
+      totals();
+
 
     const payload = {
+
       order_id:
         currentOrder.orderId,
 
@@ -923,27 +1843,45 @@
           t.total * 100
         ) / 100,
 
-      utr,
+      utr:
+        utr,
 
       upi:
         CONFIG.UPI_ID,
 
       timestamp:
         new Date().toISOString()
+
     };
 
+
     try {
+
       localStorage.setItem(
         `ff_order_${currentOrder.orderId}`,
-        JSON.stringify(payload)
+        JSON.stringify(
+          payload
+        )
       );
+
     } catch (_) {}
 
-    stepUtr.style.display =
-      'none';
 
-    stepResult.style.display =
-      'block';
+    if (stepUtr) {
+
+      stepUtr.style.display =
+        'none';
+
+    }
+
+
+    if (stepResult) {
+
+      stepResult.style.display =
+        'block';
+
+    }
+
 
     const resultIcon =
       $('#resultIcon');
@@ -954,245 +1892,413 @@
     const resultSub =
       $('#resultSub');
 
+
     if (resultIcon) {
-      resultIcon.textContent = '✅';
+
+      resultIcon.textContent =
+        '✅';
+
     }
+
 
     if (resultMsg) {
+
       resultMsg.textContent =
         'Payment Submitted!';
+
     }
 
+
     if (resultSub) {
+
       resultSub.textContent =
         'Order information has been saved in this browser.';
+
     }
+
   }
+
 
   const submitUtrBtn =
     $('#submitUtrBtn');
 
+
   if (submitUtrBtn) {
+
     submitUtrBtn.addEventListener(
       'click',
       submitUtr
     );
+
   }
+
 
   const utrInput =
     $('#utrInput');
 
+
   if (utrInput) {
+
     utrInput.addEventListener(
       'keydown',
-      e => {
+      event => {
+
         if (
-          e.key === 'Enter'
+          event.key ===
+          'Enter'
         ) {
+
           submitUtr();
+
         }
+
       }
     );
+
   }
+
+
+  /* =========================
+     MODAL BUTTONS
+     ========================= */
 
   const modalClose =
     $('#modalClose');
 
+
   if (modalClose) {
+
     modalClose.addEventListener(
       'click',
       closeModal
     );
+
   }
+
 
   const cancelConfirmBtn =
     $('#cancelConfirmBtn');
 
+
   if (cancelConfirmBtn) {
+
     cancelConfirmBtn.addEventListener(
       'click',
       closeModal
     );
+
   }
+
 
   const cancelPayBtn =
     $('#cancelPayBtn');
 
+
   if (cancelPayBtn) {
+
     cancelPayBtn.addEventListener(
       'click',
       closeModal
     );
+
   }
+
 
   const resultOkBtn =
     $('#resultOkBtn');
 
+
   if (resultOkBtn) {
+
     resultOkBtn.addEventListener(
       'click',
       closeModal
     );
+
   }
 
+
+  /* =========================
+     MODAL BACKDROP
+     ========================= */
+
   if (modal) {
+
     modal.addEventListener(
       'click',
-      e => {
+      event => {
+
         if (
-          e.target === modal
+          event.target ===
+          modal
         ) {
+
           closeModal();
+
         }
+
       }
     );
+
   }
+
+
+  /* =========================
+     ESC KEY
+     ========================= */
+
+  document.addEventListener(
+    'keydown',
+    event => {
+
+      if (
+        event.key ===
+        'Escape'
+      ) {
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     PRODUCT CLICK
+     ========================= */
 
   const productGrid =
     $('#productGrid');
 
+
   if (productGrid) {
+
     productGrid.addEventListener(
       'click',
-      e => {
-        const card =
-          e.target.closest('.product');
+      event => {
 
-        if (!card) return;
+        const card =
+          event.target.closest(
+            '.product'
+          );
+
+
+        if (!card) {
+          return;
+        }
+
 
         if (!state.player) {
+
           showToast(
             'Please verify your UID first.',
             2500
           );
 
           return;
+
         }
 
-        const p =
+
+        const product =
           PRODUCTS[
             card.dataset.id
           ];
 
-        if (!p) return;
+
+        if (!product) {
+          return;
+        }
+
 
         showConfirm({
-          name: p.name,
-          amount: p.amount,
-          price: p.price,
-          image: p.image,
-          nick: state.player.nickname,
-          uid: state.player.uid
+
+          name:
+            product.name,
+
+          amount:
+            product.amount,
+
+          price:
+            product.price,
+
+          image:
+            product.image,
+
+          nick:
+            state.player.nickname,
+
+          uid:
+            state.player.uid
+
         });
+
       }
     );
+
   }
 
-  document.addEventListener(
-    'keydown',
-    e => {
-      if (
-        e.key === 'Escape'
-      ) {
-        closeModal();
-      }
-    }
-  );
+
+  /* =========================
+     SALE POPUP
+     ========================= */
 
   const sale =
-    document.querySelector('.sale-popup');
+    document.querySelector(
+      '.sale-popup'
+    );
+
 
   if (sale) {
+
     setTimeout(
-      () =>
-        sale.removeAttribute('hidden'),
+      () => {
+
+        sale.removeAttribute(
+          'hidden'
+        );
+
+      },
       4000
     );
 
+
     setTimeout(
-      () =>
+      () => {
+
         sale.setAttribute(
           'hidden',
           ''
-        ),
+        );
+
+      },
       19000
     );
+
   }
+
+
+  /* =========================
+     YEAR
+     ========================= */
 
   const year =
     $('#year');
 
+
   if (year) {
+
     year.textContent =
-      new Date().getFullYear();
+      new Date()
+        .getFullYear();
+
   }
 
+
+  /* =========================
+     INIT
+     ========================= */
+
   initTheme();
+
   initNav();
+
   initCoupon();
+
 
   state.player =
     recoverPlayer();
 
+
   if (
     !state.player?.uid
   ) {
+
     showToast(
       'Please verify your UID first.',
       2500
     );
 
+
     setTimeout(
-      () =>
+      () => {
+
         location.href =
-          'index.html',
+          'index.html';
+
+      },
       1800
     );
+
   }
 
+
   /* =========================
-     UPI COPY BUTTON
+     UPI COPY
      ========================= */
 
   const copyButton =
-    document.getElementById('copyUpiBtn');
+    document.getElementById(
+      'copyUpiBtn'
+    );
 
   const upiId =
-    document.getElementById('upiId');
+    document.getElementById(
+      'upiId'
+    );
+
 
   if (
     copyButton &&
     upiId
   ) {
+
     copyButton.addEventListener(
       'click',
       async function () {
+
         const text =
           upiId.textContent.trim();
 
+
         try {
-          await navigator.clipboard.writeText(
-            text
-          );
+
+          await navigator
+            .clipboard
+            .writeText(
+              text
+            );
+
 
           copyButton.textContent =
             'COPIED';
 
+
           setTimeout(
             function () {
+
               copyButton.textContent =
                 'COPY';
+
             },
             1500
           );
-        } catch (error) {
+
+
+        } catch (_) {
+
           alert(
             'UPI ID: ' +
             text
           );
+
         }
+
       }
     );
+
   }
+
 
 })();
