@@ -267,175 +267,264 @@ function closePlayerModal() {
    ========================================= */
 
 async function verifyUID() {
-
-    const input = get("uidInput");
-    const button = get("verifyBtn");
+    const input = document.getElementById("uidInput");
+    const button = document.getElementById("verifyBtn");
 
     if (!input) {
-        console.error(
-            "uidInput not found."
-        );
+        alert("uidInput not found");
         return;
     }
 
     const uid = input.value.trim();
 
     if (!uid) {
-        input.focus();
-        showToast("Please enter your UID.");
+        alert("Please enter your UID");
         return;
     }
 
     if (!/^\d+$/.test(uid)) {
-        input.focus();
-        showToast(
-            "UID must contain numbers only."
-        );
+        alert("UID must contain numbers only");
         return;
     }
 
     if (uid.length < 6) {
-        input.focus();
-        showToast(
-            "Please enter a valid UID."
-        );
+        alert("UID must be at least 6 digits");
         return;
     }
 
-    currentUID = uid;
-
-    const buttonLabel =
-        button?.querySelector(".btn-label");
-
-    const spinner =
-        button?.querySelector(".spinner");
-
     if (button) {
         button.disabled = true;
+
+        const label = button.querySelector(".btn-label");
+        const spinner = button.querySelector(".spinner");
+
+        if (label) {
+            label.textContent = "Verifying...";
+        }
+
+        if (spinner) {
+            spinner.hidden = false;
+        }
     }
 
-    if (buttonLabel) {
-        buttonLabel.textContent =
-            "Verifying...";
-    }
+    const apiUrl =
+        "https://free-fire-uid-apii.vercel.app/info?uid=" +
+        encodeURIComponent(uid);
 
-    if (spinner) {
-        spinner.hidden = false;
-    }
+    console.log("UID:", uid);
+    console.log("API:", apiUrl);
 
     try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            },
+            cache: "no-store"
+        });
 
-        const url =
-            CONFIG.API_URL.replace(
-                "{UID}",
-                encodeURIComponent(uid)
+        console.log("HTTP STATUS:", response.status);
+
+        const text = await response.text();
+
+        console.log("RAW API RESPONSE:", text);
+
+        if (!response.ok) {
+            alert(
+                "API ERROR\n\nHTTP Status: " +
+                response.status +
+                "\n\n" +
+                text.substring(0, 500)
             );
-
-        console.log(
-            "Calling UID API:",
-            url
-        );
-
-        const response =
-            await fetchWithTimeout(
-                url,
-                {
-                    method: "GET",
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
-                }
-            );
-
-        const text =
-            await response.text();
+            return;
+        }
 
         let data;
 
         try {
             data = JSON.parse(text);
-        } catch (error) {
-            console.error(
-                "API returned non-JSON:",
-                text
+        } catch (e) {
+            alert(
+                "API JSON ERROR\n\n" +
+                text.substring(0, 500)
             );
-
-            throw new Error(
-                "API returned invalid data."
-            );
+            return;
         }
 
-        if (!response.ok) {
+        console.log("API JSON:", data);
 
-            throw new Error(
-                data?.error ||
-                "UID verification failed."
-            );
-        }
+        const basic = data.basicinfo || {};
+        const clan = data.clanbasicinfo || {};
+
+        const nickname =
+            basic.nickname ||
+            data.nickname ||
+            "Player";
+
+        const level =
+            basic.level ||
+            data.level ||
+            0;
+
+        const region =
+            basic.region ||
+            data.region ||
+            "IND";
+
+        const likes =
+            basic.liked ??
+            basic.likes ??
+            data.liked ??
+            data.likes ??
+            0;
+
+        const clanName =
+            clan.clanname ||
+            clan.name ||
+            "";
+
+        const player = {
+            uid: String(
+                basic.accountid ||
+                uid
+            ),
+            nickname: String(nickname),
+            level: Number(level),
+            region: String(region),
+            likes: Number(likes),
+            clan: String(clanName)
+        };
 
         console.log(
-            "API response:",
-            data
+            "FINAL PLAYER DATA:",
+            player
         );
 
-        const player =
-            normalizePlayerData(
-                data,
-                uid
-            );
+        localStorage.setItem(
+            "ff_player",
+            JSON.stringify(player)
+        );
 
-        if (
-            !player.nickname ||
-            player.nickname === "Player"
-        ) {
-            throw new Error(
-                "Player information not found."
+        localStorage.setItem(
+            "ff_uid",
+            player.uid
+        );
+
+        localStorage.setItem(
+            "ff_nickname",
+            player.nickname
+        );
+
+        localStorage.setItem(
+            "ff_level",
+            String(player.level)
+        );
+
+        localStorage.setItem(
+            "ff_region",
+            player.region
+        );
+
+        localStorage.setItem(
+            "ff_likes",
+            String(player.likes)
+        );
+
+        localStorage.setItem(
+            "ff_clan",
+            player.clan
+        );
+
+        /* PLAYER MODAL */
+
+        const overlay =
+            document.getElementById("modalOverlay");
+
+        const modal =
+            document.getElementById("playerModal");
+
+        if (!overlay || !modal) {
+            alert(
+                "Player modal HTML not found.\n\n" +
+                "modalOverlay = " +
+                !!overlay +
+                "\n" +
+                "playerModal = " +
+                !!modal
             );
+            return;
         }
 
-        savePlayer(player);
+        document.getElementById("pNick").textContent =
+            player.nickname;
 
-        showPlayerModal(player);
+        document.getElementById("pLevel").textContent =
+            player.level;
+
+        document.getElementById("pRegion").textContent =
+            player.region;
+
+        document.getElementById("pLikes").textContent =
+            Number(player.likes).toLocaleString("en-IN");
+
+        document.getElementById("pUid").textContent =
+            player.uid;
+
+        document.getElementById("pClan").textContent =
+            player.clan || "No Clan";
+
+        const clanRow =
+            document.getElementById("rowClan");
+
+        if (clanRow) {
+            clanRow.style.display =
+                player.clan ? "" : "none";
+        }
+
+        overlay.hidden = false;
+        overlay.style.display = "flex";
+
+        modal.classList.add("active");
+
+        document.body.classList.add("modal-open");
+
+        console.log("PLAYER MODAL OPENED");
 
     } catch (error) {
 
         console.error(
-            "UID verification error:",
+            "VERIFY UID ERROR:",
             error
         );
 
-        if (
-            error.name ===
-            "AbortError"
-        ) {
-            showToast(
-                "Request timed out. Please try again."
-            );
-        } else {
-            showToast(
-                error.message ||
-                "Unable to verify UID."
-            );
-        }
+        alert(
+            "VERIFY FAILED\n\n" +
+            error.name +
+            "\n\n" +
+            error.message
+        );
 
     } finally {
 
         if (button) {
             button.disabled = false;
-        }
 
-        if (buttonLabel) {
-            buttonLabel.textContent =
-                "Verify UID";
-        }
+            const label =
+                button.querySelector(".btn-label");
 
-        if (spinner) {
-            spinner.hidden = true;
+            const spinner =
+                button.querySelector(".spinner");
+
+            if (label) {
+                label.textContent = "Verify UID";
+            }
+
+            if (spinner) {
+                spinner.hidden = true;
+            }
         }
     }
 }
-
 
 /* =========================================
    PROCEED TO STORE
