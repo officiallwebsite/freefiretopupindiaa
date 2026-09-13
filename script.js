@@ -1,12 +1,25 @@
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
 let currentUID = "";
 let currentPlayerName = "";
+
 let selectedPackage = "";
 let selectedPrice = 0;
 
 
-/* =========================
+/* =========================================================
+   API
+========================================================= */
+
+const API_URL =
+    "https://free-fire-uid-apii.vercel.app/info";
+
+
+/* =========================================================
    VERIFY UID
-========================= */
+========================================================= */
 
 async function verifyUID() {
 
@@ -16,15 +29,29 @@ async function verifyUID() {
     const error =
         document.getElementById("errorMessage");
 
+    const verifyBtn =
+        document.getElementById("verifyBtn");
+
+    const verifyBtnText =
+        document.getElementById("verifyBtnText");
+
+    const verifyLoader =
+        document.getElementById("verifyLoader");
+
+    const verifyArrow =
+        document.getElementById("verifyArrow");
+
+
     if (!uidInput || !error) {
         return;
     }
+
 
     const uid =
         uidInput.value.trim();
 
 
-    /* EMPTY UID */
+    /* EMPTY */
 
     if (uid === "") {
 
@@ -35,7 +62,7 @@ async function verifyUID() {
     }
 
 
-    /* UID VALIDATION */
+    /* VALIDATION */
 
     if (
         !/^[0-9]+$/.test(uid) ||
@@ -56,27 +83,10 @@ async function verifyUID() {
         "Verifying UID...";
 
 
-    const verifyBtn =
-        document.getElementById("verifyBtn");
-
-    const verifyBtnText =
-        document.getElementById("verifyBtnText");
-
-    const verifyLoader =
-        document.getElementById("verifyLoader");
-
-    const verifyArrow =
-        document.getElementById("verifyArrow");
-
-
     if (verifyBtn) {
 
         verifyBtn.disabled =
             true;
-
-        verifyBtn.classList.add(
-            "loading"
-        );
     }
 
 
@@ -103,25 +113,44 @@ async function verifyUID() {
 
     try {
 
-        /* =========================
-           CALL OUR VERCEL API
-        ========================= */
+
+        /* =================================================
+           CALL BACKEND
+        ================================================= */
 
         const response =
             await fetch(
-                "https://free-fire-uid-apii.vercel.app/info?uid=" +
+                API_URL +
+                "?uid=" +
                 encodeURIComponent(uid) +
                 "&_t=" +
                 Date.now(),
                 {
                     method: "GET",
-                    cache: "no-store"
+
+                    cache: "no-store",
+
+                    headers: {
+                        "Cache-Control": "no-cache"
+                    }
                 }
             );
 
 
-        const data =
-            await response.json();
+        let data;
+
+
+        try {
+
+            data =
+                await response.json();
+
+        } catch (jsonError) {
+
+            throw new Error(
+                "Invalid API response"
+            );
+        }
 
 
         console.log(
@@ -130,7 +159,9 @@ async function verifyUID() {
         );
 
 
-        /* API ERROR */
+        /* =================================================
+           API ERROR
+        ================================================= */
 
         if (
             !response.ok ||
@@ -139,41 +170,44 @@ async function verifyUID() {
         ) {
 
             error.innerText =
+                data?.error ||
                 "UID not found or API error.";
 
             return;
         }
 
 
-        /* =========================
-           NEW API STRUCTURE
-        ========================= */
+        /* =================================================
+           PLAYER DATA
+        ================================================= */
 
         const player =
             data.basicinfo;
 
 
         console.log(
-            "PLAYER DATA:",
+            "PLAYER:",
             player
         );
 
 
-        /* =========================
-           SAVE PLAYER DATA
-        ========================= */
-
         currentUID =
-            player.accountid || uid;
+            String(
+                player.accountid ||
+                uid
+            );
 
 
         currentPlayerName =
-            player.nickname || "Unknown Player";
+            String(
+                player.nickname ||
+                "Unknown Player"
+            );
 
 
-        /* =========================
+        /* =================================================
            MAIN PLAYER NAME
-        ========================= */
+        ================================================= */
 
         const playerName =
             document.getElementById(
@@ -187,9 +221,9 @@ async function verifyUID() {
         }
 
 
-        /* =========================
+        /* =================================================
            PLAYER NAME BOTTOM
-        ========================= */
+        ================================================= */
 
         const playerNameBottom =
             document.getElementById(
@@ -203,9 +237,9 @@ async function verifyUID() {
         }
 
 
-        /* =========================
+        /* =================================================
            UID
-        ========================= */
+        ================================================= */
 
         const playerUID =
             document.getElementById(
@@ -219,9 +253,9 @@ async function verifyUID() {
         }
 
 
-        /* =========================
+        /* =================================================
            LEVEL
-        ========================= */
+        ================================================= */
 
         const playerLevel =
             document.getElementById(
@@ -235,9 +269,9 @@ async function verifyUID() {
         }
 
 
-        /* =========================
+        /* =================================================
            REGION
-        ========================= */
+        ================================================= */
 
         const playerRegion =
             document.getElementById(
@@ -247,13 +281,14 @@ async function verifyUID() {
         if (playerRegion) {
 
             playerRegion.innerText =
-                player.region || "IND";
+                player.region ||
+                "IND";
         }
 
 
-        /* =========================
+        /* =================================================
            LIKES
-        ========================= */
+        ================================================= */
 
         const playerLikes =
             document.getElementById(
@@ -263,16 +298,20 @@ async function verifyUID() {
         if (playerLikes) {
 
             const likes =
-                Number(player.liked || 0);
+                Number(
+                    player.liked || 0
+                );
 
             playerLikes.innerText =
-                likes.toLocaleString("en-IN");
+                likes.toLocaleString(
+                    "en-IN"
+                );
         }
 
 
-        /* =========================
+        /* =================================================
            RANK
-        ========================= */
+        ================================================= */
 
         const playerRank =
             document.getElementById(
@@ -286,9 +325,9 @@ async function verifyUID() {
         }
 
 
-        /* =========================
-           STORE PLAYER INFO
-        ========================= */
+        /* =================================================
+           STORE PLAYER
+        ================================================= */
 
         const storePlayerName =
             document.getElementById(
@@ -315,9 +354,9 @@ async function verifyUID() {
         }
 
 
-        /* =========================
-           SUMMARY PLAYER INFO
-        ========================= */
+        /* =================================================
+           REVIEW PLAYER
+        ================================================= */
 
         const summaryPlayerName =
             document.getElementById(
@@ -344,13 +383,13 @@ async function verifyUID() {
         }
 
 
-        /* =========================
-           HIDE HOW IT WORKS + FAQ
-        ========================= */
+        /* =================================================
+           HIDE LOWER SECTIONS WHILE VERIFIED FLOW
+        ================================================= */
 
         const howSection =
             document.getElementById(
-                "howItWorks"
+                "how"
             );
 
         const faqSection =
@@ -373,17 +412,17 @@ async function verifyUID() {
         }
 
 
-        /* =========================
+        /* =================================================
            CLEAR ERROR
-        ========================= */
+        ================================================= */
 
         error.innerText =
             "";
 
 
-        /* =========================
+        /* =================================================
            OPEN PLAYER MODAL
-        ========================= */
+        ================================================= */
 
         const playerModal =
             document.getElementById(
@@ -401,7 +440,7 @@ async function verifyUID() {
     } catch (err) {
 
         console.error(
-            "VERIFY UID ERROR:",
+            "VERIFY ERROR:",
             err
         );
 
@@ -410,16 +449,13 @@ async function verifyUID() {
 
     } finally {
 
+
         /* RESET BUTTON */
 
         if (verifyBtn) {
 
             verifyBtn.disabled =
                 false;
-
-            verifyBtn.classList.remove(
-                "loading"
-            );
         }
 
 
@@ -448,9 +484,9 @@ async function verifyUID() {
 }
 
 
-/* =========================
+/* =========================================================
    CLOSE PLAYER MODAL
-========================= */
+========================================================= */
 
 function closePlayerModal() {
 
@@ -458,6 +494,7 @@ function closePlayerModal() {
         document.getElementById(
             "playerModal"
         );
+
 
     if (modal) {
 
@@ -468,16 +505,58 @@ function closePlayerModal() {
 }
 
 
-/* =========================
+/* =========================================================
    GO TO STORE
-========================= */
+========================================================= */
 
 function goToStore() {
 
     closePlayerModal();
 
 
-    /* MAIN PLAYER INFO */
+    /* HIDE UID */
+
+    const uidSection =
+        document.querySelector(
+            ".topup-section"
+        );
+
+
+    if (uidSection) {
+
+        uidSection.style.display =
+            "none";
+    }
+
+
+    /* KEEP HOW/FAQ HIDDEN */
+
+    const howSection =
+        document.getElementById(
+            "how"
+        );
+
+    const faqSection =
+        document.getElementById(
+            "faq"
+        );
+
+
+    if (howSection) {
+
+        howSection.style.display =
+            "none";
+    }
+
+
+    if (faqSection) {
+
+        faqSection.style.display =
+            "none";
+    }
+
+
+    /* PLAYER INFO */
 
     const storePlayerName =
         document.getElementById(
@@ -531,21 +610,6 @@ function goToStore() {
     }
 
 
-    /* HIDE UID SECTION */
-
-    const verifySection =
-        document.querySelector(
-            ".uid-section"
-        );
-
-
-    if (verifySection) {
-
-        verifySection.style.display =
-            "none";
-    }
-
-
     /* SHOW STORE */
 
     const storeSection =
@@ -572,9 +636,9 @@ function goToStore() {
 }
 
 
-/* =========================
+/* =========================================================
    BUY PACKAGE
-========================= */
+========================================================= */
 
 function buyPackage(
     packageName,
@@ -585,7 +649,7 @@ function buyPackage(
         packageName;
 
     selectedPrice =
-        price;
+        Number(price);
 
 
     const orderPackage =
@@ -607,14 +671,15 @@ function buyPackage(
     if (orderPackage) {
 
         orderPackage.innerText =
-            packageName;
+            selectedPackage;
     }
 
 
     if (orderPrice) {
 
         orderPrice.innerText =
-            "₹" + price;
+            "₹" +
+            selectedPrice;
     }
 
 
@@ -640,9 +705,9 @@ function buyPackage(
 }
 
 
-/* =========================
-   CLOSE ORDER MODAL
-========================= */
+/* =========================================================
+   CLOSE ORDER
+========================================================= */
 
 function closeOrderModal() {
 
@@ -661,9 +726,9 @@ function closeOrderModal() {
 }
 
 
-/* =========================
+/* =========================================================
    PROCEED TO PAYMENT
-========================= */
+========================================================= */
 
 function proceedToPay() {
 
@@ -696,7 +761,8 @@ function proceedToPay() {
     if (paymentPrice) {
 
         paymentPrice.innerText =
-            "₹" + selectedPrice;
+            "₹" +
+            selectedPrice;
     }
 
 
@@ -729,7 +795,7 @@ function proceedToPay() {
     }
 
 
-    /* RESET PAYMENT STATUS */
+    /* RESET PAYMENT MESSAGE */
 
     const paymentStatus =
         document.getElementById(
@@ -747,7 +813,7 @@ function proceedToPay() {
     }
 
 
-    /* RESET BUTTON */
+    /* RESET PAYMENT BUTTON */
 
     const paidButton =
         document.getElementById(
@@ -806,9 +872,9 @@ function proceedToPay() {
 }
 
 
-/* =========================
+/* =========================================================
    COPY UPI
-========================= */
+========================================================= */
 
 function copyUPI() {
 
@@ -825,7 +891,7 @@ function copyUPI() {
 
 
     const upi =
-        upiElement.innerText;
+        upiElement.innerText.trim();
 
 
     if (
@@ -863,9 +929,9 @@ function copyUPI() {
 }
 
 
-/* =========================
+/* =========================================================
    PAYMENT SUBMITTED
-========================= */
+========================================================= */
 
 function paymentSubmitted() {
 
@@ -902,9 +968,9 @@ function paymentSubmitted() {
 }
 
 
-/* =========================
+/* =========================================================
    BACK TO STORE
-========================= */
+========================================================= */
 
 function backToStore() {
 
