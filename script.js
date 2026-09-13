@@ -263,7 +263,19 @@ if (playerNameBottom) {
         /* =========================
            OPEN PLAYER MODAL
         ========================= */
+const howSection =
+    document.getElementById("howItWorks");
 
+const faqSection =
+    document.getElementById("faq");
+
+if (howSection) {
+    howSection.style.display = "none";
+}
+
+if (faqSection) {
+    faqSection.style.display = "none";
+}
         const playerModal =
             document.getElementById(
                 "playerModal"
@@ -411,9 +423,8 @@ function goToStore() {
 
     const verifySection =
         document.querySelector(
-            ".verify-section"
-        );
-
+    ".uid-section"
+);
 
     if (verifySection) {
 
