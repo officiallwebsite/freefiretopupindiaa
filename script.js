@@ -12,19 +12,13 @@ const CONFIG = {
 
 let currentUID = "";
 
-
 /* =========================================
-   ELEMENT HELPERS
+   HELPER
    ========================================= */
 
 function get(id) {
     return document.getElementById(id);
 }
-
-
-/* =========================================
-   FORMAT NUMBER
-   ========================================= */
 
 function formatNumber(value) {
     const number = Number(value);
@@ -36,110 +30,93 @@ function formatNumber(value) {
     return number.toLocaleString("en-IN");
 }
 
-
 /* =========================================
    FETCH WITH TIMEOUT
    ========================================= */
 
-async function fetchWithTimeout(url, options = {}) {
+async function fetchWithTimeout(url) {
     const controller = new AbortController();
 
-    const timeout = setTimeout(() => {
+    const timer = setTimeout(function () {
         controller.abort();
     }, CONFIG.FETCH_TIMEOUT);
 
     try {
-        const response = await fetch(url, {
-            ...options,
+        return await fetch(url, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            },
+            cache: "no-store",
             signal: controller.signal
         });
-
-        return response;
     } finally {
-        clearTimeout(timeout);
+        clearTimeout(timer);
     }
 }
 
-
 /* =========================================
-   NORMALIZE PLAYER DATA
+   NORMALIZE API DATA
    ========================================= */
 
 function normalizePlayerData(data, uid) {
-
-    const basic =
-        data?.basicinfo ||
-        data?.basicInfo ||
-        data?.player ||
-        data?.data?.basicinfo ||
-        data?.data?.basicInfo ||
-        {};
-
-    const clan =
-        data?.clanbasicinfo ||
-        data?.clanBasicInfo ||
-        data?.data?.clanbasicinfo ||
-        data?.data?.clanBasicInfo ||
-        {};
+    const basic = data.basicinfo || {};
+    const clan = data.clanbasicinfo || {};
 
     return {
         uid: String(
             basic.accountid ||
             basic.accountId ||
-            data?.accountid ||
-            data?.accountId ||
             uid
         ),
 
         nickname: String(
             basic.nickname ||
-            data?.nickname ||
-            data?.name ||
+            data.nickname ||
+            data.name ||
             "Player"
         ),
 
         level: Number(
             basic.level ||
-            data?.level ||
+            data.level ||
             0
         ),
 
         region: String(
             basic.region ||
-            data?.region ||
+            data.region ||
             "IND"
         ),
 
         likes: Number(
             basic.liked ??
             basic.likes ??
-            data?.liked ??
-            data?.likes ??
+            data.liked ??
+            data.likes ??
             0
         ),
 
         rank: Number(
             basic.rank ||
-            data?.rank ||
+            data.rank ||
             0
         ),
 
         clan: String(
             clan.clanname ||
             clan.name ||
-            data?.clanname ||
+            data.clanname ||
             ""
         )
     };
 }
-
 
 /* =========================================
    SAVE PLAYER
    ========================================= */
 
 function savePlayer(player) {
-
     localStorage.setItem(
         "ff_player",
         JSON.stringify(player)
@@ -181,122 +158,135 @@ function savePlayer(player) {
     );
 }
 
-
 /* =========================================
-   SHOW PLAYER MODAL
+   OPEN PLAYER MODAL
    ========================================= */
 
 function showPlayerModal(player) {
-
     const overlay = get("modalOverlay");
     const modal = get("playerModal");
 
     if (!overlay || !modal) {
-        console.error(
-            "Player modal elements not found."
-        );
+        alert("Player modal HTML not found.");
         return;
     }
 
-    get("pNick").textContent =
-        player.nickname || "Player";
+    const pNick = get("pNick");
+    const pSub = get("pSub");
+    const pLevel = get("pLevel");
+    const pRegion = get("pRegion");
+    const pLikes = get("pLikes");
+    const pUid = get("pUid");
+    const pClan = get("pClan");
+    const rowClan = get("rowClan");
 
-    get("pSub").textContent =
-        "Congratulations — your account is ready!";
+    if (pNick) {
+        pNick.textContent = player.nickname;
+    }
 
-    get("pLevel").textContent =
-        player.level;
+    if (pSub) {
+        pSub.textContent =
+            "Congratulations — your account is ready!";
+    }
 
-    get("pRegion").textContent =
-        player.region;
+    if (pLevel) {
+        pLevel.textContent = player.level;
+    }
 
-    get("pLikes").textContent =
-        formatNumber(player.likes);
+    if (pRegion) {
+        pRegion.textContent = player.region;
+    }
 
-    get("pUid").textContent =
-        player.uid;
+    if (pLikes) {
+        pLikes.textContent =
+            formatNumber(player.likes);
+    }
 
-    get("pClan").textContent =
-        player.clan || "No Clan";
+    if (pUid) {
+        pUid.textContent = player.uid;
+    }
 
-    const clanRow = get("rowClan");
+    if (pClan) {
+        pClan.textContent =
+            player.clan || "No Clan";
+    }
 
-    if (clanRow) {
-        clanRow.style.display =
+    if (rowClan) {
+        rowClan.style.display =
             player.clan ? "" : "none";
     }
 
     overlay.hidden = false;
-
     overlay.style.display = "flex";
 
     modal.classList.add("active");
 
-    document.body.classList.add(
-        "modal-open"
-    );
+    document.body.classList.add("modal-open");
 }
-
 
 /* =========================================
    CLOSE PLAYER MODAL
    ========================================= */
 
 function closePlayerModal() {
-
     const overlay = get("modalOverlay");
     const modal = get("playerModal");
 
-    if (!overlay) return;
-
-    overlay.hidden = true;
-    overlay.style.display = "none";
+    if (overlay) {
+        overlay.hidden = true;
+        overlay.style.display = "none";
+    }
 
     if (modal) {
         modal.classList.remove("active");
     }
 
-    document.body.classList.remove(
-        "modal-open"
-    );
+    document.body.classList.remove("modal-open");
 }
-
 
 /* =========================================
    VERIFY UID
    ========================================= */
 
 async function verifyUID() {
-    const input = document.getElementById("uidInput");
-    const button = document.getElementById("verifyBtn");
+    const input = get("uidInput");
+    const button = get("verifyBtn");
 
     if (!input) {
-        alert("uidInput not found");
+        alert("UID input not found.");
         return;
     }
 
     const uid = input.value.trim();
 
     if (!uid) {
-        alert("Please enter your UID");
+        alert("Please enter your UID.");
+        input.focus();
         return;
     }
 
-    if (!/^\d+$/.test(uid)) {
-        alert("UID must contain numbers only");
+    if (!/^[0-9]+$/.test(uid)) {
+        alert("UID must contain numbers only.");
+        input.focus();
         return;
     }
 
     if (uid.length < 6) {
-        alert("UID must be at least 6 digits");
+        alert("Please enter a valid UID.");
+        input.focus();
         return;
     }
+
+    currentUID = uid;
+
+    let label = null;
+    let spinner = null;
 
     if (button) {
         button.disabled = true;
 
-        const label = button.querySelector(".btn-label");
-        const spinner = button.querySelector(".spinner");
+        label = button.querySelector(".btn-label");
+        spinner = button.querySelector(".spinner");
 
         if (label) {
             label.textContent = "Verifying...";
@@ -308,222 +298,122 @@ async function verifyUID() {
     }
 
     const apiUrl =
-        "https://free-fire-uid-apii.vercel.app/info?uid=" +
-        encodeURIComponent(uid);
-
-    console.log("UID:", uid);
-    console.log("API:", apiUrl);
+        CONFIG.API_URL.replace(
+            "{UID}",
+            encodeURIComponent(uid)
+        );
 
     try {
-        const response = await fetch(apiUrl, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json"
-            },
-            cache: "no-store"
-        });
+        console.log("Calling API:", apiUrl);
 
-        console.log("HTTP STATUS:", response.status);
+        const response =
+            await fetchWithTimeout(apiUrl);
 
-        const text = await response.text();
+        const text =
+            await response.text();
 
-        console.log("RAW API RESPONSE:", text);
+        console.log(
+            "HTTP STATUS:",
+            response.status
+        );
+
+        console.log(
+            "API RESPONSE:",
+            text
+        );
 
         if (!response.ok) {
-            alert(
-                "API ERROR\n\nHTTP Status: " +
-                response.status +
-                "\n\n" +
-                text.substring(0, 500)
+            throw new Error(
+                "API returned HTTP " +
+                response.status
             );
-            return;
         }
 
         let data;
 
         try {
             data = JSON.parse(text);
-        } catch (e) {
-            alert(
-                "API JSON ERROR\n\n" +
-                text.substring(0, 500)
+        } catch (error) {
+            throw new Error(
+                "API returned invalid JSON."
             );
-            return;
         }
 
-        console.log("API JSON:", data);
-
-        const basic = data.basicinfo || {};
-        const clan = data.clanbasicinfo || {};
-
-        const nickname =
-            basic.nickname ||
-            data.nickname ||
-            "Player";
-
-        const level =
-            basic.level ||
-            data.level ||
-            0;
-
-        const region =
-            basic.region ||
-            data.region ||
-            "IND";
-
-        const likes =
-            basic.liked ??
-            basic.likes ??
-            data.liked ??
-            data.likes ??
-            0;
-
-        const clanName =
-            clan.clanname ||
-            clan.name ||
-            "";
-
-        const player = {
-            uid: String(
-                basic.accountid ||
+        const player =
+            normalizePlayerData(
+                data,
                 uid
-            ),
-            nickname: String(nickname),
-            level: Number(level),
-            region: String(region),
-            likes: Number(likes),
-            clan: String(clanName)
-        };
-
-        console.log(
-            "FINAL PLAYER DATA:",
-            player
-        );
-
-        localStorage.setItem(
-            "ff_player",
-            JSON.stringify(player)
-        );
-
-        localStorage.setItem(
-            "ff_uid",
-            player.uid
-        );
-
-        localStorage.setItem(
-            "ff_nickname",
-            player.nickname
-        );
-
-        localStorage.setItem(
-            "ff_level",
-            String(player.level)
-        );
-
-        localStorage.setItem(
-            "ff_region",
-            player.region
-        );
-
-        localStorage.setItem(
-            "ff_likes",
-            String(player.likes)
-        );
-
-        localStorage.setItem(
-            "ff_clan",
-            player.clan
-        );
-
-        /* PLAYER MODAL */
-
-        const overlay =
-            document.getElementById("modalOverlay");
-
-        const modal =
-            document.getElementById("playerModal");
-
-        if (!overlay || !modal) {
-            alert(
-                "Player modal HTML not found.\n\n" +
-                "modalOverlay = " +
-                !!overlay +
-                "\n" +
-                "playerModal = " +
-                !!modal
             );
-            return;
+
+        if (
+            !player.nickname ||
+            player.nickname === "Player"
+        ) {
+            throw new Error(
+                "Player information not found."
+            );
         }
 
-        document.getElementById("pNick").textContent =
-            player.nickname;
+        savePlayer(player);
 
-        document.getElementById("pLevel").textContent =
-            player.level;
-
-        document.getElementById("pRegion").textContent =
-            player.region;
-
-        document.getElementById("pLikes").textContent =
-            Number(player.likes).toLocaleString("en-IN");
-
-        document.getElementById("pUid").textContent =
-            player.uid;
-
-        document.getElementById("pClan").textContent =
-            player.clan || "No Clan";
-
-        const clanRow =
-            document.getElementById("rowClan");
-
-        if (clanRow) {
-            clanRow.style.display =
-                player.clan ? "" : "none";
-        }
-
-        overlay.hidden = false;
-        overlay.style.display = "flex";
-
-        modal.classList.add("active");
-
-        document.body.classList.add("modal-open");
-
-        console.log("PLAYER MODAL OPENED");
+        showPlayerModal(player);
 
     } catch (error) {
-
         console.error(
-            "VERIFY UID ERROR:",
+            "UID verification failed:",
             error
         );
 
-        alert(
-            "VERIFY FAILED\n\n" +
-            error.name +
-            "\n\n" +
-            error.message
-        );
+        if (
+            error &&
+            error.name === "AbortError"
+        ) {
+            alert(
+                "Verification timed out. Please try again."
+            );
+        } else {
+            alert(
+                error.message ||
+                "Unable to verify UID."
+            );
+        }
 
     } finally {
-
         if (button) {
             button.disabled = false;
+        }
 
-            const label =
-                button.querySelector(".btn-label");
+        if (label) {
+            label.textContent = "Verify UID";
+        }
 
-            const spinner =
-                button.querySelector(".spinner");
-
-            if (label) {
-                label.textContent = "Verify UID";
-            }
-
-            if (spinner) {
-                spinner.hidden = true;
-            }
+        if (spinner) {
+            spinner.hidden = true;
         }
     }
+}
+
+/* =========================================
+   VERIFY BUTTON
+   ========================================= */
+
+function setupVerifyButton() {
+    const button = get("verifyBtn");
+
+    if (!button) {
+        console.error("verifyBtn not found.");
+        return;
+    }
+
+    button.addEventListener(
+        "click",
+        function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            verifyUID();
+        }
+    );
 }
 
 /* =========================================
@@ -531,38 +421,26 @@ async function verifyUID() {
    ========================================= */
 
 function proceedToStore() {
-
     let uid = currentUID;
 
     if (!uid) {
         uid =
-            localStorage.getItem(
-                "ff_uid"
-            ) || "";
+            localStorage.getItem("ff_uid") ||
+            "";
     }
 
     if (!uid) {
-
         const saved =
-            localStorage.getItem(
-                "ff_player"
-            );
+            localStorage.getItem("ff_player");
 
         if (saved) {
-
             try {
-
                 const player =
                     JSON.parse(saved);
 
-                uid =
-                    player.uid || "";
-
+                uid = player.uid || "";
             } catch (error) {
-
-                console.error(
-                    error
-                );
+                console.error(error);
             }
         }
     }
@@ -584,35 +462,29 @@ function proceedToStore() {
         encodeURIComponent(uid);
 }
 
-
 /* =========================================
    RE-ENTER UID
    ========================================= */
 
 function reEnterUID() {
-
     closePlayerModal();
 
-    const input =
-        get("uidInput");
+    const input = get("uidInput");
 
     if (input) {
-
         input.value = "";
 
-        setTimeout(() => {
+        setTimeout(function () {
             input.focus();
         }, 100);
     }
 }
-
 
 /* =========================================
    TOAST
    ========================================= */
 
 function showToast(message) {
-
     const toast = get("toast");
 
     if (!toast) {
@@ -621,198 +493,102 @@ function showToast(message) {
     }
 
     toast.textContent = message;
-
     toast.hidden = false;
 
     clearTimeout(
         window.__toastTimer
     );
 
-    window.__toastTimer =
-        setTimeout(() => {
-
+    window.__toastTimer = setTimeout(
+        function () {
             toast.hidden = true;
-
-        }, 3000);
-}
-
-
-/* =========================================
-   UID FORM
-   ========================================= */
-
-function setupUIDForm() {
-
-    const form = get("uidForm");
-
-    if (!form) {
-        console.error(
-            "uidForm not found."
-        );
-        return;
-    }
-
-    form.addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            verifyUID();
-        }
+        },
+        3000
     );
 }
 
-
 /* =========================================
-   VERIFY BUTTON
-   ========================================= */
-
-
-
-
-/* =========================================
-   PROCEED BUTTON
-   ========================================= */
-
-function setupProceedButton() {
-
-    const button = get("proceedBtn");
-
-    if (!button) return;
-
-    button.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            proceedToStore();
-        }
-    );
-}
-
-
-/* =========================================
-   CLOSE BUTTONS
+   MODAL BUTTONS
    ========================================= */
 
 function setupModalButtons() {
+    const closeButton = get("modalClose");
+    const notMeButton = get("notMeBtn");
+    const proceedButton = get("proceedBtn");
 
-    const close =
-        get("modalClose");
-
-    const notMe =
-        get("notMeBtn");
-
-    if (close) {
-
-        close.addEventListener(
+    if (closeButton) {
+        closeButton.addEventListener(
             "click",
-            function() {
+            function (event) {
+                event.preventDefault();
                 closePlayerModal();
             }
         );
     }
 
-    if (notMe) {
-
-        notMe.addEventListener(
+    if (notMeButton) {
+        notMeButton.addEventListener(
             "click",
-            function() {
+            function (event) {
+                event.preventDefault();
                 reEnterUID();
             }
         );
     }
+
+    if (proceedButton) {
+        proceedButton.addEventListener(
+            "click",
+            function (event) {
+                event.preventDefault();
+                proceedToStore();
+            }
+        );
+    }
 }
 
-
 /* =========================================
-   CLICK OUTSIDE MODAL
+   OVERLAY
    ========================================= */
 
 function setupOverlay() {
+    const overlay = get("modalOverlay");
 
-    const overlay =
-        get("modalOverlay");
-
-    if (!overlay) return;
+    if (!overlay) {
+        return;
+    }
 
     overlay.addEventListener(
         "click",
-        function(event) {
-
-            if (
-                event.target ===
-                overlay
-            ) {
+        function (event) {
+            if (event.target === overlay) {
                 closePlayerModal();
             }
         }
     );
 }
 
-
 /* =========================================
-   ENTER KEY
-   ========================================= */
-
-function setupUIDEnter() {
-
-    const input =
-        get("uidInput");
-
-    if (!input) return;
-
-    input.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key ===
-                "Enter"
-            ) {
-
-                event.preventDefault();
-
-                verifyUID();
-            }
-        }
-    );
-}
-
-
-/* =========================================
-   ESC KEY
+   ESCAPE
    ========================================= */
 
 function setupEscape() {
-
     document.addEventListener(
         "keydown",
-        function(event) {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
+        function (event) {
+            if (event.key === "Escape") {
                 closePlayerModal();
             }
         }
     );
 }
-
 
 /* =========================================
    YEAR
    ========================================= */
 
 function setupYear() {
-
-    const year =
-        get("year");
+    const year = get("year");
 
     if (year) {
         year.textContent =
@@ -820,29 +596,26 @@ function setupYear() {
     }
 }
 
-
 /* =========================================
    COPY COUPON
    ========================================= */
 
 function setupCoupon() {
-
     const button =
         document.querySelector(
             "[data-coupon-copy]"
         );
 
-    if (!button) return;
+    if (!button) {
+        return;
+    }
 
     button.addEventListener(
         "click",
-        async function() {
-
-            const code =
-                "WEL67";
+        async function () {
+            const code = "WEL67";
 
             try {
-
                 await navigator.clipboard.writeText(
                     code
                 );
@@ -850,9 +623,7 @@ function setupCoupon() {
                 showToast(
                     "Coupon copied: WEL67"
                 );
-
             } catch (error) {
-
                 showToast(
                     "Coupon: WEL67"
                 );
@@ -861,38 +632,34 @@ function setupCoupon() {
     );
 }
 
-
 /* =========================================
    FAQ
    ========================================= */
 
 function setupFAQ() {
-
     const questions =
-        document.querySelectorAll(
-            ".acc-q"
-        );
+        document.querySelectorAll(".acc-q");
 
     questions.forEach(
-        function(question) {
-
+        function (question) {
             question.addEventListener(
                 "click",
-                function() {
-
+                function () {
                     const item =
                         question.closest(
                             ".acc-item"
                         );
 
-                    if (!item) return;
+                    if (!item) {
+                        return;
+                    }
 
                     const answer =
                         item.querySelector(
                             ".acc-a"
                         );
 
-                    const open =
+                    const wasOpen =
                         item.classList.contains(
                             "active"
                         );
@@ -902,34 +669,29 @@ function setupFAQ() {
                             ".acc-item.active"
                         )
                         .forEach(
-                            function(other) {
-
-                                other.classList.remove(
+                            function (openItem) {
+                                openItem.classList.remove(
                                     "active"
                                 );
 
-                                const otherAnswer =
-                                    other.querySelector(
+                                const openAnswer =
+                                    openItem.querySelector(
                                         ".acc-a"
                                     );
 
-                                if (
-                                    otherAnswer
-                                ) {
-                                    otherAnswer.style.maxHeight =
+                                if (openAnswer) {
+                                    openAnswer.style.maxHeight =
                                         null;
                                 }
                             }
                         );
 
-                    if (!open) {
-
+                    if (!wasOpen) {
                         item.classList.add(
                             "active"
                         );
 
                         if (answer) {
-
                             answer.style.maxHeight =
                                 answer.scrollHeight +
                                 "px";
@@ -941,21 +703,16 @@ function setupFAQ() {
     );
 }
 
-
 /* =========================================
    PAGE LOAD
    ========================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function() {
-
-        setupUIDForm();
-        
-        setupProceedButton();
+    function () {
+        setupVerifyButton();
         setupModalButtons();
         setupOverlay();
-        setupUIDEnter();
         setupEscape();
         setupYear();
         setupCoupon();
@@ -967,19 +724,11 @@ document.addEventListener(
     }
 );
 
-
 /* =========================================
    GLOBAL FUNCTIONS
    ========================================= */
 
-window.verifyUID =
-    verifyUID;
-
-window.proceedToStore =
-    proceedToStore;
-
-window.closePlayerModal =
-    closePlayerModal;
-
-window.reEnterUID =
-    reEnterUID;
+window.verifyUID = verifyUID;
+window.proceedToStore = proceedToStore;
+window.closePlayerModal = closePlayerModal;
+window.reEnterUID = reEnterUID;
