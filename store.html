@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free Fire-style top-up store demo.">
+  <title>Store — Top Up Demo Center</title>
+  <link rel="icon" href="https://freefiretopupindia.site/gen/garena.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script>try{if(localStorage.getItem('ff_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+</head>
+<body>
+  <div class="announce" role="region" aria-label="Demo notice">
+    <span>🎁</span>
+    <span>DEMO — Auto-applied <strong>5% OFF</strong> on test products with code</span>
+    <span class="coupon-code">WEL67 <button type="button" data-coupon-copy>COPY</button></span>
+    <span class="demo-badge">EDUCATIONAL DEMO</span>
+  </div>
+
+  <div class="bg-orbs" aria-hidden="true"><span class="orb orb-1"></span><span class="orb orb-2"></span><span class="orb orb-3"></span></div>
+
+  <div class="processing" id="processingOverlay"><div class="loader"></div><span>Processing your demo request...</span></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="./index.html" class="brand">
+        <img src="https://freefiretopupindia.site/gen/garena.png" alt="Game-style logo" class="brand-logo">
+        <span class="brand-text"><strong>Top Up</strong><small>Demo Center</small></span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="./index.html">Home</a>
+        <a href="./store.html" class="active">Store</a>
+        <a href="./index.html#how">How it works</a>
+        <a href="./index.html#faq">FAQ</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="store-hero">
+    <div class="container">
+      <div class="verified-bar">
+        <div class="vb-left">
+          <div class="vb-avatar"><img src="https://freefiretopupindia.site/gen/g/icon.png" alt="Game icon"></div>
+          <div class="vb-info">
+            <span class="vb-label">Demo top-up for</span>
+            <strong id="vNick"><span class="loading">Loading…</span></strong>
+            <span class="vb-meta">UID <b id="vUid">—</b> · <span id="vLevel">—</span></span>
+          </div>
+          <span class="vb-badge">✓ Verified Demo</span>
+        </div>
+        <a href="./index.html" id="changeAccount" class="vb-change">Change account</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="container">
+      <div class="section-head">
+        <h2>Top Up <span class="gradient-text">Centre</span></h2>
+        <p>Pick a pack — this is a demonstration checkout for the verified test account.</p>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-cat="diamonds"><img class="tab-ic" src="https://freefiretopupindia.site/gen/uploads/categories/categories_20260618131908_8da0ba.png" alt=""> Diamonds</button>
+        <button class="tab" data-cat="passes"><img class="tab-ic" src="https://freefiretopupindia.site/gen/uploads/categories/categories_20260618132038_c0a216.png" alt=""> Passes</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="./index.html" class="brand">
+          <img src="https://freefiretopupindia.site/gen/garena.png" alt="Game-style logo" class="brand-logo">
+          <span class="brand-text"><strong>Top Up</strong><small>Demo Center</small></span>
+        </a>
+        <p style="opacity:.4;font-size:.85rem;margin-top:6px">Independent educational/demo checkout interface.</p>
+        <p style="opacity:.55;font-size:.82rem;margin-top:10px">🏷️ Coupon <b>WEL67</b> — 5% OFF in demo checkout.</p>
+      </div>
+      <div class="footer-cols">
+        <div><h4>Store</h4><a href="#products">Diamonds</a><a href="#products">Passes</a><a href="#products">Demo checkout</a></div>
+        <div><h4>Help</h4><a href="./index.html#faq">FAQ</a><a href="./index.html#how">How it works</a><a href="./index.html">Home</a></div>
+        <div><h4>Legal</h4><a href="./index.html#faq">Demo notice</a><a href="./index.html#faq">Privacy</a><a href="./index.html#faq">Refunds</a></div>
+      </div>
+    </div>
+    <div class="container footer-bottom">© <span id="year"></span> FireTopUp Demo. Not affiliated with Garena.</div>
+  </footer>
+
+  <div class="modal-overlay" id="payModal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+
+      <div id="stepConfirm">
+        <h3 class="modal-title">Confirm Order</h3>
+        <p class="modal-sub">Review your demo order before proceeding to the QR step.</p>
+
+        <div class="modal-summary">
+          <div class="row"><span>Account</span><strong id="cNick">—</strong></div>
+          <div class="row"><span>UID</span><strong id="cUid">—</strong></div>
+          <div class="row"><span>Item</span><strong class="item-display" id="cItem"></strong></div>
+          <div class="row">
+            <span>Quantity</span>
+            <div class="qty-control" id="modalQtyControl">
+              <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+              <span class="qty-val" id="cQty">1</span>
+              <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <div class="row"><span>Unit price</span><strong id="cUnit">—</strong></div>
+          <div class="row"><span>Subtotal</span><strong id="cSubtotal">—</strong></div>
+          <div class="row discount-row"><span>🏷️ <span id="cCouponLabel">WEL67</span> (<span id="cDiscountPct">5</span>% OFF)</span><strong id="cDiscount">−₹0</strong></div>
+          <div class="row total-row"><span>Total</span><strong id="cTotal">—</strong></div>
+        </div>
+
+        <button class="btn btn-primary" id="confirmBtn">✔ Proceed to QR</button>
+        <button class="btn-text" id="cancelConfirmBtn">Cancel</button>
+      </div>
+
+      <div id="stepPayment" style="display:none">
+        <h3 class="modal-title">Scan &amp; Pay</h3>
+        <p class="modal-sub">Use the QR below for your own demo/test payment flow.</p>
+
+        <div style="text-align:center"><span class="qr-timer" id="qrTimer">⏱️ QR valid for 10:00</span></div>
+
+        <div class="qr-box"><img id="qrImg" src="./upi-qr.png.jpeg" alt="UPI QR" width="220" height="220"></div>
+        <div class="pay-amount" id="payAmount">₹0</div>
+        <div class="pay-amount-note" id="payAmountNote">after 5% coupon discount</div>
+
+        <div class="coupon-applied">
+          <span>🏷️ <span id="payCouponLabel">WEL67</span> applied</span>
+          <span class="ca-saved" id="paySaved">Saved ₹0</span>
+        </div>
+
+        <div class="demo-notice" id="demoPaymentNotice">
+          DEMO PAYMENT: This page does not verify or confirm a real payment automatically.
+        </div>
+
+        <div class="modal-summary">
+          <div class="row"><span>Account</span><strong id="pNick">—</strong></div>
+          <div class="row"><span>UID</span><strong id="pUid">—</strong></div>
+          <div class="row"><span>Item</span><strong class="item-display" id="pItem"></strong></div>
+          <div class="row"><span>Quantity</span><strong id="pQty">1</strong></div>
+          <div class="row"><span>Order</span><strong id="pOrder">—</strong></div>
+        </div>
+
+        <button class="btn btn-primary" id="paidBtn">✓ I have paid</button>
+        <button class="btn btn-ghost" id="downloadQrBtn">⬇ Download QR</button>
+        <button class="btn-text" id="cancelPayBtn">Cancel</button>
+      </div>
+
+      <div id="stepUtr" style="display:none">
+        <h3 class="modal-title">Enter UTR Number</h3>
+        <p class="modal-sub">Enter a test/demo UTR from your payment app.</p>
+        <div class="notice show" id="utrNotice">Demo only: the UTR will be stored locally in this browser and will not be verified.</div>
+        <div class="utr-section show">
+          <label for="utrInput">UTR Number</label>
+          <div class="utr-group">
+            <input type="text" id="utrInput" placeholder="e.g. 123456789012" maxlength="20" autocomplete="off">
+            <button id="submitUtrBtn">Submit</button>
+          </div>
+        </div>
+        <button class="btn-text" id="backToPayBtn">← Back</button>
+      </div>
+
+      <div id="stepResult" style="display:none">
+        <div class="result">
+          <div class="icon" id="resultIcon">🧪</div>
+          <div class="msg" id="resultMsg">Demo Submission Saved</div>
+          <div class="sub" id="resultSub">This demo does not verify payment or deliver items automatically.</div>
+        </div>
+        <button class="btn btn-primary" id="resultOkBtn">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="sale-popup" hidden>
+    <div class="sp-icon"><img src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png" alt=""></div>
+    <div class="sp-body">
+      <strong>Demo User <span class="sp-state">from Bihar</span></strong>
+      <span>demo-purchased <b>310 Diamonds</b></span>
+      <small><span class="dot"></span>7 min ago · Demo ✓</small>
+    </div>
+  </div>
+
+  <script src="./store.js" defer></script>
+</body>
+</html>
