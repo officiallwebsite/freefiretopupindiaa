@@ -1,734 +1,712 @@
 "use strict";
 
-/* =========================================
-   FREE FIRE TOP UP
-   UID VERIFICATION SCRIPT
-   ========================================= */
+/* =====================================================
+   FREE FIRE TOP UP - UID VERIFICATION
+   ===================================================== */
 
-const CONFIG = {
-    API_URL: "https://free-fire-uid-apii.vercel.app/info?uid={UID}",
-    FETCH_TIMEOUT: 15000
-};
+if (!window.__FF_UID_SCRIPT_STARTED__) {
 
-let currentUID = "";
+    window.__FF_UID_SCRIPT_STARTED__ = true;
 
-/* =========================================
-   HELPER
-   ========================================= */
+    let currentUID = "";
 
-function get(id) {
-    return document.getElementById(id);
-}
+    const API_URL =
+        "https://free-fire-uid-apii.vercel.app/info?uid=";
 
-function formatNumber(value) {
-    const number = Number(value);
 
-    if (!Number.isFinite(number)) {
-        return "0";
+    /* =================================================
+       HELPER
+       ================================================= */
+
+    function get(id) {
+        return document.getElementById(id);
     }
 
-    return number.toLocaleString("en-IN");
-}
 
-/* =========================================
-   FETCH WITH TIMEOUT
-   ========================================= */
+    function formatNumber(value) {
+        const n = Number(value);
 
-async function fetchWithTimeout(url) {
-    const controller = new AbortController();
-
-    const timer = setTimeout(function () {
-        controller.abort();
-    }, CONFIG.FETCH_TIMEOUT);
-
-    try {
-        return await fetch(url, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json"
-            },
-            cache: "no-store",
-            signal: controller.signal
-        });
-    } finally {
-        clearTimeout(timer);
-    }
-}
-
-/* =========================================
-   NORMALIZE API DATA
-   ========================================= */
-
-function normalizePlayerData(data, uid) {
-    const basic = data.basicinfo || {};
-    const clan = data.clanbasicinfo || {};
-
-    return {
-        uid: String(
-            basic.accountid ||
-            basic.accountId ||
-            uid
-        ),
-
-        nickname: String(
-            basic.nickname ||
-            data.nickname ||
-            data.name ||
-            "Player"
-        ),
-
-        level: Number(
-            basic.level ||
-            data.level ||
-            0
-        ),
-
-        region: String(
-            basic.region ||
-            data.region ||
-            "IND"
-        ),
-
-        likes: Number(
-            basic.liked ??
-            basic.likes ??
-            data.liked ??
-            data.likes ??
-            0
-        ),
-
-        rank: Number(
-            basic.rank ||
-            data.rank ||
-            0
-        ),
-
-        clan: String(
-            clan.clanname ||
-            clan.name ||
-            data.clanname ||
-            ""
-        )
-    };
-}
-
-/* =========================================
-   SAVE PLAYER
-   ========================================= */
-
-function savePlayer(player) {
-    localStorage.setItem(
-        "ff_player",
-        JSON.stringify(player)
-    );
-
-    localStorage.setItem(
-        "ff_uid",
-        player.uid
-    );
-
-    localStorage.setItem(
-        "ff_nickname",
-        player.nickname
-    );
-
-    localStorage.setItem(
-        "ff_level",
-        String(player.level)
-    );
-
-    localStorage.setItem(
-        "ff_region",
-        player.region
-    );
-
-    localStorage.setItem(
-        "ff_likes",
-        String(player.likes)
-    );
-
-    localStorage.setItem(
-        "ff_rank",
-        String(player.rank)
-    );
-
-    localStorage.setItem(
-        "ff_clan",
-        player.clan
-    );
-}
-
-/* =========================================
-   OPEN PLAYER MODAL
-   ========================================= */
-
-function showPlayerModal(player) {
-    const overlay = get("modalOverlay");
-    const modal = get("playerModal");
-
-    if (!overlay || !modal) {
-        alert("Player modal HTML not found.");
-        return;
-    }
-
-    const pNick = get("pNick");
-    const pSub = get("pSub");
-    const pLevel = get("pLevel");
-    const pRegion = get("pRegion");
-    const pLikes = get("pLikes");
-    const pUid = get("pUid");
-    const pClan = get("pClan");
-    const rowClan = get("rowClan");
-
-    if (pNick) {
-        pNick.textContent = player.nickname;
-    }
-
-    if (pSub) {
-        pSub.textContent =
-            "Congratulations — your account is ready!";
-    }
-
-    if (pLevel) {
-        pLevel.textContent = player.level;
-    }
-
-    if (pRegion) {
-        pRegion.textContent = player.region;
-    }
-
-    if (pLikes) {
-        pLikes.textContent =
-            formatNumber(player.likes);
-    }
-
-    if (pUid) {
-        pUid.textContent = player.uid;
-    }
-
-    if (pClan) {
-        pClan.textContent =
-            player.clan || "No Clan";
-    }
-
-    if (rowClan) {
-        rowClan.style.display =
-            player.clan ? "" : "none";
-    }
-
-    overlay.hidden = false;
-    overlay.style.display = "flex";
-
-    modal.classList.add("active");
-
-    document.body.classList.add("modal-open");
-}
-
-/* =========================================
-   CLOSE PLAYER MODAL
-   ========================================= */
-
-function closePlayerModal() {
-    const overlay = get("modalOverlay");
-    const modal = get("playerModal");
-
-    if (overlay) {
-        overlay.hidden = true;
-        overlay.style.display = "none";
-    }
-
-    if (modal) {
-        modal.classList.remove("active");
-    }
-
-    document.body.classList.remove("modal-open");
-}
-
-/* =========================================
-   VERIFY UID
-   ========================================= */
-
-async function verifyUID() {
-    const input = get("uidInput");
-    const button = get("verifyBtn");
-
-    if (!input) {
-        alert("UID input not found.");
-        return;
-    }
-
-    const uid = input.value.trim();
-
-    if (!uid) {
-        alert("Please enter your UID.");
-        input.focus();
-        return;
-    }
-
-    if (!/^[0-9]+$/.test(uid)) {
-        alert("UID must contain numbers only.");
-        input.focus();
-        return;
-    }
-
-    if (uid.length < 6) {
-        alert("Please enter a valid UID.");
-        input.focus();
-        return;
-    }
-
-    currentUID = uid;
-
-    let label = null;
-    let spinner = null;
-
-    if (button) {
-        button.disabled = true;
-
-        label = button.querySelector(".btn-label");
-        spinner = button.querySelector(".spinner");
-
-        if (label) {
-            label.textContent = "Verifying...";
+        if (!Number.isFinite(n)) {
+            return "0";
         }
 
-        if (spinner) {
-            spinner.hidden = false;
-        }
+        return n.toLocaleString("en-IN");
     }
 
-    const apiUrl =
-        CONFIG.API_URL.replace(
-            "{UID}",
-            encodeURIComponent(uid)
-        );
 
-    try {
-        console.log("Calling API:", apiUrl);
+    /* =================================================
+       UID VERIFICATION
+       ================================================= */
 
-        const response =
-            await fetchWithTimeout(apiUrl);
+    async function verifyUID() {
 
-        const text =
-            await response.text();
+        const input = get("uidInput");
+        const button = get("verifyBtn");
+
+        if (!input) {
+            alert("UID input not found.");
+            return;
+        }
+
+        const uid = input.value.trim();
+
+        if (!uid) {
+            alert("Please enter your UID.");
+            input.focus();
+            return;
+        }
+
+        if (!/^[0-9]+$/.test(uid)) {
+            alert("UID must contain numbers only.");
+            input.focus();
+            return;
+        }
+
+        if (uid.length < 6) {
+            alert("Please enter a valid UID.");
+            input.focus();
+            return;
+        }
+
+        currentUID = uid;
+
+        if (button) {
+            button.disabled = true;
+
+            const label =
+                button.querySelector(".btn-label");
+
+            const spinner =
+                button.querySelector(".spinner");
+
+            if (label) {
+                label.textContent = "Verifying...";
+            }
+
+            if (spinner) {
+                spinner.hidden = false;
+            }
+        }
+
+        const apiUrl =
+            API_URL +
+            encodeURIComponent(uid);
 
         console.log(
-            "HTTP STATUS:",
-            response.status
+            "Calling API:",
+            apiUrl
         );
-
-        console.log(
-            "API RESPONSE:",
-            text
-        );
-
-        if (!response.ok) {
-            throw new Error(
-                "API returned HTTP " +
-                response.status
-            );
-        }
-
-        let data;
 
         try {
-            data = JSON.parse(text);
+
+            const response =
+                await fetch(apiUrl, {
+                    method: "GET",
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    },
+                    cache: "no-store"
+                });
+
+            console.log(
+                "HTTP STATUS:",
+                response.status
+            );
+
+            const text =
+                await response.text();
+
+            console.log(
+                "API RESPONSE:",
+                text
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    "API returned HTTP " +
+                    response.status
+                );
+            }
+
+            let data;
+
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                throw new Error(
+                    "Invalid JSON received from API."
+                );
+            }
+
+            console.log(
+                "PARSED API DATA:",
+                data
+            );
+
+
+            /* =========================================
+               PLAYER DATA
+               ========================================= */
+
+            const basic =
+                data &&
+                data.basicinfo
+                    ? data.basicinfo
+                    : {};
+
+            const clan =
+                data &&
+                data.clanbasicinfo
+                    ? data.clanbasicinfo
+                    : {};
+
+            const player = {
+
+                uid: String(
+                    basic.accountid ||
+                    uid
+                ),
+
+                nickname: String(
+                    basic.nickname ||
+                    "Player"
+                ),
+
+                level: Number(
+                    basic.level || 0
+                ),
+
+                region: String(
+                    basic.region ||
+                    "IND"
+                ),
+
+                likes: Number(
+                    basic.liked || 0
+                ),
+
+                rank: Number(
+                    basic.rank || 0
+                ),
+
+                clan: String(
+                    clan.clanname || ""
+                )
+            };
+
+
+            console.log(
+                "PLAYER DATA:",
+                player
+            );
+
+
+            /* =========================================
+               SAVE PLAYER
+               ========================================= */
+
+            try {
+
+                localStorage.setItem(
+                    "ff_player",
+                    JSON.stringify(player)
+                );
+
+                localStorage.setItem(
+                    "ff_uid",
+                    player.uid
+                );
+
+            } catch (storageError) {
+
+                console.warn(
+                    "localStorage unavailable:",
+                    storageError
+                );
+            }
+
+
+            /* =========================================
+               PLAYER MODAL
+               ========================================= */
+
+            const overlay =
+                get("modalOverlay");
+
+            const modal =
+                get("playerModal");
+
+            const pNick =
+                get("pNick");
+
+            const pLevel =
+                get("pLevel");
+
+            const pRegion =
+                get("pRegion");
+
+            const pLikes =
+                get("pLikes");
+
+            const pUid =
+                get("pUid");
+
+            const pClan =
+                get("pClan");
+
+            const rowClan =
+                get("rowClan");
+
+
+            if (!overlay || !modal) {
+
+                alert(
+                    "Player modal was not found in index.html."
+                );
+
+                return;
+            }
+
+
+            /* Fill modal */
+
+            if (pNick) {
+                pNick.textContent =
+                    player.nickname;
+            }
+
+            if (pLevel) {
+                pLevel.textContent =
+                    player.level;
+            }
+
+            if (pRegion) {
+                pRegion.textContent =
+                    player.region;
+            }
+
+            if (pLikes) {
+                pLikes.textContent =
+                    formatNumber(
+                        player.likes
+                    );
+            }
+
+            if (pUid) {
+                pUid.textContent =
+                    player.uid;
+            }
+
+            if (pClan) {
+                pClan.textContent =
+                    player.clan ||
+                    "No Clan";
+            }
+
+            if (rowClan) {
+                rowClan.style.display =
+                    player.clan
+                        ? ""
+                        : "none";
+            }
+
+
+            /* Open modal */
+
+            overlay.hidden = false;
+
+            overlay.style.display =
+                "flex";
+
+            modal.classList.add(
+                "active"
+            );
+
+            document.body.classList.add(
+                "modal-open"
+            );
+
+
+            console.log(
+                "PLAYER MODAL OPENED"
+            );
+
         } catch (error) {
-            throw new Error(
-                "API returned invalid JSON."
+
+            console.error(
+                "UID VERIFY ERROR:",
+                error
+            );
+
+            alert(
+                "UID verification failed:\n\n" +
+                error.message
+            );
+
+        } finally {
+
+            if (button) {
+
+                button.disabled =
+                    false;
+
+                const label =
+                    button.querySelector(
+                        ".btn-label"
+                    );
+
+                const spinner =
+                    button.querySelector(
+                        ".spinner"
+                    );
+
+                if (label) {
+                    label.textContent =
+                        "Verify UID";
+                }
+
+                if (spinner) {
+                    spinner.hidden =
+                        true;
+                }
+            }
+        }
+    }
+
+
+    /* =================================================
+       CLOSE MODAL
+       ================================================= */
+
+    function closePlayerModal() {
+
+        const overlay =
+            get("modalOverlay");
+
+        const modal =
+            get("playerModal");
+
+        if (overlay) {
+
+            overlay.hidden = true;
+
+            overlay.style.display =
+                "none";
+        }
+
+        if (modal) {
+
+            modal.classList.remove(
+                "active"
             );
         }
 
-        const player =
-            normalizePlayerData(
-                data,
-                uid
-            );
-
-        if (
-            !player.nickname ||
-            player.nickname === "Player"
-        ) {
-            throw new Error(
-                "Player information not found."
-            );
-        }
-
-        savePlayer(player);
-
-        showPlayerModal(player);
-
-    } catch (error) {
-        console.error(
-            "UID verification failed:",
-            error
+        document.body.classList.remove(
+            "modal-open"
         );
-
-        if (
-            error &&
-            error.name === "AbortError"
-        ) {
-            alert(
-                "Verification timed out. Please try again."
-            );
-        } else {
-            alert(
-                error.message ||
-                "Unable to verify UID."
-            );
-        }
-
-    } finally {
-        if (button) {
-            button.disabled = false;
-        }
-
-        if (label) {
-            label.textContent = "Verify UID";
-        }
-
-        if (spinner) {
-            spinner.hidden = true;
-        }
-    }
-}
-
-/* =========================================
-   VERIFY BUTTON
-   ========================================= */
-
-function setupVerifyButton() {
-    const button = get("verifyBtn");
-
-    if (!button) {
-        console.error("verifyBtn not found.");
-        return;
     }
 
-    button.addEventListener(
-        "click",
-        function (event) {
-            event.preventDefault();
-            event.stopPropagation();
 
-            verifyUID();
-        }
-    );
-}
+    /* =================================================
+       PROCEED TO STORE
+       ================================================= */
 
-/* =========================================
-   PROCEED TO STORE
-   ========================================= */
+    function proceedToStore() {
 
-function proceedToStore() {
-    let uid = currentUID;
-
-    if (!uid) {
-        uid =
-            localStorage.getItem("ff_uid") ||
+        let uid =
+            currentUID ||
+            localStorage.getItem(
+                "ff_uid"
+            ) ||
             "";
-    }
 
-    if (!uid) {
-        const saved =
-            localStorage.getItem("ff_player");
+        if (!uid) {
 
-        if (saved) {
-            try {
-                const player =
-                    JSON.parse(saved);
+            alert(
+                "Please verify your UID first."
+            );
 
-                uid = player.uid || "";
-            } catch (error) {
-                console.error(error);
-            }
+            return;
         }
+
+        window.location.href =
+            "./store.html?uid=" +
+            encodeURIComponent(uid);
     }
 
-    if (!uid) {
-        showToast(
-            "Please verify your UID first."
-        );
-        return;
-    }
 
-    localStorage.setItem(
-        "ff_uid",
-        uid
-    );
+    /* =================================================
+       RE-ENTER UID
+       ================================================= */
 
-    window.location.href =
-        "./store.html?uid=" +
-        encodeURIComponent(uid);
-}
+    function reEnterUID() {
 
-/* =========================================
-   RE-ENTER UID
-   ========================================= */
+        closePlayerModal();
 
-function reEnterUID() {
-    closePlayerModal();
+        const input =
+            get("uidInput");
 
-    const input = get("uidInput");
+        if (input) {
 
-    if (input) {
-        input.value = "";
+            input.value = "";
 
-        setTimeout(function () {
-            input.focus();
-        }, 100);
-    }
-}
-
-/* =========================================
-   TOAST
-   ========================================= */
-
-function showToast(message) {
-    const toast = get("toast");
-
-    if (!toast) {
-        alert(message);
-        return;
-    }
-
-    toast.textContent = message;
-    toast.hidden = false;
-
-    clearTimeout(
-        window.__toastTimer
-    );
-
-    window.__toastTimer = setTimeout(
-        function () {
-            toast.hidden = true;
-        },
-        3000
-    );
-}
-
-/* =========================================
-   MODAL BUTTONS
-   ========================================= */
-
-function setupModalButtons() {
-    const closeButton = get("modalClose");
-    const notMeButton = get("notMeBtn");
-    const proceedButton = get("proceedBtn");
-
-    if (closeButton) {
-        closeButton.addEventListener(
-            "click",
-            function (event) {
-                event.preventDefault();
-                closePlayerModal();
-            }
-        );
-    }
-
-    if (notMeButton) {
-        notMeButton.addEventListener(
-            "click",
-            function (event) {
-                event.preventDefault();
-                reEnterUID();
-            }
-        );
-    }
-
-    if (proceedButton) {
-        proceedButton.addEventListener(
-            "click",
-            function (event) {
-                event.preventDefault();
-                proceedToStore();
-            }
-        );
-    }
-}
-
-/* =========================================
-   OVERLAY
-   ========================================= */
-
-function setupOverlay() {
-    const overlay = get("modalOverlay");
-
-    if (!overlay) {
-        return;
-    }
-
-    overlay.addEventListener(
-        "click",
-        function (event) {
-            if (event.target === overlay) {
-                closePlayerModal();
-            }
-        }
-    );
-}
-
-/* =========================================
-   ESCAPE
-   ========================================= */
-
-function setupEscape() {
-    document.addEventListener(
-        "keydown",
-        function (event) {
-            if (event.key === "Escape") {
-                closePlayerModal();
-            }
-        }
-    );
-}
-
-/* =========================================
-   YEAR
-   ========================================= */
-
-function setupYear() {
-    const year = get("year");
-
-    if (year) {
-        year.textContent =
-            new Date().getFullYear();
-    }
-}
-
-/* =========================================
-   COPY COUPON
-   ========================================= */
-
-function setupCoupon() {
-    const button =
-        document.querySelector(
-            "[data-coupon-copy]"
-        );
-
-    if (!button) {
-        return;
-    }
-
-    button.addEventListener(
-        "click",
-        async function () {
-            const code = "WEL67";
-
-            try {
-                await navigator.clipboard.writeText(
-                    code
-                );
-
-                showToast(
-                    "Coupon copied: WEL67"
-                );
-            } catch (error) {
-                showToast(
-                    "Coupon: WEL67"
-                );
-            }
-        }
-    );
-}
-
-/* =========================================
-   FAQ
-   ========================================= */
-
-function setupFAQ() {
-    const questions =
-        document.querySelectorAll(".acc-q");
-
-    questions.forEach(
-        function (question) {
-            question.addEventListener(
-                "click",
+            setTimeout(
                 function () {
-                    const item =
-                        question.closest(
-                            ".acc-item"
-                        );
+                    input.focus();
+                },
+                100
+            );
+        }
+    }
 
-                    if (!item) {
-                        return;
-                    }
 
-                    const answer =
-                        item.querySelector(
-                            ".acc-a"
-                        );
+    /* =================================================
+       MAIN EVENT SETUP
+       ================================================= */
 
-                    const wasOpen =
-                        item.classList.contains(
-                            "active"
-                        );
+    function setup() {
 
-                    document
-                        .querySelectorAll(
-                            ".acc-item.active"
-                        )
-                        .forEach(
-                            function (openItem) {
-                                openItem.classList.remove(
-                                    "active"
-                                );
+        const form =
+            get("uidForm");
 
-                                const openAnswer =
-                                    openItem.querySelector(
-                                        ".acc-a"
-                                    );
+        const verifyButton =
+            get("verifyBtn");
 
-                                if (openAnswer) {
-                                    openAnswer.style.maxHeight =
-                                        null;
-                                }
-                            }
-                        );
+        const proceedButton =
+            get("proceedBtn");
 
-                    if (!wasOpen) {
-                        item.classList.add(
-                            "active"
-                        );
+        const closeButton =
+            get("modalClose");
 
-                        if (answer) {
-                            answer.style.maxHeight =
-                                answer.scrollHeight +
-                                "px";
-                        }
+        const notMeButton =
+            get("notMeBtn");
+
+        const overlay =
+            get("modalOverlay");
+
+
+        /* =============================================
+           FORM
+           ============================================= */
+
+        if (form) {
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    verifyUID();
+                }
+            );
+        }
+
+
+        /* =============================================
+           VERIFY BUTTON
+           ============================================= */
+
+        if (verifyButton) {
+
+            verifyButton.type =
+                "button";
+
+            verifyButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    verifyUID();
+                }
+            );
+        }
+
+
+        /* =============================================
+           PROCEED
+           ============================================= */
+
+        if (proceedButton) {
+
+            proceedButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    proceedToStore();
+                }
+            );
+        }
+
+
+        /* =============================================
+           CLOSE
+           ============================================= */
+
+        if (closeButton) {
+
+            closeButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    closePlayerModal();
+                }
+            );
+        }
+
+
+        /* =============================================
+           NOT MY ACCOUNT
+           ============================================= */
+
+        if (notMeButton) {
+
+            notMeButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    reEnterUID();
+                }
+            );
+        }
+
+
+        /* =============================================
+           CLICK OUTSIDE
+           ============================================= */
+
+        if (overlay) {
+
+            overlay.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        event.target ===
+                        overlay
+                    ) {
+
+                        closePlayerModal();
                     }
                 }
             );
         }
-    );
-}
 
-/* =========================================
-   PAGE LOAD
-   ========================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-        setupVerifyButton();
-        setupModalButtons();
-        setupOverlay();
-        setupEscape();
-        setupYear();
-        setupCoupon();
-        setupFAQ();
+        /* =============================================
+           ENTER KEY
+           ============================================= */
+
+        const uidInput =
+            get("uidInput");
+
+        if (uidInput) {
+
+            uidInput.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key ===
+                        "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        verifyUID();
+                    }
+                }
+            );
+        }
+
+
+        /* =============================================
+           ESC
+           ============================================= */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key ===
+                    "Escape"
+                ) {
+
+                    closePlayerModal();
+                }
+            }
+        );
+
+
+        /* =============================================
+           YEAR
+           ============================================= */
+
+        const year =
+            get("year");
+
+        if (year) {
+
+            year.textContent =
+                new Date().getFullYear();
+        }
+
 
         console.log(
             "Free Fire Top Up script loaded successfully."
         );
     }
-);
 
-/* =========================================
-   GLOBAL FUNCTIONS
-   ========================================= */
 
-window.verifyUID = verifyUID;
-window.proceedToStore = proceedToStore;
-window.closePlayerModal = closePlayerModal;
-window.reEnterUID = reEnterUID;
+    /* =================================================
+       START
+       ================================================= */
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            setup,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        setup();
+    }
+
+
+    /* =================================================
+       GLOBAL
+       ================================================= */
+
+    window.verifyUID =
+        verifyUID;
+
+    window.proceedToStore =
+        proceedToStore;
+
+    window.closePlayerModal =
+        closePlayerModal;
+
+    window.reEnterUID =
+        reEnterUID;
+}
