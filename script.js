@@ -35,7 +35,7 @@ async function verifyUID() {
     }
 
 
-    /* UID VALIDATION: 8-12 DIGITS */
+    /* UID VALIDATION */
 
     if (
         !/^[0-9]+$/.test(uid) ||
@@ -50,9 +50,7 @@ async function verifyUID() {
     }
 
 
-    /* =========================
-       LOADING STATE
-    ========================= */
+    /* LOADING */
 
     error.innerText =
         "Verifying UID...";
@@ -72,24 +70,32 @@ async function verifyUID() {
 
 
     if (verifyBtn) {
-        verifyBtn.disabled = true;
-        verifyBtn.classList.add("loading");
+
+        verifyBtn.disabled =
+            true;
+
+        verifyBtn.classList.add(
+            "loading"
+        );
     }
 
 
     if (verifyBtnText) {
+
         verifyBtnText.innerText =
             "Verifying...";
     }
 
 
     if (verifyLoader) {
+
         verifyLoader.style.display =
             "block";
     }
 
 
     if (verifyArrow) {
+
         verifyArrow.style.display =
             "none";
     }
@@ -97,16 +103,21 @@ async function verifyUID() {
 
     try {
 
+        /* =========================
+           CALL OUR VERCEL API
+        ========================= */
+
         const response =
-    await fetch(
-        "https://free-fire-uid-apii.vercel.app/info?uid=" +
-        encodeURIComponent(uid) +
-        "&_t=" +
-        Date.now(),
-        {
-            cache: "no-store"
-        }
-    );
+            await fetch(
+                "https://free-fire-uid-apii.vercel.app/info?uid=" +
+                encodeURIComponent(uid) +
+                "&_t=" +
+                Date.now(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
 
 
         const data =
@@ -123,7 +134,8 @@ async function verifyUID() {
 
         if (
             !response.ok ||
-            !data.basic_info
+            !data ||
+            !data.basicinfo
         ) {
 
             error.innerText =
@@ -133,12 +145,16 @@ async function verifyUID() {
         }
 
 
+        /* =========================
+           NEW API STRUCTURE
+        ========================= */
+
         const player =
-            data.basic_info;
+            data.basicinfo;
 
 
         console.log(
-            "PLAYER:",
+            "PLAYER DATA:",
             player
         );
 
@@ -148,21 +164,15 @@ async function verifyUID() {
         ========================= */
 
         currentUID =
-            player.account_id || uid;
+            player.accountid || uid;
 
 
         currentPlayerName =
             player.nickname || "Unknown Player";
-const playerNameBottom =
-    document.getElementById("playerNameBottom");
 
-if (playerNameBottom) {
-    playerNameBottom.innerText =
-        currentPlayerName;
-}
 
         /* =========================
-           PLAYER NAME
+           MAIN PLAYER NAME
         ========================= */
 
         const playerName =
@@ -178,7 +188,23 @@ if (playerNameBottom) {
 
 
         /* =========================
-           PLAYER UID
+           PLAYER NAME BOTTOM
+        ========================= */
+
+        const playerNameBottom =
+            document.getElementById(
+                "playerNameBottom"
+            );
+
+        if (playerNameBottom) {
+
+            playerNameBottom.innerText =
+                currentPlayerName;
+        }
+
+
+        /* =========================
+           UID
         ========================= */
 
         const playerUID =
@@ -236,8 +262,11 @@ if (playerNameBottom) {
 
         if (playerLikes) {
 
+            const likes =
+                Number(player.liked || 0);
+
             playerLikes.innerText =
-                player.liked ?? "0";
+                likes.toLocaleString("en-IN");
         }
 
 
@@ -258,6 +287,93 @@ if (playerNameBottom) {
 
 
         /* =========================
+           STORE PLAYER INFO
+        ========================= */
+
+        const storePlayerName =
+            document.getElementById(
+                "storePlayerName"
+            );
+
+        const storePlayerUID =
+            document.getElementById(
+                "storePlayerUID"
+            );
+
+
+        if (storePlayerName) {
+
+            storePlayerName.innerText =
+                currentPlayerName;
+        }
+
+
+        if (storePlayerUID) {
+
+            storePlayerUID.innerText =
+                currentUID;
+        }
+
+
+        /* =========================
+           SUMMARY PLAYER INFO
+        ========================= */
+
+        const summaryPlayerName =
+            document.getElementById(
+                "summaryPlayerName"
+            );
+
+        const summaryUID =
+            document.getElementById(
+                "summaryUID"
+            );
+
+
+        if (summaryPlayerName) {
+
+            summaryPlayerName.innerText =
+                currentPlayerName;
+        }
+
+
+        if (summaryUID) {
+
+            summaryUID.innerText =
+                currentUID;
+        }
+
+
+        /* =========================
+           HIDE HOW IT WORKS + FAQ
+        ========================= */
+
+        const howSection =
+            document.getElementById(
+                "howItWorks"
+            );
+
+        const faqSection =
+            document.getElementById(
+                "faq"
+            );
+
+
+        if (howSection) {
+
+            howSection.style.display =
+                "none";
+        }
+
+
+        if (faqSection) {
+
+            faqSection.style.display =
+                "none";
+        }
+
+
+        /* =========================
            CLEAR ERROR
         ========================= */
 
@@ -268,23 +384,12 @@ if (playerNameBottom) {
         /* =========================
            OPEN PLAYER MODAL
         ========================= */
-const howSection =
-    document.getElementById("howItWorks");
 
-const faqSection =
-    document.getElementById("faq");
-
-if (howSection) {
-    howSection.style.display = "none";
-}
-
-if (faqSection) {
-    faqSection.style.display = "none";
-}
         const playerModal =
             document.getElementById(
                 "playerModal"
             );
+
 
         if (playerModal) {
 
@@ -305,11 +410,10 @@ if (faqSection) {
 
     } finally {
 
-        /* =========================
-           RESET BUTTON
-        ========================= */
+        /* RESET BUTTON */
 
         if (verifyBtn) {
+
             verifyBtn.disabled =
                 false;
 
@@ -320,18 +424,21 @@ if (faqSection) {
 
 
         if (verifyBtnText) {
+
             verifyBtnText.innerText =
                 "Verify UID";
         }
 
 
         if (verifyLoader) {
+
             verifyLoader.style.display =
                 "none";
         }
 
 
         if (verifyArrow) {
+
             verifyArrow.style.display =
                 "inline";
         }
@@ -397,7 +504,7 @@ function goToStore() {
     }
 
 
-    /* RIGHT SIDE SUMMARY */
+    /* SUMMARY */
 
     const summaryPlayerName =
         document.getElementById(
@@ -424,12 +531,13 @@ function goToStore() {
     }
 
 
-    /* HIDE VERIFY SECTION */
+    /* HIDE UID SECTION */
 
     const verifySection =
         document.querySelector(
-    ".uid-section"
-);
+            ".uid-section"
+        );
+
 
     if (verifySection) {
 
@@ -516,8 +624,6 @@ function buyPackage(
             currentUID;
     }
 
-
-    /* OPEN ORDER MODAL */
 
     const orderModal =
         document.getElementById(
@@ -641,7 +747,7 @@ function proceedToPay() {
     }
 
 
-    /* RESET PAID BUTTON */
+    /* RESET BUTTON */
 
     const paidButton =
         document.getElementById(
@@ -713,6 +819,7 @@ function copyUPI() {
 
 
     if (!upiElement) {
+
         return;
     }
 
