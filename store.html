@@ -4,19 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Free Fire-style top-up store demo.">
-
-  <title>Store — Top Up Demo Center</title>
-
-  <link rel="icon" href="https://freefiretopupindia.site/gen/garena.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Russo+One&display=swap"
-    rel="stylesheet"
-  >
+  <title>Free Fire Top Up - Store</title>
 
   <link rel="stylesheet" href="./style.css">
 
@@ -31,17 +19,21 @@
 
 <body>
 
-  <div class="announce" role="region" aria-label="Demo notice">
+  <!-- TOP NOTICE -->
+
+  <div class="announce">
+
     <span>🎁</span>
 
     <span>
-      DEMO — Auto-applied
-      <strong>5% OFF</strong>
-      on test products with code
+      Welcome Offer —
+      Get <strong>5% OFF</strong>
+      with code
     </span>
 
     <span class="coupon-code">
       WEL67
+
       <button
         type="button"
         data-coupon-copy
@@ -50,52 +42,44 @@
       </button>
     </span>
 
-    <span class="demo-badge">
-      EDUCATIONAL DEMO
-    </span>
   </div>
 
 
-  <div class="bg-orbs" aria-hidden="true">
-    <span class="orb orb-1"></span>
-    <span class="orb orb-2"></span>
-    <span class="orb orb-3"></span>
-  </div>
-
-
-  <div class="processing" id="processingOverlay">
-    <div class="loader"></div>
-    <span>Processing your demo request...</span>
-  </div>
-
+  <!-- HEADER -->
 
   <header class="site-header">
 
     <div class="container header-inner">
 
-      <a href="./index.html" class="brand">
+      <a
+        href="./index.html"
+        class="brand"
+      >
 
         <img
           src="https://freefiretopupindia.site/gen/garena.png"
-          alt="Game-style logo"
+          alt="Logo"
           class="brand-logo"
         >
 
         <span class="brand-text">
           <strong>Top Up</strong>
-          <small>Demo Center</small>
+          <small>Center</small>
         </span>
 
       </a>
 
 
-      <nav class="main-nav" id="mainNav">
+      <nav
+        class="main-nav"
+        id="mainNav"
+      >
 
         <a href="./index.html">
           Home
         </a>
 
-        <a href="./store.html" class="active">
+        <a href="./store.html">
           Store
         </a>
 
@@ -113,7 +97,7 @@
       <button
         class="theme-toggle"
         id="themeToggle"
-        aria-label="Toggle theme"
+        type="button"
       >
         🌙
       </button>
@@ -122,7 +106,7 @@
       <button
         class="nav-toggle"
         id="navToggle"
-        aria-label="Toggle menu"
+        type="button"
       >
         <span></span>
         <span></span>
@@ -133,6 +117,8 @@
 
   </header>
 
+
+  <!-- VERIFIED ACCOUNT -->
 
   <section class="store-hero">
 
@@ -146,7 +132,7 @@
 
             <img
               src="https://freefiretopupindia.site/gen/g/icon.png"
-              alt="Game icon"
+              alt="Free Fire"
             >
 
           </div>
@@ -155,27 +141,31 @@
           <div class="vb-info">
 
             <span class="vb-label">
-              Demo top-up for
+              Verified account
             </span>
 
             <strong id="vNick">
-              <span class="loading">
-                Loading…
-              </span>
+              Loading…
             </strong>
 
             <span class="vb-meta">
+
               UID
               <b id="vUid">—</b>
+
               ·
-              <span id="vLevel">—</span>
+
+              <span id="vLevel">
+                Lvl —
+              </span>
+
             </span>
 
           </div>
 
 
           <span class="vb-badge">
-            ✓ Verified Demo
+            ✓ Verified
           </span>
 
         </div>
@@ -196,7 +186,12 @@
   </section>
 
 
-  <section class="section" id="products">
+  <!-- STORE -->
+
+  <section
+    class="section"
+    id="products"
+  >
 
     <div class="container">
 
@@ -210,185 +205,558 @@
         </h2>
 
         <p>
-          Pick a pack — this is a demonstration checkout
-          for the verified test account.
+          Select your diamonds or pass.
         </p>
 
       </div>
 
 
-      <div class="tabs" id="tabs">
+      <!-- TABS -->
+
+      <div
+        class="tabs"
+        id="tabs"
+      >
 
         <button
+          type="button"
           class="tab active"
           data-cat="diamonds"
         >
-
-          <img
-            class="tab-ic"
-            src="https://freefiretopupindia.site/gen/uploads/categories/categories_20260618131908_8da0ba.png"
-            alt=""
-          >
-
-          Diamonds
-
+          💎 Diamonds
         </button>
 
 
         <button
+          type="button"
           class="tab"
           data-cat="passes"
         >
-
-          <img
-            class="tab-ic"
-            src="https://freefiretopupindia.site/gen/uploads/categories/categories_20260618132038_c0a216.png"
-            alt=""
-          >
-
-          Passes
-
+          🎟️ Passes
         </button>
 
       </div>
 
 
+      <!-- PRODUCTS -->
+
       <div
         class="product-grid"
         id="productGrid"
-      ></div>
+      >
+
+
+        <!-- =========================
+             DIAMONDS
+             ========================= -->
+
+
+        <article
+          class="product"
+          data-id="p1"
+          data-category="diamonds"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130216_7f8d25.png"
+              alt="100 Diamonds"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              100 Diamonds
+            </h3>
+
+            <p>
+              Instant delivery
+            </p>
+
+            <div class="product-price">
+              ₹39
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p2"
+          data-category="diamonds"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png"
+              alt="310 Diamonds"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              310 Diamonds
+            </h3>
+
+            <p>
+              Instant delivery
+            </p>
+
+            <div class="product-price">
+              ₹99
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p3"
+          data-category="diamonds"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130756_687fd4.png"
+              alt="520 Diamonds"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              520 Diamonds
+            </h3>
+
+            <p>
+              Instant delivery
+            </p>
+
+            <div class="product-price">
+              ₹149
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p4"
+          data-category="diamonds"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131428_da9e7d.png"
+              alt="1060 Diamonds"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              1060 Diamonds
+            </h3>
+
+            <p>
+              Instant delivery
+            </p>
+
+            <div class="product-price">
+              ₹299
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p5"
+          data-category="diamonds"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131446_ae70d5.png"
+              alt="2180 Diamonds"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              2180 Diamonds
+            </h3>
+
+            <p>
+              Instant delivery
+            </p>
+
+            <div class="product-price">
+              ₹499
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p6"
+          data-category="diamonds"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618131503_e48bb6.png"
+              alt="5600 Diamonds"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              5600 Diamonds
+            </h3>
+
+            <p>
+              Instant delivery
+            </p>
+
+            <div class="product-price">
+              ₹799
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <!-- =========================
+             PASSES
+             ========================= -->
+
+
+        <article
+          class="product"
+          data-id="p7"
+          data-category="passes"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132321_6d00cf.png"
+              alt="Booyah Pass"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              Booyah Pass
+            </h3>
+
+            <p>
+              Season rewards
+            </p>
+
+            <div class="product-price">
+              ₹159
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p8"
+          data-category="passes"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132415_969094.png"
+              alt="Booyah Pass Plus"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              Booyah Pass+
+            </h3>
+
+            <p>
+              Premium rewards
+            </p>
+
+            <div class="product-price">
+              ₹299
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p9"
+          data-category="passes"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618133127_78497d.png"
+              alt="Weekly Pass"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              Weekly Pass
+            </h3>
+
+            <p>
+              7 days rewards
+            </p>
+
+            <div class="product-price">
+              ₹99
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p10"
+          data-category="passes"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618144016_48b5e4.png"
+              alt="Monthly Pass"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              Monthly Pass
+            </h3>
+
+            <p>
+              30 days rewards
+            </p>
+
+            <div class="product-price">
+              ₹299
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p11"
+          data-category="passes"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618144137_8f687e.png"
+              alt="30D Evo Pass"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              30D Evo Pass
+            </h3>
+
+            <p>
+              Exclusive items
+            </p>
+
+            <div class="product-price">
+              ₹259
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+        <article
+          class="product"
+          data-id="p12"
+          data-category="passes"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="https://freefiretopupindia.site/gen/uploads/products/products_20260618132946_87d030.png"
+              alt="Weekly Lite Pass"
+            >
+
+          </div>
+
+          <div class="product-info">
+
+            <h3>
+              Weekly Lite Pass
+            </h3>
+
+            <p>
+              Budget friendly
+            </p>
+
+            <div class="product-price">
+              ₹39
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            BUY NOW
+          </button>
+
+        </article>
+
+
+      </div>
 
     </div>
 
   </section>
 
 
-  <footer class="footer">
-
-    <div class="container footer-inner">
-
-      <div>
-
-        <a href="./index.html" class="brand">
-
-          <img
-            src="https://freefiretopupindia.site/gen/garena.png"
-            alt="Game-style logo"
-            class="brand-logo"
-          >
-
-          <span class="brand-text">
-            <strong>Top Up</strong>
-            <small>Demo Center</small>
-          </span>
-
-        </a>
-
-
-        <p
-          style="
-            opacity:.4;
-            font-size:.85rem;
-            margin-top:6px
-          "
-        >
-          Independent educational/demo
-          checkout interface.
-        </p>
-
-
-        <p
-          style="
-            opacity:.55;
-            font-size:.82rem;
-            margin-top:10px
-          "
-        >
-          🏷️ Coupon
-          <b>WEL67</b>
-          — 5% OFF in demo checkout.
-        </p>
-
-      </div>
-
-
-      <div class="footer-cols">
-
-        <div>
-
-          <h4>Store</h4>
-
-          <a href="#products">
-            Diamonds
-          </a>
-
-          <a href="#products">
-            Passes
-          </a>
-
-          <a href="#products">
-            Demo checkout
-          </a>
-
-        </div>
-
-
-        <div>
-
-          <h4>Help</h4>
-
-          <a href="./index.html#faq">
-            FAQ
-          </a>
-
-          <a href="./index.html#how">
-            How it works
-          </a>
-
-          <a href="./index.html">
-            Home
-          </a>
-
-        </div>
-
-
-        <div>
-
-          <h4>Legal</h4>
-
-          <a href="./index.html#faq">
-            Demo notice
-          </a>
-
-          <a href="./index.html#faq">
-            Privacy
-          </a>
-
-          <a href="./index.html#faq">
-            Refunds
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="container footer-bottom">
-
-      ©
-      <span id="year"></span>
-      FireTopUp Demo.
-      Not affiliated with Garena.
-
-    </div>
-
-  </footer>
-
-
   <!-- =========================================
-       PAYMENT MODAL
+       PAYMENT / ORDER MODAL
        ========================================= -->
 
   <div
@@ -405,25 +773,22 @@
       <button
         class="modal-close"
         id="modalClose"
-        aria-label="Close"
+        type="button"
       >
         ✕
       </button>
 
 
-      <!-- =====================================
-           STEP 1 - CONFIRM ORDER
-           ===================================== -->
+      <!-- CONFIRM -->
 
       <div id="stepConfirm">
 
         <h3 class="modal-title">
-          Confirm Order
+          Confirm Your Order
         </h3>
 
         <p class="modal-sub">
-          Review your demo order before proceeding
-          to the QR step.
+          Review your order before payment.
         </p>
 
 
@@ -434,12 +799,10 @@
             <strong id="cNick">—</strong>
           </div>
 
-
           <div class="row">
             <span>UID</span>
             <strong id="cUid">—</strong>
           </div>
-
 
           <div class="row">
             <span>Item</span>
@@ -448,7 +811,6 @@
               id="cItem"
             ></strong>
           </div>
-
 
           <div class="row">
 
@@ -462,9 +824,9 @@
             >
 
               <button
+                type="button"
                 class="qty-btn"
                 data-action="dec"
-                aria-label="Decrease quantity"
               >
                 −
               </button>
@@ -477,9 +839,9 @@
               </span>
 
               <button
+                type="button"
                 class="qty-btn"
                 data-action="inc"
-                aria-label="Increase quantity"
               >
                 +
               </button>
@@ -488,18 +850,15 @@
 
           </div>
 
-
           <div class="row">
             <span>Unit price</span>
             <strong id="cUnit">—</strong>
           </div>
 
-
           <div class="row">
             <span>Subtotal</span>
             <strong id="cSubtotal">—</strong>
           </div>
-
 
           <div class="row discount-row">
 
@@ -508,7 +867,6 @@
               <span id="cCouponLabel">
                 WEL67
               </span>
-
               (
               <span id="cDiscountPct">
                 5
@@ -521,7 +879,6 @@
             </strong>
 
           </div>
-
 
           <div class="row total-row">
 
@@ -539,14 +896,16 @@
         <button
           class="btn btn-primary"
           id="confirmBtn"
+          type="button"
         >
-          ✔ Proceed to QR
+          PROCEED TO PAY
         </button>
 
 
         <button
           class="btn-text"
           id="cancelConfirmBtn"
+          type="button"
         >
           Cancel
         </button>
@@ -554,72 +913,60 @@
       </div>
 
 
-      <!-- =====================================
-           STEP 2 - PAYMENT
-           ===================================== -->
+      <!-- PAYMENT -->
 
       <div
         id="stepPayment"
-        style="display:none"
+        style="display:none;"
       >
 
         <h3 class="modal-title">
-          Scan &amp; Pay
+          Payment
         </h3>
 
         <p class="modal-sub">
-          Use the QR below for your own
-          demo/test payment flow.
+          Scan the QR code to continue.
         </p>
 
 
         <div
-          style="text-align:center"
+          class="qr-timer"
+          id="qrTimer"
         >
-          <span
-            class="qr-timer"
-            id="qrTimer"
-          >
-            ⏱️ QR valid for 10:00
-          </span>
+          ⏱️ QR valid for 10:00
         </div>
 
 
-        <!-- QR CODE -->
-
-        <div class="qr-box">
+        <div
+          class="qr-box"
+        >
 
           <img
             id="qrImg"
             src="./upi-qr.png.jpeg"
-            alt="UPI QR"
-            width="220"
-            height="220"
+            alt="UPI QR Code"
           >
 
         </div>
 
 
-        <!-- =================================
-             UPI ID BELOW QR
-             ================================= -->
+        <!-- UPI ID -->
 
         <div
-          class="upi-id-box"
           style="
             width:100%;
             margin-top:12px;
             padding:12px 14px;
             border:1px solid #e5e7eb;
             border-radius:12px;
-            background:#ffffff;
+            background:#fff;
             box-sizing:border-box;
+            text-align:center;
           "
         >
 
           <div
             style="
-              text-align:center;
               font-size:12px;
               color:#777;
               margin-bottom:6px;
@@ -659,7 +1006,7 @@
                 border-radius:8px;
                 padding:7px 11px;
                 background:#f97316;
-                color:#fff;
+                color:white;
                 font-size:12px;
                 font-weight:700;
                 cursor:pointer;
@@ -709,15 +1056,6 @@
         </div>
 
 
-        <div
-          class="demo-notice"
-          id="demoPaymentNotice"
-        >
-          DEMO PAYMENT: This page does not verify
-          or confirm a real payment automatically.
-        </div>
-
-
         <div class="modal-summary">
 
           <div class="row">
@@ -725,44 +1063,27 @@
             <strong id="pNick">—</strong>
           </div>
 
-
           <div class="row">
             <span>UID</span>
             <strong id="pUid">—</strong>
           </div>
 
-
           <div class="row">
-
             <span>Item</span>
-
             <strong
               class="item-display"
               id="pItem"
             ></strong>
-
           </div>
 
-
           <div class="row">
-
             <span>Quantity</span>
-
-            <strong id="pQty">
-              1
-            </strong>
-
+            <strong id="pQty">1</strong>
           </div>
 
-
           <div class="row">
-
             <span>Order</span>
-
-            <strong id="pOrder">
-              —
-            </strong>
-
+            <strong id="pOrder">—</strong>
           </div>
 
         </div>
@@ -771,22 +1092,25 @@
         <button
           class="btn btn-primary"
           id="paidBtn"
+          type="button"
         >
-          ✓ I have paid
+          ✓ I HAVE PAID
         </button>
 
 
         <button
           class="btn btn-ghost"
           id="downloadQrBtn"
+          type="button"
         >
-          ⬇ Download QR
+          ⬇ DOWNLOAD QR
         </button>
 
 
         <button
           class="btn-text"
           id="cancelPayBtn"
+          type="button"
         >
           Cancel
         </button>
@@ -794,13 +1118,11 @@
       </div>
 
 
-      <!-- =====================================
-           STEP 3 - UTR
-           ===================================== -->
+      <!-- UTR -->
 
       <div
         id="stepUtr"
-        style="display:none"
+        style="display:none;"
       >
 
         <h3 class="modal-title">
@@ -808,40 +1130,35 @@
         </h3>
 
         <p class="modal-sub">
-          Enter a test/demo UTR from your payment app.
+          Enter the UTR number from your payment.
         </p>
 
 
         <div
           class="notice show"
-          id="utrNotice"
         >
-          Demo only: the UTR will be stored locally
-          in this browser and will not be verified.
+          Payment verification is handled separately.
         </div>
 
 
-        <div
-          class="utr-section show"
-        >
+        <div class="utr-section show">
 
           <label for="utrInput">
             UTR Number
           </label>
-
 
           <div class="utr-group">
 
             <input
               type="text"
               id="utrInput"
-              placeholder="e.g. 123456789012"
+              placeholder="Enter UTR"
               maxlength="20"
               autocomplete="off"
             >
 
-
             <button
+              type="button"
               id="submitUtrBtn"
             >
               Submit
@@ -855,6 +1172,7 @@
         <button
           class="btn-text"
           id="backToPayBtn"
+          type="button"
         >
           ← Back
         </button>
@@ -862,13 +1180,11 @@
       </div>
 
 
-      <!-- =====================================
-           STEP 4 - RESULT
-           ===================================== -->
+      <!-- RESULT -->
 
       <div
         id="stepResult"
-        style="display:none"
+        style="display:none;"
       >
 
         <div class="result">
@@ -877,24 +1193,21 @@
             class="icon"
             id="resultIcon"
           >
-            🧪
+            ✅
           </div>
-
 
           <div
             class="msg"
             id="resultMsg"
           >
-            Demo Submission Saved
+            Payment Submitted
           </div>
-
 
           <div
             class="sub"
             id="resultSub"
           >
-            This demo does not verify payment
-            or deliver items automatically.
+            Your submission has been recorded.
           </div>
 
         </div>
@@ -903,6 +1216,7 @@
         <button
           class="btn btn-primary"
           id="resultOkBtn"
+          type="button"
         >
           OK
         </button>
@@ -914,103 +1228,77 @@
   </div>
 
 
+  <!-- PROCESSING -->
+
+  <div
+    class="processing"
+    id="processingOverlay"
+  >
+
+    <div class="loader"></div>
+
+    <span>
+      Processing...
+    </span>
+
+  </div>
+
+
   <!-- TOAST -->
 
   <div
     class="toast hidden"
     id="toast"
-    role="status"
-    aria-live="polite"
   ></div>
 
 
-  <!-- SALE POPUP -->
-
-  <div
-    class="sale-popup"
-    hidden
-  >
-
-    <div class="sp-icon">
-
-      <img
-        src="https://freefiretopupindia.site/gen/uploads/products/products_20260618130432_e4e517.png"
-        alt=""
-      >
-
-    </div>
-
-
-    <div class="sp-body">
-
-      <strong>
-        Demo User
-        <span class="sp-state">
-          from Bihar
-        </span>
-      </strong>
-
-      <span>
-        demo-purchased
-        <b>
-          310 Diamonds
-        </b>
-      </span>
-
-      <small>
-        <span class="dot"></span>
-        7 min ago · Demo ✓
-      </small>
-
-    </div>
-
-  </div>
-
+  <!-- YEAR -->
 
   <script>
     document.addEventListener(
       "DOMContentLoaded",
       function () {
 
-        const copyButton =
-          document.getElementById("copyUpiBtn");
+        const button =
+          document.getElementById(
+            "copyUpiBtn"
+          );
 
-        const upiId =
-          document.getElementById("upiId");
+        const upi =
+          document.getElementById(
+            "upiId"
+          );
 
-        if (!copyButton || !upiId) {
+        if (!button || !upi) {
           return;
         }
 
-        copyButton.addEventListener(
+        button.addEventListener(
           "click",
           async function () {
-
-            const text =
-              upiId.textContent.trim();
 
             try {
 
               await navigator.clipboard.writeText(
-                text
+                upi.textContent.trim()
               );
 
-              copyButton.textContent =
-                "COPIED";
+              button.textContent =
+                "COPIED ✓";
 
               setTimeout(
                 function () {
-                  copyButton.textContent =
+                  button.textContent =
                     "COPY";
                 },
                 1500
               );
 
-            } catch (error) {
+            } catch (e) {
 
               alert(
                 "UPI ID: " +
-                text
+                upi.textContent.trim()
               );
 
             }
@@ -1022,6 +1310,8 @@
     );
   </script>
 
+
+  <!-- STORE JS -->
 
   <script
     src="./store.js"
