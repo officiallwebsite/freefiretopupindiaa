@@ -1,234 +1,103 @@
-try {
-  if (localStorage.getItem('ff_theme') === 'dark') {
-    document.documentElement.classList.add('dark');
-  }
-} catch (e) {}
+'use strict';
 
-window.PRODUCTS = window.PRODUCTS || {
-  diamonds: [
-    {
-      id: 'diamond_100',
-      name: '100 Diamonds',
-      amount: '100',
-      sub: 'Instant delivery',
-      price: 80,
-      old: 100,
-      icon: '💎',
-      stock: 999,
-      tag: 'best',
-      image: 'uploads/products/products_20260618131428_da9e7d.png'
-    },
-    {
-      id: 'diamond_310',
-      name: '310 Diamonds',
-      amount: '310',
-      sub: 'Instant delivery',
-      price: 230,
-      old: 280,
-      icon: '💎',
-      stock: 999
-    },
-    {
-      id: 'diamond_520',
-      name: '520 Diamonds',
-      amount: '520',
-      sub: 'Instant delivery',
-      price: 380,
-      old: 450,
-      icon: '💎',
-      stock: 999,
-      tag: 'hot'
-    },
-    {
-      id: 'diamond_1060',
-      name: '1060 Diamonds',
-      amount: '1060',
-      sub: 'Instant delivery',
-      price: 720,
-      old: 850,
-      icon: '💎',
-      stock: 999,
-      tag: 'best'
-    },
-    {
-      id: 'diamond_2180',
-      name: '2180 Diamonds',
-      amount: '2180',
-      sub: 'Instant delivery',
-      price: 1450,
-      old: 1700,
-      icon: '💎',
-      stock: 999
-    }
-  ],
-
-  passes: [
-    {
-      id: 'booyah_pass',
-      name: 'Booyah Pass',
-      amount: 'Season',
-      sub: 'All rewards',
-      price: 499,
-      old: 599,
-      icon: '🎟️',
-      stock: 999
-    },
-    {
-      id: 'elite_pass',
-      name: 'Elite Pass',
-      amount: 'Season',
-      sub: 'Premium tier',
-      price: 799,
-      old: 999,
-      icon: '✨',
-      stock: 999
-    }
-  ],
-
-  membership: [
-    {
-      id: 'weekly_membership',
-      name: 'Weekly Membership',
-      amount: '7 days',
-      sub: 'Daily rewards',
-      price: 129,
-      old: 160,
-      icon: '👑',
-      stock: 999
-    },
-    {
-      id: 'monthly_membership',
-      name: 'Monthly Membership',
-      amount: '30 days',
-      sub: 'Daily rewards',
-      price: 499,
-      old: 600,
-      icon: '👑',
-      stock: 999
-    }
-  ],
-
-  special: [
-    {
-      id: 'special_bundle',
-      name: 'Starter Bundle',
-      amount: 'Bundle',
-      sub: 'Best value pack',
-      price: 99,
-      old: 200,
-      icon: '✨',
-      stock: 999,
-      tag: 'hot'
-    }
-  ]
-};
-
-(function () {
-  'use strict';
-
+(() => {
   const CONFIG = {
-    USE_MOCK: false,
     API_URL: 'https://free-fire-uid-apii.vercel.app/info?uid={UID}',
-    API_HEADERS: {},
-    API_BASE: 'api/',
-    CURRENCY: '₹',
-    FETCH_TIMEOUT: 15000
+    FETCH_TIMEOUT: 15000,
+    COUPON: 'WEL67',
+    DISCOUNT: 5
   };
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-  const money = (n) =>
-    `${CONFIG.CURRENCY}${Number(n).toLocaleString('en-IN')}`;
+  const modalOverlay = $('#modalOverlay');
+  const state = { player: loadPlayer() };
 
-  /* ============================================================
-     PLAYER API
-     ============================================================ */
+  try {
+    if (localStorage.getItem('ff_theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  } catch (_) {}
 
-  async function fetchPlayerInfo(uid) {
-    if (CONFIG.USE_MOCK) return mockPlayerInfo(uid);
-    return await fetchPlayerFrom(CONFIG.API_URL, uid);
+  function savePlayer(p) {
+    const raw = JSON.stringify(p);
+    try { sessionStorage.setItem('ff_player', raw); } catch (_) {}
+    try { localStorage.setItem('ff_player', raw); } catch (_) {}
   }
 
-  async function fetchPlayerFrom(urlTemplate, uid) {
-    const url = urlTemplate.replace(
-      '{UID}',
-      encodeURIComponent(uid)
-    );
-
-    const ctrl =
-      typeof AbortController !== 'undefined'
-        ? new AbortController()
-        : null;
-
-    const timer = setTimeout(() => {
-      if (ctrl) ctrl.abort();
-    }, CONFIG.FETCH_TIMEOUT);
-
-    let res;
+  function loadPlayer() {
+    try {
+      const s = sessionStorage.getItem('ff_player');
+      if (s) return JSON.parse(s);
+    } catch (_) {}
 
     try {
-      res = await fetch(url, {
-        headers: CONFIG.API_HEADERS,
-        cache: 'no-store',
-        signal: ctrl ? ctrl.signal : undefined
-      });
-    } catch (e) {
-      clearTimeout(timer);
-
-      const err = new Error(
-        e && e.name === 'AbortError'
-          ? 'timeout'
-          : 'network'
-      );
-
-      err.code = err.message;
-      throw err;
-    }
-
-    clearTimeout(timer);
-
-    if (!res.ok) {
-      const e = new Error(`http_${res.status}`);
-      e.code = `http_${res.status}`;
-      throw e;
-    }
-
-    let data;
-
-    try {
-      data = await res.json();
+      const s = localStorage.getItem('ff_player');
+      return s ? JSON.parse(s) : null;
     } catch (_) {
-      const e = new Error('no_data');
-      e.code = 'no_data';
-      throw e;
+      return null;
     }
+  }
 
-    const player = normalizePlayer(data, uid);
+  function clearPlayer() {
+    try { sessionStorage.removeItem('ff_player'); } catch (_) {}
+    try { localStorage.removeItem('ff_player'); } catch (_) {}
+  }
 
-    if (!player) {
-      const e = new Error('no_data');
-      e.code = 'no_data';
-      throw e;
-    }
+  function toast(msg, type = '') {
+    const t = $('#toast');
+    if (!t) return;
 
-    return player;
+    t.textContent = msg;
+    t.className = `toast ${type}`;
+    t.hidden = false;
+
+    requestAnimationFrame(() => t.classList.add('show'));
+
+    clearTimeout(toast._t);
+
+    toast._t = setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => {
+        t.hidden = true;
+      }, 300);
+    }, 3200);
+  }
+
+  function openModal(el) {
+    if (!el) return;
+
+    el.hidden = false;
+    void el.offsetWidth;
+    el.classList.add('open');
+
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(el) {
+    if (!el) return;
+
+    el.classList.remove('open');
+    document.body.style.overflow = '';
+
+    setTimeout(() => {
+      el.hidden = true;
+    }, 400);
   }
 
   function pickField(obj, keys) {
-    if (!obj || typeof obj !== 'object') {
-      return undefined;
-    }
+    if (!obj || typeof obj !== 'object') return undefined;
 
-    for (const k of keys) {
-      const v = obj[k];
+    for (const key of keys) {
+      const value = obj[key];
 
       if (
-        v !== undefined &&
-        v !== null &&
-        v !== ''
+        value !== undefined &&
+        value !== null &&
+        value !== ''
       ) {
-        return v;
+        return value;
       }
     }
 
@@ -241,15 +110,16 @@ window.PRODUCTS = window.PRODUCTS || {
     }
 
     const d =
-      data.data && typeof data.data === 'object'
+      data.data &&
+      typeof data.data === 'object'
         ? data.data
         : data;
 
     const info =
       data.basicinfo ||
       data.basicInfo ||
-      d.basicInfo ||
       d.basicinfo ||
+      d.basicInfo ||
       d.AccountInfo ||
       d.account ||
       d.profile ||
@@ -355,9 +225,12 @@ window.PRODUCTS = window.PRODUCTS || {
       likes:
         typeof liked === 'number'
           ? liked
-          : liked != null && !isNaN(+liked)
-          ? +liked
-          : null,
+          : (
+              liked != null &&
+              !isNaN(+liked)
+            )
+            ? +liked
+            : null,
       clan:
         clanName
           ? String(clanName).trim()
@@ -366,874 +239,136 @@ window.PRODUCTS = window.PRODUCTS || {
     };
   }
 
-  function mockPlayerInfo(uid) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (!/^\d{6,12}$/.test(uid)) {
-          reject(new Error('no_data'));
-          return;
-        }
-
-        const names = [
-          'ShadowSlayer',
-          'BooyahKing',
-          'PhantomX',
-          'GhostRider',
-          'NoScopeRaj',
-          'DesiGamerz',
-          'ProBunny',
-          'IcyBlaze',
-          'VortexFF',
-          'LegendAryan'
-        ];
-
-        const regions = [
-          'IND',
-          'SG',
-          'BR',
-          'ID',
-          'ME'
-        ];
-
-        const seed = [...uid].reduce(
-          (a, c) => a + +c,
-          0
-        );
-
-        resolve({
-          nickname:
-            names[seed % names.length] +
-            (seed % 97),
-          uid,
-          level: 20 + (seed % 60),
-          region: regions[seed % regions.length],
-          likes: seed * 7,
-          clan: null,
-          elitePass: seed % 2 === 0
-        });
-      }, 900);
-    });
-  }
-
-  /* ============================================================
-     Player persistence
-     ============================================================ */
-
-  const PLAYER_KEY = 'ff_player';
-
-  const savePlayer = (p) => {
-    const v = JSON.stringify(p);
-
-    try {
-      sessionStorage.setItem(
-        PLAYER_KEY,
-        v
+  async function fetchPlayer(uid) {
+    const url =
+      CONFIG.API_URL.replace(
+        '{UID}',
+        encodeURIComponent(uid)
       );
-    } catch (_) {}
 
-    try {
-      localStorage.setItem(
-        PLAYER_KEY,
-        v
-      );
-    } catch (_) {}
-  };
-
-  const loadPlayer = () => {
-    try {
-      const s =
-        sessionStorage.getItem(
-          PLAYER_KEY
-        );
-
-      if (s) return JSON.parse(s);
-    } catch (_) {}
-
-    try {
-      const l =
-        localStorage.getItem(
-          PLAYER_KEY
-        );
-
-      return l
-        ? JSON.parse(l)
+    const controller =
+      typeof AbortController !== 'undefined'
+        ? new AbortController()
         : null;
-    } catch (_) {
-      return null;
-    }
-  };
 
-  const clearPlayer = () => {
-    try {
-      sessionStorage.removeItem(
-        PLAYER_KEY
-      );
-    } catch (_) {}
+    const timer = setTimeout(() => {
+      if (controller) {
+        controller.abort();
+      }
+    }, CONFIG.FETCH_TIMEOUT);
 
     try {
-      localStorage.removeItem(
-        PLAYER_KEY
-      );
-    } catch (_) {}
-  };
-
-  const state = {
-    player: loadPlayer()
-  };
-
-  function premiumEmoji(el = document.body) {
-    if (window.twemoji) {
-      twemoji.parse(el, {
-        folder: 'svg',
-        ext: '.svg',
-        base: 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/'
+      const res = await fetch(url, {
+        cache: 'no-store',
+        signal: controller
+          ? controller.signal
+          : undefined
       });
+
+      if (!res.ok) {
+        const e = new Error(
+          `http_${res.status}`
+        );
+        e.code = `http_${res.status}`;
+        throw e;
+      }
+
+      const data = await res.json();
+
+      const player =
+        normalizePlayer(data, uid);
+
+      if (!player) {
+        const e = new Error('no_data');
+        e.code = 'no_data';
+        throw e;
+      }
+
+      return player;
+
+    } catch (e) {
+      const err = new Error(
+        e?.name === 'AbortError'
+          ? 'timeout'
+          : (
+              e?.code ||
+              'network'
+            )
+      );
+
+      err.code = err.message;
+      throw err;
+
+    } finally {
+      clearTimeout(timer);
     }
   }
 
-  /* ============================================================
-     Toast
-     ============================================================ */
-
-  function toast(msg, type = '') {
-    const t = $('#toast');
-
-    if (!t) return;
-
-    t.textContent = msg;
-    t.className = `toast ${type}`;
-    t.hidden = false;
-
-    requestAnimationFrame(() => {
-      t.classList.add('show');
-    });
-
-    clearTimeout(toast._t);
-
-    toast._t = setTimeout(() => {
-      t.classList.remove('show');
-
-      setTimeout(() => {
-        t.hidden = true;
-      }, 300);
-    }, 3400);
-  }
-
-  /* ============================================================
-     Modal helpers
-     ============================================================ */
-
-  function openModal(el) {
-    if (!el) return;
-
-    el.hidden = false;
-
-    void el.offsetWidth;
-
-    el.classList.add('open');
-
-    document.body.style.overflow = 'hidden';
-    document.body.classList.add('modal-open');
-  }
-
-  function closeModal(el) {
-    if (!el) return;
-
-    el.classList.remove('open');
-
-    document.body.style.overflow = '';
-
-    setTimeout(() => {
-      el.hidden = true;
-    }, 400);
-
-    if (!$$('.modal-overlay.open').length) {
-      document.body.classList.remove(
-        'modal-open'
-      );
-    }
-  }
-
-  function initModals() {
-    $$('.modal-overlay').forEach(
-      (ov) => {
-        ov.addEventListener(
-          'click',
-          (e) => {
-            if (e.target === ov) {
-              closeModal(ov);
-            }
-          }
-        );
-      }
-    );
-
-    window.addEventListener(
-      'keydown',
-      (e) => {
-        if (e.key === 'Escape') {
-          $$('.modal-overlay.open').forEach(
-            closeModal
-          );
-        }
-      }
-    );
-  }
-
-  /* ============================================================
-     Theme
-     ============================================================ */
-
-  function initTheme() {
-    const btn = $('#themeToggle');
-
-    if (!btn) return;
-
-    const root =
-      document.documentElement;
-
-    const setIcon = () => {
-      btn.textContent =
-        root.classList.contains('dark')
-          ? '☀️'
-          : '🌙';
-    };
-
-    setIcon();
-
-    btn.addEventListener(
-      'click',
-      () => {
-        root.classList.toggle('dark');
-
-        try {
-          localStorage.setItem(
-            'ff_theme',
-            root.classList.contains('dark')
-              ? 'dark'
-              : 'light'
-          );
-        } catch (_) {}
-
-        setIcon();
-      }
-    );
-  }
-
-  /* ============================================================
-     Navigation
-     ============================================================ */
-
-  function initNav() {
-    const navToggle = $('#navToggle');
-    const mainNav = $('#mainNav');
-
-    if (!navToggle || !mainNav) {
-      return;
-    }
-
-    navToggle.addEventListener(
-      'click',
-      () => {
-        mainNav.classList.toggle(
-          'open'
-        );
-
-        navToggle.classList.toggle(
-          'open'
-        );
-      }
-    );
-
-    $$('.main-nav a').forEach(
-      (a) => {
-        a.addEventListener(
-          'click',
-          () => {
-            mainNav.classList.remove(
-              'open'
-            );
-
-            navToggle.classList.remove(
-              'open'
-            );
-          }
-        );
-      }
-    );
-  }
-
-  /* ============================================================
-     Reveal on scroll
-     ============================================================ */
-
-  const io =
-    'IntersectionObserver' in window
-      ? new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add(
-                  'in'
-                );
-
-                io.unobserve(e.target);
-              }
-            });
-          },
-          {
-            threshold: 0.15
-          }
-        )
-      : null;
-
-  function initReveal() {
-    $$('.section-head, .step, .uid-card, .acc-item')
-      .forEach((el) => {
-        el.classList.add('reveal');
-
-        if (io) {
-          io.observe(el);
-        } else {
-          el.classList.add('in');
-        }
-      });
-  }
-
-  /* ============================================================
-     Carousel
-     ============================================================ */
-
-  function initCarousel() {
-    const track =
-      $('#carouselTrack');
-
-    if (!track) return;
-
-    const slides =
-      $$('.slide', track);
-
-    const dotsWrap =
-      $('#carouselDots');
-
-    const total = slides.length;
-
-    let index = 0;
-    let timer = null;
-
-    const INTERVAL = 4000;
-
-    dotsWrap.innerHTML =
-      slides
-        .map(
-          (_, i) =>
-            `<button role="tab" aria-label="Go to slide ${
-              i + 1
-            }"${
-              i === 0
-                ? ' class="active"'
-                : ''
-            }></button>`
-        )
-        .join('');
-
-    const dots =
-      $$('button', dotsWrap);
-
-    function go(i) {
-      index =
-        (i + total) % total;
-
-      track.style.transform =
-        `translateX(-${index * 100}%)`;
-
-      dots.forEach(
-        (d, di) => {
-          d.classList.toggle(
-            'active',
-            di === index
-          );
-        }
-      );
-    }
-
-    const next = () =>
-      go(index + 1);
-
-    const prev = () =>
-      go(index - 1);
-
-    const stop = () => {
-      if (timer) {
-        clearInterval(timer);
-      }
-    };
-
-    const start = () => {
-      stop();
-
-      timer = setInterval(
-        next,
-        INTERVAL
-      );
-    };
-
-    $('#carNext').addEventListener(
-      'click',
-      () => {
-        next();
-        start();
-      }
-    );
-
-    $('#carPrev').addEventListener(
-      'click',
-      () => {
-        prev();
-        start();
-      }
-    );
-
-    dots.forEach(
-      (d, i) => {
-        d.addEventListener(
-          'click',
-          () => {
-            go(i);
-            start();
-          }
-        );
-      }
-    );
-
-    const carousel = $('#home');
-
-    carousel.addEventListener(
-      'mouseenter',
-      stop
-    );
-
-    carousel.addEventListener(
-      'mouseleave',
-      start
-    );
-
-    document.addEventListener(
-      'visibilitychange',
-      () => {
-        document.hidden
-          ? stop()
-          : start();
-      }
-    );
-
-    let startX = 0;
-    let dx = 0;
-
-    track.addEventListener(
-      'touchstart',
-      (e) => {
-        startX =
-          e.touches[0].clientX;
-
-        dx = 0;
-        stop();
-      },
-      {
-        passive: true
-      }
-    );
-
-    track.addEventListener(
-      'touchmove',
-      (e) => {
-        dx =
-          e.touches[0].clientX -
-          startX;
-      },
-      {
-        passive: true
-      }
-    );
-
-    track.addEventListener(
-      'touchend',
-      () => {
-        if (Math.abs(dx) > 50) {
-          dx < 0
-            ? next()
-            : prev();
-        }
-
-        start();
-      }
-    );
-
-    go(0);
-    start();
-  }
-
-  /* ============================================================
-     UID Flow
-     ============================================================ */
-
-  function initUidFlow() {
-    const uidForm =
-      $('#uidForm');
-
-    if (!uidForm) return;
-
-    const uidInput =
-      $('#uidInput');
-
-    const uidHint =
-      $('#uidHint');
-
-    const verifyBtn =
-      $('#verifyBtn');
-
-    const modalOverlay =
-      $('#modalOverlay');
-
-    let busy = false;
-
-    const setLoading = (on) => {
-      busy = on;
-
-      verifyBtn.disabled = on;
-
-      $('.btn-label', verifyBtn).textContent =
-        on
-          ? 'Verifying…'
-          : 'Verify UID';
-
-      $('.spinner', verifyBtn).hidden =
-        !on;
-    };
-
-    const showWarning = (msg) => {
-      $('.input-wrap')
-        .classList.add(
-          'invalid'
-        );
-
-      uidHint.classList.add(
-        'error'
-      );
-
-      uidHint.textContent = msg;
-    };
-
-    const clearWarning = () => {
-      $('.input-wrap')
-        .classList.remove(
-          'invalid'
-        );
-
-      uidHint.classList.remove(
-        'error'
-      );
-
-      uidHint.textContent =
-        'Your UID is shown on your in-game profile.';
-    };
-
-    uidInput.addEventListener(
-      'input',
-      () => {
-        uidInput.value =
-          uidInput.value.replace(
-            /\D/g,
-            ''
-          );
-
-        clearWarning();
-      }
-    );
-
-    async function submit() {
-      if (busy) return;
-
-      const uid =
-        uidInput.value.trim();
-
-      if (!/^\d{6,12}$/.test(uid)) {
-        showWarning(
-          'Please enter a valid UID (6–12 digits).'
-        );
-
-        uidInput.focus();
-
-        return;
-      }
-
-      setLoading(true);
-      clearWarning();
-
-      try {
-        const player =
-          await fetchPlayerInfo(
-            uid
-          );
-
-        state.player =
-          player;
-
-        savePlayer(
-          player
-        );
-
-        try {
-          localStorage.setItem(
-            'ff_uid',
-            player.uid
-          );
-
-          localStorage.setItem(
-            'ff_nick',
-            player.nickname
-          );
-
-          localStorage.setItem(
-            'ff_level',
-            String(player.level)
-          );
-
-          localStorage.setItem(
-            'ff_region',
-            player.region
-          );
-
-          localStorage.setItem(
-            'ff_coupon',
-            'WEL67'
-          );
-
-          localStorage.setItem(
-            'ff_coupon_discount',
-            '5'
-          );
-        } catch (_) {}
-
-        showPlayerModal(
-          player
-        );
-      } catch (err) {
-        console.error(
-          'Verify error:',
-          err
-        );
-
-        showWarning(
-          mapErr(err)
-        );
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    uidForm.addEventListener(
-      'submit',
-      (e) => {
-        e.preventDefault();
-        submit();
-      }
-    );
-
-    verifyBtn.addEventListener(
-      'click',
-      (e) => {
-        e.preventDefault();
-        submit();
-      }
-    );
-
-    function setRow(
-      rowSel,
-      valSel,
-      value
+  function mapError(err) {
+    switch (
+      err?.code ||
+      err?.message
     ) {
-      const row =
-        $(rowSel);
+      case 'uid_mismatch':
+        return 'Server returned a different account. Please try again.';
 
-      if (
-        value === null ||
-        value === undefined ||
-        value === ''
-      ) {
-        row.hidden = true;
-        return;
-      }
+      case 'timeout':
+        return 'Request timed out. Check your connection and try again.';
 
-      row.hidden = false;
+      case 'network':
+        return 'Network problem. Check your connection and retry.';
 
-      $(valSel).textContent =
-        value;
+      case 'http_429':
+        return 'Too many requests. Wait a minute and try again.';
+
+      case 'no_data':
+        return 'This UID was not found.';
+
+      default:
+        return 'Could not verify UID. Please try again.';
     }
-
-    function showPlayerModal(p) {
-      $('#pNick').textContent =
-        p.nickname;
-
-      $('#pUid').textContent =
-        p.uid;
-
-      $('#pLevel').textContent =
-        p.level;
-
-      $('#pRegion').textContent =
-        p.region;
-
-      $('#pLikes').textContent =
-        p.likes != null
-          ? p.likes.toLocaleString(
-              'en-IN'
-            )
-          : '—';
-
-      setRow(
-        '#rowClan',
-        '#pClan',
-        p.clan
-      );
-
-      $('#pSub').innerHTML =
-        p.elitePass
-          ? 'Congratulations — <b style="color:var(--brand-2)">Elite Pass ✨</b> holder!'
-          : 'Congratulations — your account is ready!';
-
-      openModal(
-        modalOverlay
-      );
-
-      premiumEmoji(
-        $('#playerModal')
-      );
-
-      launchConfetti();
-    }
-
-    $('#modalClose').addEventListener(
-      'click',
-      () => {
-        closeModal(
-          modalOverlay
-        );
-      }
-    );
-
-    $('#notMeBtn').addEventListener(
-      'click',
-      () => {
-        closeModal(
-          modalOverlay
-        );
-
-        state.player =
-          null;
-
-        clearPlayer();
-
-        try {
-          [
-            'ff_uid',
-            'ff_nick',
-            'ff_level',
-            'ff_region'
-          ].forEach((k) =>
-            localStorage.removeItem(
-              k
-            )
-          );
-        } catch (_) {}
-
-        uidInput.value = '';
-
-        setTimeout(
-          () => uidInput.focus(),
-          450
-        );
-      }
-    );
-
-    $('#proceedBtn').addEventListener(
-      'click',
-      () => {
-        const verified =
-          state.player;
-
-        if (
-          !verified ||
-          !verified.uid
-        ) {
-          closeModal(
-            modalOverlay
-          );
-
-          uidInput.focus();
-
-          showWarning(
-            'Please verify your UID again.'
-          );
-
-          return;
-        }
-
-        const target =
-          new URL(
-            './store.html',
-            window.location.href
-          );
-
-        target.searchParams.set(
-          'uid',
-          String(
-            verified.uid
-          )
-        );
-
-        target.searchParams.set(
-          '_v',
-          String(Date.now())
-        );
-
-        closeModal(
-          modalOverlay
-        );
-
-        setTimeout(
-          () =>
-            window.location.assign(
-              target.href
-            ),
-          200
-        );
-      }
-    );
   }
 
-  function mapErr(err) {
-    const code =
-      err &&
-      (err.code ||
-        err.message);
+  function showPlayer(player) {
+    $('#pNick').textContent =
+      player.nickname;
 
-    return code === 'uid_mismatch'
-      ? 'Server returned a different account. Please try again.'
-      : code === 'timeout'
-      ? 'Request timed out. Check your connection and try again.'
-      : code === 'network'
-      ? 'Network problem. Check your connection and retry.'
-      : code === 'http_429'
-      ? 'Too many requests. Wait a minute and try again.'
-      : code === 'no_data'
-      ? 'This UID was not found on Free Fire.'
-      : 'Could not verify UID. Please try again.';
+    $('#pUid').textContent =
+      player.uid;
+
+    $('#pLevel').textContent =
+      player.level;
+
+    $('#pRegion').textContent =
+      player.region;
+
+    $('#pLikes').textContent =
+      player.likes != null
+        ? player.likes.toLocaleString('en-IN')
+        : '—';
+
+    const clanRow =
+      $('#rowClan');
+
+    if (player.clan) {
+      clanRow.hidden = false;
+      $('#pClan').textContent =
+        player.clan;
+    } else {
+      clanRow.hidden = true;
+    }
+
+    $('#pSub').textContent =
+      player.elitePass
+        ? 'Congratulations — Elite Pass holder!'
+        : 'Congratulations — your account is ready!';
+
+    openModal(
+      modalOverlay
+    );
+
+    launchConfetti();
   }
-
-  /* ============================================================
-     Confetti
-     ============================================================ */
 
   function launchConfetti() {
     const box =
@@ -1257,63 +392,291 @@ window.PRODUCTS = window.PRODUCTS || {
       i < 60;
       i++
     ) {
-      const c =
+      const piece =
         document.createElement(
           'i'
         );
 
-      c.style.left =
-        Math.random() * 100 +
-        '%';
+      piece.style.left =
+        `${Math.random() * 100}%`;
 
-      c.style.background =
+      piece.style.background =
         colors[
           i % colors.length
         ];
 
-      c.style.animationDuration =
-        1.5 +
-        Math.random() * 1.5 +
-        's';
+      piece.style.animationDuration =
+        `${1.5 + Math.random() * 1.5}s`;
 
-      c.style.animationDelay =
-        Math.random() * 0.4 +
-        's';
+      piece.style.animationDelay =
+        `${Math.random() * 0.4}s`;
 
-      c.style.transform =
+      piece.style.transform =
         `rotate(${Math.random() * 360}deg)`;
 
-      box.appendChild(c);
+      box.appendChild(
+        piece
+      );
     }
 
-    setTimeout(
+    setTimeout(() => {
+      box.innerHTML = '';
+    }, 3500);
+  }
+
+  function initTheme() {
+    const btn =
+      $('#themeToggle');
+
+    if (!btn) return;
+
+    const setIcon = () => {
+      btn.textContent =
+        document.documentElement.classList.contains('dark')
+          ? '☀️'
+          : '🌙';
+    };
+
+    setIcon();
+
+    btn.addEventListener(
+      'click',
       () => {
-        box.innerHTML = '';
-      },
-      3500
+        document.documentElement.classList.toggle(
+          'dark'
+        );
+
+        try {
+          localStorage.setItem(
+            'ff_theme',
+            document.documentElement.classList.contains('dark')
+              ? 'dark'
+              : 'light'
+          );
+        } catch (_) {}
+
+        setIcon();
+      }
     );
   }
 
-  /* ============================================================
-     FAQ
-     ============================================================ */
+  function initNav() {
+    const toggle =
+      $('#navToggle');
 
-  function initFaq() {
+    const nav =
+      $('#mainNav');
+
+    if (!toggle || !nav) {
+      return;
+    }
+
+    toggle.addEventListener(
+      'click',
+      () => {
+        nav.classList.toggle(
+          'open'
+        );
+      }
+    );
+
+    $$('.main-nav a').forEach(
+      a =>
+        a.addEventListener(
+          'click',
+          () => {
+            nav.classList.remove(
+              'open'
+            );
+          }
+        )
+    );
+  }
+
+  function initCarousel() {
+    const track =
+      $('#carouselTrack');
+
+    if (!track) return;
+
+    const slides =
+      $$('.slide', track);
+
+    const dotsWrap =
+      $('#carouselDots');
+
+    let index = 0;
+    let timer = null;
+
+    dotsWrap.innerHTML =
+      slides
+        .map(
+          (_, i) =>
+            `<button role="tab" aria-label="Go to slide ${
+              i + 1
+            }"${
+              i === 0
+                ? ' class="active"'
+                : ''
+            }></button>`
+        )
+        .join('');
+
+    const dots =
+      $$('button', dotsWrap);
+
+    const go = i => {
+      index =
+        (i + slides.length) %
+        slides.length;
+
+      track.style.transform =
+        `translateX(-${index * 100}%)`;
+
+      dots.forEach(
+        (d, n) => {
+          d.classList.toggle(
+            'active',
+            n === index
+          );
+        }
+      );
+    };
+
+    const next = () =>
+      go(index + 1);
+
+    const prev = () =>
+      go(index - 1);
+
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
+
+    const start = () => {
+      stop();
+
+      timer =
+        setInterval(
+          next,
+          4000
+        );
+    };
+
+    $('#carNext')?.addEventListener(
+      'click',
+      () => {
+        next();
+        start();
+      }
+    );
+
+    $('#carPrev')?.addEventListener(
+      'click',
+      () => {
+        prev();
+        start();
+      }
+    );
+
+    dots.forEach(
+      (d, i) => {
+        d.addEventListener(
+          'click',
+          () => {
+            go(i);
+            start();
+          }
+        );
+      }
+    );
+
+    $('#home')?.addEventListener(
+      'mouseenter',
+      stop
+    );
+
+    $('#home')?.addEventListener(
+      'mouseleave',
+      start
+    );
+
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        document.hidden
+          ? stop()
+          : start();
+      }
+    );
+
+    let startX = 0;
+    let dx = 0;
+
+    track.addEventListener(
+      'touchstart',
+      e => {
+        startX =
+          e.touches[0].clientX;
+
+        dx = 0;
+
+        stop();
+      },
+      {
+        passive: true
+      }
+    );
+
+    track.addEventListener(
+      'touchmove',
+      e => {
+        dx =
+          e.touches[0].clientX -
+          startX;
+      },
+      {
+        passive: true
+      }
+    );
+
+    track.addEventListener(
+      'touchend',
+      () => {
+        if (
+          Math.abs(dx) > 50
+        ) {
+          dx < 0
+            ? next()
+            : prev();
+        }
+
+        start();
+      }
+    );
+
+    go(0);
+    start();
+  }
+
+  function initFAQ() {
     $$('.acc-q').forEach(
-      (q) => {
+      q => {
         q.addEventListener(
           'click',
           () => {
             const item =
               q.parentElement;
 
-            const open =
+            const wasOpen =
               item.classList.contains(
                 'open'
               );
 
             $$('.acc-item').forEach(
-              (i) => {
+              i => {
                 i.classList.remove(
                   'open'
                 );
@@ -1328,7 +691,7 @@ window.PRODUCTS = window.PRODUCTS || {
               }
             );
 
-            if (!open) {
+            if (!wasOpen) {
               item.classList.add(
                 'open'
               );
@@ -1338,8 +701,7 @@ window.PRODUCTS = window.PRODUCTS || {
 
               if (a) {
                 a.style.maxHeight =
-                  a.scrollHeight +
-                  'px';
+                  `${a.scrollHeight}px`;
               }
             }
           }
@@ -1360,256 +722,25 @@ window.PRODUCTS = window.PRODUCTS || {
 
       if (a) {
         a.style.maxHeight =
-          a.scrollHeight +
-          'px';
+          `${a.scrollHeight}px`;
       }
     }
   }
 
-  /* ============================================================
-     Sale popup
-     ============================================================ */
-
-  function initSalePops() {
-    const names = [
-      'Rahul',
-      'Aman',
-      'Arjun',
-      'Karan',
-      'Rohit',
-      'Vikram',
-      'Sahil',
-      'Aditya',
-      'Dev',
-      'Kabir',
-      'Ishaan',
-      'Sanjay',
-      'Aryan',
-      'Rohan',
-      'Akash',
-      'Manish',
-      'Nikhil',
-      'Yash',
-      'Harsh',
-      'Raj',
-      'Ankit',
-      'Varun',
-      'Siddharth',
-      'Gaurav',
-      'Priya',
-      'Sneha',
-      'Neha',
-      'Ananya',
-      'Riya'
-    ];
-
-    const states = [
-      'Delhi',
-      'Maharashtra',
-      'Uttar Pradesh',
-      'Karnataka',
-      'Tamil Nadu',
-      'West Bengal',
-      'Gujarat',
-      'Rajasthan',
-      'Punjab',
-      'Bihar',
-      'Madhya Pradesh',
-      'Haryana',
-      'Kerala',
-      'Telangana',
-      'Andhra Pradesh',
-      'Assam',
-      'Odisha',
-      'Jharkhand',
-      'Chhattisgarh',
-      'Goa'
-    ];
-
-    const rand = (a) =>
-      a[
-        Math.floor(
-          Math.random() *
-            a.length
-        )
-      ];
-
-    let products =
-      Object.values(
-        window.PRODUCTS || {}
-      ).flat();
-
-    fetch(
-      CONFIG.API_BASE +
-        'products.php',
-      {
-        cache: 'no-store'
-      }
-    )
-      .then((r) =>
-        r.json()
-      )
-      .then((d) => {
-        if (
-          d &&
-          d.ok &&
-          Array.isArray(
-            d.categories
-          )
-        ) {
-          const items =
-            d.categories.flatMap(
-              (c) =>
-                c.items || []
-            );
-
-          if (items.length) {
-            products =
-              items;
-          }
-        }
-      })
-      .catch(() => {});
-
-    const pop =
-      document.createElement(
-        'div'
-      );
-
-    pop.className =
-      'sale-pop';
-
-    pop.hidden = true;
-
-    document.body.appendChild(
-      pop
-    );
-
-    const scheduleNext = () =>
-      setTimeout(
-        show,
-        8000 +
-          Math.random() * 6000
-      );
-
-    function show() {
-      if (!products.length) {
-        scheduleNext();
-        return;
-      }
-
-      const p =
-        rand(products);
-
-      const mins =
-        1 +
-        Math.floor(
-          Math.random() * 12
-        );
-
-      const icon =
-        p.image
-          ? `<img src="${esc(
-              p.image
-            )}" alt="">`
-          : p.icon || '🎮';
-
-      pop.innerHTML =
-        `<div class="sp-icon">${icon}</div>` +
-        `<div class="sp-body">` +
-        `<strong>${rand(
-          names
-        )} <span class="sp-state">from ${rand(
-          states
-        )}</span></strong>` +
-        `<span>just bought <b>${esc(
-          p.name
-        )}</b></span>` +
-        `<small><i class="sp-dot"></i>${mins} min ago · Verified ✓</small>` +
-        `</div>`;
-
-      premiumEmoji(pop);
-
-      pop.hidden = false;
-
-      requestAnimationFrame(
-        () => {
-          pop.classList.add(
-            'show'
-          );
-        }
-      );
-
-      setTimeout(
-        hide,
-        4500
-      );
-    }
-
-    function hide() {
-      pop.classList.remove(
-        'show'
-      );
-
-      setTimeout(
-        () => {
-          pop.hidden = true;
-        },
-        500
-      );
-
-      scheduleNext();
-    }
-
-    setTimeout(
-      show,
-      5000
-    );
-  }
-
-  function esc(s) {
-    return String(s).replace(
-      /[&<>"']/g,
-      (c) =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
-        }[c])
-    );
-  }
-
-  /* ============================================================
-     Coupon copy
-     ============================================================ */
-
-  function initCouponCopy() {
-    const COUPON = 'WEL67';
-    const PCT = 5;
-
-    try {
-      localStorage.setItem(
-        'ff_coupon',
-        COUPON
-      );
-
-      localStorage.setItem(
-        'ff_coupon_discount',
-        String(PCT)
-      );
-    } catch (_) {}
-
+  function initCoupon() {
     $$('[data-coupon-copy]').forEach(
-      (btn) => {
+      btn => {
         btn.addEventListener(
           'click',
-          () => {
-            const orig =
+          async () => {
+            const original =
               btn.textContent;
 
-            const done = () => {
+            try {
+              await navigator.clipboard.writeText(
+                CONFIG.COUPON
+              );
+
               btn.textContent =
                 'COPIED ✓';
 
@@ -1618,106 +749,392 @@ window.PRODUCTS = window.PRODUCTS || {
               );
 
               toast(
-                `🎉 Coupon ${COUPON} copied — ${PCT}% OFF on every product!`
+                `🎉 Coupon ${CONFIG.COUPON} copied — ${CONFIG.DISCOUNT}% OFF!`,
+                'ok'
               );
-            };
 
-            const fail = () =>
+            } catch (_) {
               toast(
-                `Coupon code: ${COUPON} (${PCT}% OFF)`
+                `Coupon code: ${CONFIG.COUPON} (${CONFIG.DISCOUNT}% OFF)`
               );
-
-            const reset = () =>
-              setTimeout(
-                () => {
-                  btn.textContent =
-                    orig;
-
-                  btn.classList.remove(
-                    'copied'
-                  );
-                },
-                2200
-              );
-
-            if (
-              navigator.clipboard &&
-              window.isSecureContext
-            ) {
-              navigator.clipboard
-                .writeText(
-                  COUPON
-                )
-                .then(done)
-                .catch(fail)
-                .finally(reset);
-            } else {
-              try {
-                const ta =
-                  document.createElement(
-                    'textarea'
-                  );
-
-                ta.value =
-                  COUPON;
-
-                ta.style.position =
-                  'fixed';
-
-                ta.style.opacity =
-                  '0';
-
-                document.body.appendChild(
-                  ta
-                );
-
-                ta.select();
-
-                document.execCommand(
-                  'copy'
-                );
-
-                document.body.removeChild(
-                  ta
-                );
-
-                done();
-              } catch (_) {
-                fail();
-              }
-
-              reset();
             }
+
+            setTimeout(
+              () => {
+                btn.textContent =
+                  original;
+
+                btn.classList.remove(
+                  'copied'
+                );
+              },
+              2200
+            );
           }
         );
       }
     );
   }
 
-  /* ============================================================
-     Boot
-     ============================================================ */
+  function initReveal() {
+    const elements =
+      $$('.section-head,.step,.uid-card,.acc-item');
 
-  function init() {
-    initTheme();
-    initNav();
-    initModals();
-    initCarousel();
-    initUidFlow();
-    initFaq();
-    initSalePops();
-    initCouponCopy();
-    initReveal();
-    premiumEmoji();
+    if (
+      !('IntersectionObserver' in window)
+    ) {
+      elements.forEach(
+        el => el.classList.add('in')
+      );
 
-    const y =
-      $('#year');
-
-    if (y) {
-      y.textContent =
-        new Date().getFullYear();
+      return;
     }
+
+    const observer =
+      new IntersectionObserver(
+        entries => {
+          entries.forEach(
+            entry => {
+              if (
+                entry.isIntersecting
+              ) {
+                entry.target.classList.add(
+                  'in'
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+              }
+            }
+          );
+        },
+        {
+          threshold: 0.15
+        }
+      );
+
+    elements.forEach(
+      el => {
+        el.classList.add(
+          'reveal'
+        );
+
+        observer.observe(el);
+      }
+    );
   }
 
-  init();
+  function initSalePopup() {
+    const pop =
+      document.querySelector(
+        '.sale-popup'
+      );
+
+    if (!pop) return;
+
+    setTimeout(
+      () =>
+        pop.removeAttribute(
+          'hidden'
+        ),
+      4000
+    );
+
+    setTimeout(
+      () =>
+        pop.setAttribute(
+          'hidden',
+          ''
+        ),
+      19000
+    );
+  }
+
+  function initUID() {
+    const form =
+      $('#uidForm');
+
+    if (!form) return;
+
+    const input =
+      $('#uidInput');
+
+    const hint =
+      $('#uidHint');
+
+    const button =
+      $('#verifyBtn');
+
+    let busy = false;
+
+    const loading =
+      on => {
+        busy = on;
+
+        button.disabled =
+          on;
+
+        $('.btn-label', button).textContent =
+          on
+            ? 'Verifying…'
+            : 'Verify UID';
+
+        $('.spinner', button).hidden =
+          !on;
+      };
+
+    const warn =
+      msg => {
+        $('.input-wrap')
+          .classList.add(
+            'invalid'
+          );
+
+        hint.classList.add(
+          'error'
+        );
+
+        hint.textContent =
+          msg;
+      };
+
+    const clearWarn =
+      () => {
+        $('.input-wrap')
+          .classList.remove(
+            'invalid'
+          );
+
+        hint.classList.remove(
+          'error'
+        );
+
+        hint.textContent =
+          'Your UID is shown on your in-game profile.';
+      };
+
+    input.addEventListener(
+      'input',
+      () => {
+        input.value =
+          input.value.replace(
+            /\D/g,
+            ''
+          );
+
+        clearWarn();
+      }
+    );
+
+    form.addEventListener(
+      'submit',
+      async e => {
+        e.preventDefault();
+
+        if (busy) return;
+
+        const uid =
+          input.value.trim();
+
+        if (
+          !/^\d{6,12}$/.test(uid)
+        ) {
+          warn(
+            'Please enter a valid UID (6–12 digits).'
+          );
+
+          input.focus();
+
+          return;
+        }
+
+        loading(true);
+        clearWarn();
+
+        try {
+          const player =
+            await fetchPlayer(uid);
+
+          state.player =
+            player;
+
+          savePlayer(
+            player
+          );
+
+          try {
+            localStorage.setItem(
+              'ff_uid',
+              player.uid
+            );
+
+            localStorage.setItem(
+              'ff_nick',
+              player.nickname
+            );
+
+            localStorage.setItem(
+              'ff_level',
+              String(player.level)
+            );
+
+            localStorage.setItem(
+              'ff_region',
+              player.region
+            );
+
+            localStorage.setItem(
+              'ff_coupon',
+              CONFIG.COUPON
+            );
+
+            localStorage.setItem(
+              'ff_coupon_discount',
+              String(CONFIG.DISCOUNT)
+            );
+          } catch (_) {}
+
+          showPlayer(
+            player
+          );
+
+        } catch (err) {
+          console.error(err);
+          warn(
+            mapError(err)
+          );
+
+        } finally {
+          loading(false);
+        }
+      }
+    );
+  }
+
+  $('#modalClose')?.addEventListener(
+    'click',
+    () =>
+      closeModal(
+        modalOverlay
+      )
+  );
+
+  $('#notMeBtn')?.addEventListener(
+    'click',
+    () => {
+      closeModal(
+        modalOverlay
+      );
+
+      state.player =
+        null;
+
+      clearPlayer();
+
+      try {
+        [
+          'ff_uid',
+          'ff_nick',
+          'ff_level',
+          'ff_region'
+        ].forEach(
+          k =>
+            localStorage.removeItem(k)
+        );
+      } catch (_) {}
+
+      const input =
+        $('#uidInput');
+
+      if (input) {
+        input.value = '';
+
+        setTimeout(
+          () =>
+            input.focus(),
+          450
+        );
+      }
+    }
+  );
+
+  $('#proceedBtn')?.addEventListener(
+    'click',
+    () => {
+      if (!state.player?.uid) {
+        closeModal(
+          modalOverlay
+        );
+
+        toast(
+          'Please verify your UID again.',
+          'err'
+        );
+
+        return;
+      }
+
+      const target =
+        new URL(
+          './store.html',
+          window.location.href
+        );
+
+      target.searchParams.set(
+        'uid',
+        String(
+          state.player.uid
+        )
+      );
+
+      target.searchParams.set(
+        '_v',
+        String(
+          Date.now()
+        )
+      );
+
+      closeModal(
+        modalOverlay
+      );
+
+      setTimeout(
+        () =>
+          window.location.assign(
+            target.href
+          ),
+        200
+      );
+    }
+  );
+
+  document.addEventListener(
+    'keydown',
+    e => {
+      if (e.key === 'Escape') {
+        closeModal(
+          modalOverlay
+        );
+      }
+    }
+  );
+
+  const year =
+    $('#year');
+
+  if (year) {
+    year.textContent =
+      new Date().getFullYear();
+  }
+
+  initTheme();
+  initNav();
+  initCarousel();
+  initFAQ();
+  initCoupon();
+  initReveal();
+  initSalePopup();
+  initUID();
+
 })();
