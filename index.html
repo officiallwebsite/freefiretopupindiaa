@@ -1,1480 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Free Fire Top Up Demo</title>
-
-    <link
-        rel="stylesheet"
-        href="./style.css?v=20"
-    >
-
-</head>
-
-<body>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="site-header">
-
-    <div class="header-inner">
-
-        <a
-            href="#topup"
-            class="brand"
-        >
-
-            <img
-                src="./free-fire-logo.png"
-                alt="Free Fire"
-                class="brand-logo"
-            >
-
-            <span class="brand-text">
-
-                <strong>
-                    Official Top Up
-                </strong>
-
-                <small>
-                    Center
-                </small>
-
-            </span>
-
-        </a>
-
-
-        <nav class="main-nav">
-
-            <a href="#topup">
-                Top-Up
-            </a>
-
-            <a href="#how">
-                How it works
-            </a>
-
-            <a href="#faq">
-                FAQ
-            </a>
-
-        </nav>
-
-
-        <div class="demo-pill">
-            DEMO
-        </div>
-
-    </div>
-
-</header>
-
-
-<main>
-
-
-<!-- =====================================================
-     HERO / PROMOTION
-===================================================== -->
-
-<section class="hero-section">
-
-    <div class="hero-glow hero-glow-one"></div>
-    <div class="hero-glow hero-glow-two"></div>
-
-    <div class="hero-inner">
-
-        <div class="hero-copy">
-
-            <div class="demo-label">
-                INDEPENDENT DEMO
-            </div>
-
-            <h1>
-                Free Fire
-                <span>
-                    Top Up
-                </span>
-            </h1>
-
-            <p>
-                Verify your UID, choose a package and continue through
-                this educational payment demo.
-            </p>
-
-            <a
-                href="#topup"
-                class="hero-button"
-            >
-                Verify UID
-                <span>→</span>
-            </a>
-
-        </div>
-
-
-        <div class="hero-visual">
-
-            <div class="hero-logo-ring">
-
-                <img
-                    src="./free-fire-logo.png"
-                    alt="Free Fire"
-                >
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     GAME BANNER
-===================================================== -->
-
-<section class="game-banner-section">
-
-    <div class="container">
-
-        <div class="game-card">
-
-
-            <div class="game-card-left">
-
-                <img
-                    src="./free-fire-logo.png"
-                    alt="Free Fire"
-                    class="game-icon"
-                >
-
-
-                <div class="game-info">
-
-                    <strong class="game-title">
-                        Free Fire
-                    </strong>
-
-                    <span class="game-subtitle">
-                        UID Top Up Demo
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="secure-pill">
-                🔒 DEMO PAYMENT
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     UID VERIFICATION
-===================================================== -->
-
-<section
-    id="topup"
-    class="topup-section"
->
-
-    <div class="container">
-
-
-        <div class="section-head">
-
-            <div class="step-label">
-                STEP 1
-            </div>
-
-            <h2>
-                Verify your
-                <span>
-                    UID
-                </span>
-            </h2>
-
-            <p>
-                Enter your in-game User ID. We'll fetch your nickname
-                so your purchase lands in the right account.
-            </p>
-
-        </div>
-
-
-
-        <div class="uid-card">
-
-
-            <form
-                id="uidForm"
-                onsubmit="event.preventDefault(); verifyUID();"
-            >
-
-
-                <label
-                    for="uidInput"
-                    class="field-label"
-                >
-                    In-game UID
-                </label>
-
-
-                <div class="uid-input-wrap">
-
-
-                    <div class="uid-logo">
-
-                        <img
-                            src="./free-fire-logo.png"
-                            alt="Free Fire"
-                        >
-
-                    </div>
-
-
-                    <input
-                        type="text"
-                        id="uidInput"
-                        placeholder="e.g. 1234567890"
-                        maxlength="12"
-                        autocomplete="off"
-                        inputmode="numeric"
-                    >
-
-
-                </div>
-
-
-                <div class="uid-help">
-                    Your UID is shown on your in-game profile.
-                </div>
-
-
-                <button
-                    type="submit"
-                    id="verifyBtn"
-                    class="verify-button"
-                >
-
-                    <span id="verifyBtnText">
-                        Verify UID
-                    </span>
-
-
-                    <span
-                        id="verifyLoader"
-                        class="spinner"
-                        style="display:none;"
-                    ></span>
-
-
-                    <span
-                        id="verifyArrow"
-                        class="verify-arrow"
-                    >
-                        →
-                    </span>
-
-                </button>
-
-
-                <div id="errorMessage"></div>
-
-
-            </form>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     PLAYER DETAILS MODAL
-===================================================== -->
-
-<div
-    id="playerModal"
-    class="modal"
->
-
-
-    <div class="player-modal-box">
-
-
-        <button
-            type="button"
-            class="modal-close"
-            onclick="closePlayerModal()"
-        >
-            ×
-        </button>
-
-
-        <div class="player-logo-wrap">
-
-            <div class="player-logo-ring">
-
-                <img
-                    src="./free-fire-logo.png"
-                    alt="Free Fire"
-                    class="player-logo"
-                >
-
-            </div>
-
-        </div>
-
-
-        <div class="verified-badge">
-
-            <span>
-                ✓
-            </span>
-
-            Verified Account
-
-        </div>
-
-
-        <h2 id="playerName">
-            Player
-        </h2>
-
-
-        <p class="player-success">
-            Congratulations — your account is ready!
-        </p>
-
-
-
-        <!-- PLAYER STATS -->
-
-        <div class="player-stats">
-
-
-            <div class="player-stat">
-
-                <strong id="playerLevel">
-                    ---
-                </strong>
-
-                <span>
-                    LEVEL
-                </span>
-
-            </div>
-
-
-            <div class="player-stat">
-
-                <strong id="playerRegion">
-                    ---
-                </strong>
-
-                <span>
-                    REGION
-                </span>
-
-            </div>
-
-
-            <div class="player-stat">
-
-                <strong id="playerLikes">
-                    ---
-                </strong>
-
-                <span>
-                    LIKES
-                </span>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- PLAYER EXTRA -->
-
-        <div class="player-extra">
-
-
-            <div class="extra-row">
-
-                <span>
-                    UID
-                </span>
-
-                <strong id="playerUID">
-                    ---
-                </strong>
-
-            </div>
-
-
-            <div class="extra-row">
-
-                <span>
-                    PLAYER NAME
-                </span>
-
-                <strong id="playerNameBottom">
-                    ---
-                </strong>
-
-            </div>
-
-
-            <div class="extra-row">
-
-                <span>
-                    RANK
-                </span>
-
-                <strong id="playerRank">
-                    ---
-                </strong>
-
-            </div>
-
-
-        </div>
-
-
-
-        <button
-            type="button"
-            class="proceed-button"
-            onclick="goToStore()"
-        >
-
-            Proceed to Store
-
-            <span>
-                →
-            </span>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="reenter-button"
-            onclick="closePlayerModal()"
-        >
-            Not my account? Re-enter UID
-        </button>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     STORE
-===================================================== -->
-
-<section
-    id="storeSection"
-    class="store-section"
-    style="display:none;"
->
-
-    <div class="container">
-
-
-        <div class="store-head">
-
-
-            <div>
-
-                <div class="step-label">
-                    STEP 2
-                </div>
-
-                <h2>
-                    Select your
-                    <span>
-                        Diamonds
-                    </span>
-                </h2>
-
-                <p>
-                    Choose a package for your verified account.
-                </p>
-
-            </div>
-
-
-            <div class="verified-player">
-
-                <span class="status-dot"></span>
-
-                <div>
-
-                    <small>
-                        PLAYER
-                    </small>
-
-                    <strong id="storePlayerName">
-                        ---
-                    </strong>
-
-                </div>
-
-
-                <div class="mini-divider"></div>
-
-
-                <div>
-
-                    <small>
-                        UID
-                    </small>
-
-                    <strong id="storePlayerUID">
-                        ---
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-
-        <div class="store-layout">
-
-
-            <div class="packages-area">
-
-
-                <div class="packages-title">
-                    Recharge packages
-                </div>
-
-
-                <div class="package-grid">
-
-
-                    <div class="package-card">
-
-                        <div class="diamond">
-                            💎
-                        </div>
-
-                        <h3>
-                            100 Diamonds
-                        </h3>
-
-                        <strong>
-                            ₹39
-                        </strong>
-
-                        <button
-                            onclick="buyPackage('100 Diamonds',39)"
-                        >
-                            Buy Now
-                        </button>
-
-                    </div>
-
-
-
-                    <div class="package-card">
-
-                        <div class="diamond">
-                            💎
-                        </div>
-
-                        <h3>
-                            310 Diamonds
-                        </h3>
-
-                        <strong>
-                            ₹99
-                        </strong>
-
-                        <button
-                            onclick="buyPackage('310 Diamonds',99)"
-                        >
-                            Buy Now
-                        </button>
-
-                    </div>
-
-
-
-                    <div class="package-card popular-card">
-
-                        <div class="popular-badge">
-                            POPULAR
-                        </div>
-
-                        <div class="diamond">
-                            💎
-                        </div>
-
-                        <h3>
-                            520 Diamonds
-                        </h3>
-
-                        <strong>
-                            ₹149
-                        </strong>
-
-                        <button
-                            onclick="buyPackage('520 Diamonds',149)"
-                        >
-                            Buy Now
-                        </button>
-
-                    </div>
-
-
-
-                    <div class="package-card">
-
-                        <div class="diamond">
-                            💎
-                        </div>
-
-                        <h3>
-                            1060 Diamonds
-                        </h3>
-
-                        <strong>
-                            ₹299
-                        </strong>
-
-                        <button
-                            onclick="buyPackage('1060 Diamonds',299)"
-                        >
-                            Buy Now
-                        </button>
-
-                    </div>
-
-
-
-                    <div class="package-card">
-
-                        <div class="diamond">
-                            💎
-                        </div>
-
-                        <h3>
-                            2180 Diamonds
-                        </h3>
-
-                        <strong>
-                            ₹499
-                        </strong>
-
-                        <button
-                            onclick="buyPackage('2180 Diamonds',499)"
-                        >
-                            Buy Now
-                        </button>
-
-                    </div>
-
-
-
-                    <div class="package-card">
-
-                        <div class="diamond">
-                            💎
-                        </div>
-
-                        <h3>
-                            5600 Diamonds
-                        </h3>
-
-                        <strong>
-                            ₹799
-                        </strong>
-
-                        <button
-                            onclick="buyPackage('5600 Diamonds',799)"
-                        >
-                            Buy Now
-                        </button>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <aside class="review-card">
-
-
-                <div class="review-label">
-                    REVIEW PURCHASE
-                </div>
-
-
-                <h3>
-                    Your order
-                </h3>
-
-
-                <div class="review-player">
-
-                    <span class="review-user">
-                        👤
-                    </span>
-
-                    <div>
-
-                        <small>
-                            PLAYER
-                        </small>
-
-                        <strong id="summaryPlayerName">
-                            ---
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="review-row">
-
-                    <span>
-                        UID
-                    </span>
-
-                    <strong id="summaryUID">
-                        ---
-                    </strong>
-
-                </div>
-
-
-                <div class="review-separator"></div>
-
-
-                <div class="review-empty">
-
-                    <div>
-                        💎
-                    </div>
-
-                    <strong>
-                        Select a pack
-                    </strong>
-
-                    <p>
-                        Your selected package will appear here.
-                    </p>
-
-                </div>
-
-
-            </aside>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     ORDER MODAL
-===================================================== -->
-
-<div
-    id="orderModal"
-    class="modal"
->
-
-
-    <div class="order-modal-box">
-
-
-        <button
-            type="button"
-            class="modal-close"
-            onclick="closeOrderModal()"
-        >
-            ×
-        </button>
-
-
-        <div class="order-badge">
-            ORDER READY
-        </div>
-
-
-        <h2>
-            Review Purchase
-        </h2>
-
-
-        <div class="order-details">
-
-
-            <div>
-
-                <small>
-                    PACKAGE
-                </small>
-
-                <strong id="orderPackage">
-                    ---
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <small>
-                    AMOUNT
-                </small>
-
-                <strong id="orderPrice">
-                    ₹0
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <small>
-                    UID
-                </small>
-
-                <strong id="orderUID">
-                    ---
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <small>
-                    STATUS
-                </small>
-
-                <strong class="green">
-                    Ready
-                </strong>
-
-            </div>
-
-
-        </div>
-
-
-        <button
-            type="button"
-            class="proceed-button"
-            onclick="proceedToPay()"
-        >
-            Proceed to Pay
-            <span>→</span>
-        </button>
-
-
-        <button
-            type="button"
-            class="cancel-button"
-            onclick="closeOrderModal()"
-        >
-            Cancel
-        </button>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     PAYMENT
-===================================================== -->
-
-<section
-    id="paymentSection"
-    class="payment-section"
-    style="display:none;"
->
-
-
-    <div class="container">
-
-
-        <div class="step-label">
-            STEP 3
-        </div>
-
-
-        <div class="payment-head">
-
-            <h2>
-                Complete your
-                <span>
-                    payment
-                </span>
-            </h2>
-
-            <p>
-                Review your order and use the payment details below.
-            </p>
-
-        </div>
-
-
-
-        <div class="payment-layout">
-
-
-            <div class="payment-main">
-
-
-                <div class="payment-summary">
-
-
-                    <div>
-
-                        <small>
-                            PACKAGE
-                        </small>
-
-                        <strong id="paymentPackage">
-                            ---
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <small>
-                            AMOUNT
-                        </small>
-
-                        <strong id="paymentPrice">
-                            ₹0
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <small>
-                            UID
-                        </small>
-
-                        <strong id="paymentUID">
-                            ---
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <small>
-                            ORDER ID
-                        </small>
-
-                        <strong id="paymentOrderId">
-                            ---
-                        </strong>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <div class="payment-card">
-
-
-                    <h3>
-                        Pay with UPI
-                    </h3>
-
-
-                    <p>
-                        Scan the QR code or use the UPI ID below.
-                    </p>
-
-
-                    <div class="qr-box">
-
-                        <img
-                            src="./upi-qr.png.jpeg"
-                            alt="UPI payment QR"
-                        >
-
-                    </div>
-
-
-                    <div class="upi-row">
-
-
-                        <div>
-
-                            <small>
-                                UPI ID
-                            </small>
-
-                            <strong id="upiId">
-                                raju.2501@ptyes
-                            </strong>
-
-                        </div>
-
-
-                        <button
-                            type="button"
-                            class="copy-button"
-                            onclick="copyUPI()"
-                        >
-                            COPY
-                        </button>
-
-
-                    </div>
-
-
-                </div>
-
-
-
-                <div
-                    id="paymentStatus"
-                    class="payment-status"
-                    style="display:none;"
-                ></div>
-
-
-                <button
-                    type="button"
-                    id="paidButton"
-                    class="paid-button"
-                    onclick="paymentSubmitted()"
-                >
-                    I HAVE PAID
-                </button>
-
-
-                <button
-                    type="button"
-                    class="back-button"
-                    onclick="backToStore()"
-                >
-                    ← Back to Store
-                </button>
-
-
-            </div>
-
-
-
-            <aside class="pay-help">
-
-
-                <div class="review-label">
-                    HOW TO PAY
-                </div>
-
-
-                <h3>
-                    Follow these steps
-                </h3>
-
-
-                <div class="pay-step">
-
-                    <span>
-                        01
-                    </span>
-
-                    <p>
-                        Scan the QR code
-                    </p>
-
-                </div>
-
-
-                <div class="pay-step">
-
-                    <span>
-                        02
-                    </span>
-
-                    <p>
-                        Pay the displayed amount
-                    </p>
-
-                </div>
-
-
-                <div class="pay-step">
-
-                    <span>
-                        03
-                    </span>
-
-                    <p>
-                        Return to this page
-                    </p>
-
-                </div>
-
-
-                <div class="pay-step">
-
-                    <span>
-                        04
-                    </span>
-
-                    <p>
-                        Review the demo payment state
-                    </p>
-
-                </div>
-
-
-            </aside>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     HOW IT WORKS
-===================================================== -->
-
-<section
-    id="how"
-    class="how-section"
->
-
-
-    <div class="container">
-
-
-        <div class="section-head">
-
-            <div class="step-label">
-                HOW IT WORKS
-            </div>
-
-            <h2>
-                How it
-                <span>
-                    works
-                </span>
-            </h2>
-
-        </div>
-
-
-        <div class="steps-grid">
-
-
-            <div class="step-card">
-
-                <div class="step-number">
-                    1
-                </div>
-
-                <h3>
-                    Enter UID
-                </h3>
-
-                <p>
-                    Enter your Free Fire User ID and verify your account.
-                </p>
-
-            </div>
-
-
-            <div class="step-card">
-
-                <div class="step-number">
-                    2
-                </div>
-
-                <h3>
-                    Pick a pack
-                </h3>
-
-                <p>
-                    Choose your preferred diamond package.
-                </p>
-
-            </div>
-
-
-            <div class="step-card">
-
-                <div class="step-number">
-                    3
-                </div>
-
-                <h3>
-                    Pay securely
-                </h3>
-
-                <p>
-                    Continue through this payment demonstration.
-                </p>
-
-            </div>
-
-
-            <div class="step-card">
-
-                <div class="step-number">
-                    4
-                </div>
-
-                <h3>
-                    Complete demo
-                </h3>
-
-                <p>
-                    Review the demonstration payment state.
-                </p>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FAQ
-===================================================== -->
-
-<section
-    id="faq"
-    class="faq-section"
->
-
-
-    <div class="container">
-
-
-        <div class="section-head">
-
-            <div class="step-label">
-                FAQ
-            </div>
-
-            <h2>
-                Frequently asked
-                <span>
-                    questions
-                </span>
-            </h2>
-
-        </div>
-
-
-
-        <div class="faq-list">
-
-
-            <details class="faq-item">
-
-                <summary>
-
-                    How do I find my UID?
-
-                    <span>
-                        +
-                    </span>
-
-                </summary>
-
-                <p>
-                    Your UID is shown on your in-game player profile.
-                </p>
-
-            </details>
-
-
-            <details class="faq-item">
-
-                <summary>
-
-                    How does UID verification work?
-
-                    <span>
-                        +
-                    </span>
-
-                </summary>
-
-                <p>
-                    This demo sends the entered UID to the configured
-                    player-information API and displays the available data.
-                </p>
-
-            </details>
-
-
-            <details class="faq-item">
-
-                <summary>
-
-                    Can I choose another package?
-
-                    <span>
-                        +
-                    </span>
-
-                </summary>
-
-                <p>
-                    Yes. You can choose any available package before payment.
-                </p>
-
-            </details>
-
-
-            <details class="faq-item">
-
-                <summary>
-
-                    Is this an official Free Fire website?
-
-                    <span>
-                        +
-                    </span>
-
-                </summary>
-
-                <p>
-                    No. This is an independent educational/demo interface
-                    and is not affiliated with Garena.
-                </p>
-
-            </details>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-</main>
-
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="site-footer">
-
-    <div class="container footer-inner">
-
-
-        <div class="footer-brand">
-
-            <img
-                src="./free-fire-logo.png"
-                alt="Free Fire"
-            >
-
-            <div>
-
-                <strong>
-                    FREE FIRE TOP UP
-                </strong>
-
-                <span>
-                    Independent educational demo
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <span class="copyright">
-            © 2026
-        </span>
-
-
-    </div>
-
-</footer>
-
-
-
-<script src="./script.js?v=20"></script>
-
-</body>
-
+<!DOCTYPE html>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+<html lang="en">                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+<head>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+<meta charset="UTF-8" />                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />                                                                                                                                                                                                                                                                                                                                                                                                     
+<meta name="description" content="Instant & genuine Free Fire Diamonds, Booyah Pass and more. Verify your UID and top-up safely." />                                                                                                                                                                                                                                                                                                                                         
+<title>FireTopUp Demo — Free Fire Style UID & Top-Up Demo</title>                                                                                                                                                                                                                                                                                                                                                                                                         
+<link rel="icon" type="image/png" href="https://freefiretopupindia.site/gen/garena.png" />                                                                                                                                                                                                                                                                                                                                                                     
+<link rel="apple-touch-icon" href="https://freefiretopupindia.site/gen/garena.png" />                                                                                                                                                                                                                                                                                                                                                                          
+<link rel="preconnect" href="https://fonts.googleapis.com/" />                                                                                                                                                                                                                                                                                                                                                                              
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />                                                                                                                                                                                                                                                                                                                                                                        
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900\&family=Russo+One\&display=swap" rel="stylesheet" />                                                                                                                                                                                                                  
+\                                                                                                                                                                                                                                                                                                                                               
+\                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+  <link rel="stylesheet" href="style.css">
+</head>                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+<body>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+<div class="announce" role="region" aria-label="Promotional offer">                                                                                                                                                                                                                                                                                                                                                                                                          
+<span>🎁</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+<span>Welcome Offer — Get <strong>5% OFF</strong> on every product with code</span>                                                                                                                                                                                                                                                                                                                                                                                     
+<span class="coupon-code">                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+WEL67                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+<button type="button" data-coupon-copy aria-label="Copy coupon code WEL67">COPY</button>                                                                                                                                                                                                                                                                                                                                                                                
+</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+<div class="bg-orbs" aria-hidden="true">                                                                                                                                                                                                                                                                                                                                                                                                                                     
+<span class="orb orb-1"></span><span class="orb orb-2"></span><span class="orb orb-3"></span>                                                                                                                                                                                                                                                                                                                                                                         
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+<header class="site-header" id="header">                                                                                                                                                                                                                                                                                                                                                                                                                                     
+<div class="container header-inner">                                                                                                                                                                                                                                                                                                                                                                                                                                       
+<a href="https://freefiretopupindia.site/gen/index.php" class="brand">                                                                                                                                                                                                                                                                                                                                                                                      
+<img src="https://freefiretopupindia.site/gen/garena.png" alt="Garena" class="brand-logo" />                                                                                                                                                                                                                                                                                                                                                             
+<span class="brand-text"><strong>Official Top Up</strong><small>Center</small></span>                                                                                                                                                                                                                                                                                                                                                                             
+</a>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+<nav class="main-nav" id="mainNav">                                                                                                                                                                                                                                                                                                                                                                                                                                      
+<a href="https://freefiretopupindia.site/gen/index.php#topup">Top-Up</a>                                                                                                                                                                                                                                                                                                                                                                                    
+<a href="https://freefiretopupindia.site/gen/index.php#how">How it works</a>                                                                                                                                                                                                                                                                                                                                                                                  
+<a href="https://freefiretopupindia.site/gen/index.php#faq">FAQ</a>                                                                                                                                                                                                                                                                                                                                                                                           
+</nav>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">🌙</button>                                                                                                                                                                                                                                                                                                                                                            
+<button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>                                                                                                                                                                                                                                                                                                                                               
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+</header>                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+<section class="carousel" id="home" aria-label="Promotions" aria-roledescription="carousel">                                                                                                                                                                                                                                                                                                                                                                                 
+<div class="carousel-viewport">                                                                                                                                                                                                                                                                                                                                                                                                                                            
+<div class="carousel-track" id="carouselTrack">                                                                                                                                                                                                                                                                                                                                                                                                                          
+<div class="slide"><img src="https://freefiretopupindia.site/gen/posters/0.png" alt="Promotion 1" width="1920" height="725" loading="eager" /></div>                                                                                                                                                                                                                                                                                                
+<div class="slide"><img src="https://freefiretopupindia.site/gen/posters/1.png" alt="Promotion 2" width="1920" height="725" /></div>                                                                                                                                                                                                                                                                                                                
+<div class="slide"><img src="https://freefiretopupindia.site/gen/posters/2.png" alt="Promotion 3" width="1920" height="725" /></div>                                                                                                                                                                                                                                                                                                                
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+<button class="carousel-btn prev" id="carPrev" aria-label="Previous slide">‹</button>                                                                                                                                                                                                                                                                                                                                                                                     
+<button class="carousel-btn next" id="carNext" aria-label="Next slide">›</button>                                                                                                                                                                                                                                                                                                                                                                                         
+<div class="carousel-dots" id="carouselDots" role="tablist"></div>                                                                                                                                                                                                                                                                                                                                                                                                        
+</section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+<section class="game-banner" id="game">                                                                                                                                                                                                                                                                                                                                                                                                                                      
+<div class="container">                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+<div class="game-card">                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+<img class="game-icon" src="https://freefiretopupindia.site/gen/g/icon.png" alt="Free Fire" />                                                                                                                                                                                                                                                                                                                                                           
+<div class="game-info">                                                                                                                                                                                                                                                                                                                                                                                                                                                
+<h2 class="game-title">Free Fire</h2>                                                                                                                                                                                                                                                                                                                                                                                                                               
+<span class="secure-pill">                                                                                                                                                                                                                                                                                                                                                                                                                                           
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">                                                                                                                                                                                                                                                                                                                                                                                                           
+<path d="M6 10V8a6 6 0 0 1 12 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>                                                                                                                                                                                                                                                                                                                                                               
+<rect x="4" y="10" width="16" height="10" rx="2.5" fill="currentColor"/>                                                                                                                                                                                                                                                                                                                                                                                         
+</svg>                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+100% Secure Payment                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+</section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+<section class="topup" id="topup">                                                                                                                                                                                                                                                                                                                                                                                                                                           
+<div class="container">                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+<div class="section-head">                                                                                                                                                                                                                                                                                                                                                                                                                                               
+<h2>Verify your <span class="grad">UID</span></h2>                                                                                                                                                                                                                                                                                                                                                                                                                  
+<p>Enter your in-game User ID. We'll fetch your nickname so your purchase lands in the right account.</p>                                                                                                                                                                                                                                                                                                                                                             
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+<div class="uid-card">                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+<form class="uid-form" id="uidForm" novalidate>                                                                                                                                                                                                                                                                                                                                                                                                                        
+<div class="field">                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+<label for="uidInput">In-game UID</label>                                                                                                                                                                                                                                                                                                                                                                                                                         
+<div class="input-wrap">                                                                                                                                                                                                                                                                                                                                                                                                                                           
+<span class="input-icon"><img src="https://freefiretopupindia.site/gen/g/icons8-garena-96.png" alt="" /></span>                                                                                                                                                                                                                                                                                                                      
+<input type="text" id="uidInput" inputmode="numeric" autocomplete="off" placeholder="e.g. 1234567890" maxlength="12" />                                                                                                                                                                                                                                                                                                                                          
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+<small class="hint" id="uidHint">Your UID is shown on your in-game profile.</small>                                                                                                                                                                                                                                                                                                                                                                               
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+<button type="submit" class="btn btn-primary btn-block" id="verifyBtn">                                                                                                                                                                                                                                                                                                                                                                                              
+<span class="btn-label">Verify UID</span>                                                                                                                                                                                                                                                                                                                                                                                                                         
+<span class="spinner" hidden></span>                                                                                                                                                                                                                                                                                                                                                                                                                              
+</button>                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+</form>                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+</section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+<section class="how" id="how">                                                                                                                                                                                                                                                                                                                                                                                                                                               
+<div class="container">                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+<div class="section-head"><h2>How it <span class="grad">works</span></h2></div>                                                                                                                                                                                                                                                                                                                                                                                     
+<div class="steps">                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+<div class="step"><div class="step-num">1</div><h3>Enter UID</h3><p>Type your Free Fire User ID and verify your nickname instantly.</p></div>                                                                                                                                                                                                                                                                                                                   
+<div class="step"><div class="step-num">2</div><h3>Pick a pack</h3><p>Choose diamonds, a pass, or a membership from the store.</p></div>                                                                                                                                                                                                                                                                                                                        
+<div class="step"><div class="step-num">3</div><h3>Pay securely</h3><p>Complete checkout through a trusted payment gateway.</p></div>                                                                                                                                                                                                                                                                                                                           
+<div class="step"><div class="step-num">4</div><h3>Get it instantly</h3><p>Your items are delivered to your account in seconds.</p></div>                                                                                                                                                                                                                                                                                                                       
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+</section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+<section class="faq" id="faq">                                                                                                                                                                                                                                                                                                                                                                                                                                               
+<div class="container">                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+<div class="section-head"><h2>Frequently asked <span class="grad">questions</span></h2></div>                                                                                                                                                                                                                                                                                                                                                                       
+<div class="accordion" id="accordion">                                                                                                                                                                                                                                                                                                                                                                                                                                   
+<div class="acc-item"><button class="acc-q">Is this safe and genuine? <span>+</span></button><div class="acc-a"><p>This is an educational demo. It does not process real top-ups or require your password; use only public test-style UID data.</p></div></div>                                                                                                                                                                                                                 
+<div class="acc-item"><button class="acc-q">How fast is delivery? <span>+</span></button><div class="acc-a"><p>This demo does not deliver real items; it only demonstrates the UI flow.</p></div></div>                                                                                                                                                                                                                                                         
+<div class="acc-item"><button class="acc-q">How do I use the WEL67 coupon? <span>+</span></button><div class="acc-a"><p>Tap "Copy" to copy the demo coupon code shown on the page.</p></div></div>                                                                                                                                                                                        
+<div class="acc-item"><button class="acc-q">What if my UID is wrong? <span>+</span></button><div class="acc-a"><p>We show your nickname before payment so you can confirm it's the correct account.</p></div></div>                                                                                                                                                                                                                                           
+<div class="acc-item"><button class="acc-q">Which payment methods are supported? <span>+</span></button><div class="acc-a"><p>A sample payment screen can be connected for UI demonstration; no real payment is processed by this page.</p></div></div>                                                                                                                                                                                                                                                             
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+</section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+<footer class="footer">                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+<div class="container footer-inner">                                                                                                                                                                                                                                                                                                                                                                                                                                       
+<div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+<a href="https://freefiretopupindia.site/gen/index.php" class="brand">                                                                                                                                                                                                                                                                                                                                                                                    
+<img src="https://freefiretopupindia.site/gen/garena.png" alt="Garena" class="brand-logo" />                                                                                                                                                                                                                                                                                                                                                           
+<span class="brand-text"><strong>Official Top Up</strong><small>Center</small></span>                                                                                                                                                                                                                                                                                                                                                                           
+</a>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+<p class="muted" style="margin-top:8px;font-size:.85rem">Educational Free Fire-style top-up demo — not affiliated with Garena.</p>                                                                                                                                                                                                                                                                                                                                              
+<p style="opacity:.55;font-size:.82rem;margin-top:10px">🏷️ Coupon <b>WEL67</b> — 5% OFF on everything.</p>                                                                                                                                                                                                                                                                                                                                                         
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+<div class="footer-cols">                                                                                                                                                                                                                                                                                                                                                                                                                                                
+<div><h4>Store</h4><a href="https://freefiretopupindia.site/gen/store.php">Diamonds</a><a href="https://freefiretopupindia.site/gen/store.php">Booyah Pass</a><a href="https://freefiretopupindia.site/gen/store.php">Membership</a></div>                                                                                                                                                                             
+<div><h4>Help</h4><a href="https://freefiretopupindia.site/gen/index.php#faq">FAQ</a><a href="https://freefiretopupindia.site/gen/index.php#how">How it works</a><a href="https://freefiretopupindia.site/gen/index.php#topup">Verify UID</a></div>                                                                                                                                                                                 
+<div><h4>Legal</h4><a href="https://freefiretopupindia.site/gen/index.php#">Terms</a><a href="https://freefiretopupindia.site/gen/index.php#">Privacy</a><a href="https://freefiretopupindia.site/gen/index.php#">Refunds</a></div>                                                                                                                                                                                                            
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+<div class="container copyright">© <span id="year"></span> FireTopUp. All rights reserved.</div>                                                                                                                                                                                                                                                                                                                                                                        
+</footer>                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+<!-- PLAYER MODAL -->                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+<div class="modal-overlay" id="modalOverlay" hidden>                                                                                                                                                                                                                                                                                                                                                                                                                         
+<div class="modal player-modal" id="playerModal" role="dialog" aria-modal="true">                                                                                                                                                                                                                                                                                                                                                                                          
+<button class="modal-close" id="modalClose" aria-label="Close">✕</button>                                                                                                                                                                                                                                                                                                                                                                                               
+<div class="confetti" id="confetti" aria-hidden="true"></div>                                                                                                                                                                                                                                                                                                                                                                                                           
+<div class="pm-hero">                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+<span class="pm-spark s1">✦</span><span class="pm-spark s2">✦</span><span class="pm-spark s3">✦</span>                                                                                                                                                                                                                                                                                                                                                            
+<div class="pm-avatar"><img src="https://freefiretopupindia.site/gen/g/icon.png" alt="Free Fire" /></div>                                                                                                                                                                                                                                                                                                                                              
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+<div class="modal-body pm-body">                                                                                                                                                                                                                                                                                                                                                                                                                                         
+<div style="text-align:center"><span class="pm-verified">✓ Verified Account</span></div>                                                                                                                                                                                                                                                                                                                                                                           
+<h3 class="pm-name" id="pNick">—</h3>                                                                                                                                                                                                                                                                                                                                                                                                                                 
+<p class="modal-sub" id="pSub">Congratulations — your account is ready!</p>                                                                                                                                                                                                                                                                                                                                                                                           
+<div class="pm-stats">                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+<div class="pm-stat"><strong id="pLevel">—</strong><small>Level</small></div>                                                                                                                                                                                                                                                                                                                                                                                   
+<div class="pm-stat"><strong id="pRegion">—</strong><small>Region</small></div>                                                                                                                                                                                                                                                                                                                                                                                 
+<div class="pm-stat"><strong id="pLikes">—</strong><small>Likes</small></div>                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+<div class="pm-rows">                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+<div class="pm-row"><span>UID</span><strong id="pUid">—</strong></div>                                                                                                                                                                                                                                                                                                                                                                                          
+<div class="pm-row" id="rowClan"><span>Clan</span><strong id="pClan">—</strong></div>                                                                                                                                                                                                                                                                                                                                                                           
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+<button class="btn btn-primary btn-block pm-cta" id="proceedBtn">Proceed to Store →</button>                                                                                                                                                                                                                                                                                                                                                                          
+<button class="btn btn-text" id="notMeBtn">Not my account? Re-enter UID</button>                                                                                                                                                                                                                                                                                                                                                                                      
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+<div class="toast" id="toast" hidden></div>                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
+<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js" crossorigin="anonymous"></script>                                                                                                                                                                                                                                                                                
+
+\                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+\                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  <script src="script.js" defer></script>
+</body>                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 </html>
