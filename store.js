@@ -1002,3 +1002,32 @@
   }
 
 })();
+document.addEventListener("DOMContentLoaded", function () {
+
+    const copyButton = document.getElementById("copyUpiBtn");
+    const upiId = document.getElementById("upiId");
+
+    if (!copyButton || !upiId) {
+        return;
+    }
+
+    copyButton.addEventListener("click", async function () {
+
+        const text = upiId.textContent.trim();
+
+        try {
+
+            await navigator.clipboard.writeText(text);
+
+            copyButton.textContent = "COPIED";
+
+            setTimeout(function () {
+                copyButton.textContent = "COPY";
+            }, 1500);
+
+        } catch (error) {
+
+            alert("UPI ID: " + text);
+        }
+    });
+});
