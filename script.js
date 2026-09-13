@@ -319,9 +319,8 @@ if (!window.__FF_UID_SCRIPT_STARTED__) {
             overlay.style.display =
                 "flex";
 
-            modal.classList.add(
-                "active"
-            );
+            overlay.classList.add("open");
+            
 
             document.body.classList.add(
                 "modal-open"
@@ -397,9 +396,7 @@ if (!window.__FF_UID_SCRIPT_STARTED__) {
 
         if (modal) {
 
-            modal.classList.remove(
-                "active"
-            );
+            overlay.classList.remove("open");
         }
 
         document.body.classList.remove(
