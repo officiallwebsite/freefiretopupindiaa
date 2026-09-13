@@ -98,10 +98,15 @@ async function verifyUID() {
     try {
 
         const response =
-            await fetch(
-                "https://free-fire-uid-apii.vercel.app/info?uid=" +
-                encodeURIComponent(uid)
-            );
+    await fetch(
+        "https://free-fire-uid-apii.vercel.app/info?uid=" +
+        encodeURIComponent(uid) +
+        "&_t=" +
+        Date.now(),
+        {
+            cache: "no-store"
+        }
+    );
 
 
         const data =
